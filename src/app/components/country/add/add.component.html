@@ -1,0 +1,22 @@
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="submit()">
+                        <div class="form-group">
+                            <label for="">اسم الدولة</label>
+                            <input type="text" class="form-control" formControlName="country">
+                            <p class="text-danger mt-2" *ngIf="f.country.errors && submitted">
+                                هذا الحقل مطلوب
+                            </p>
+                        </div>
+                        <div class="form-group text-center mt-5">
+                            <button class="btn btn-primary" type="submit">إضافة الدولة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

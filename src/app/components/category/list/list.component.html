@@ -1,0 +1,33 @@
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">#</th>
+                            <!-- <th scope="col">الاسم بالعربية</th> -->
+                            <th scope="col">اسم القسم</th>
+                            <th scope="col">صورة القسم</th>
+                            <th scope="col">إعدادات</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let category of categories;let i=index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{category.name}}</td>
+                            <td> <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{category.imagePath}}" onerror="this.src='assets/images/image-not-found.svg'"  alt=""></td>
+                            <td>
+                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp(category.id)">delete</mat-icon>
+                              <!-- '
+                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp(category)">visibility</mat-icon> -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
