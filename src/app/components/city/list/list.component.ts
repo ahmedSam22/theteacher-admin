@@ -26,37 +26,37 @@ export class ListComponent implements OnInit {
   }
 
   cityList(){
-    this.spinner.show()
-    this.service.allCities().pipe(map(res=>res['data'])).subscribe(res=>{
-      this.spinner.hide()
-      console.log('res')
-      console.log(res)
-      this.cities=res
-    })
+    // this.spinner.show()
+    // this.service.allCities().pipe(map(res=>res['data'])).subscribe(res=>{
+    //   this.spinner.hide()
+    //   console.log('res')
+    //   console.log(res)
+    //   this.cities=res
+    // })
   }
 
 
   deleteApp(brand_id){
-    Swal.fire({
-      title: 'هل أنت متأكد؟',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'نعم، قم بالحذف',
-      cancelButtonText:'إلغاء'
-    }).then((result) => {
-      if (result.isConfirmed) {
-          this.service.deleteCity(brand_id).subscribe(res=>{
-          Swal.fire(
-            'نجاح',
-            'تم حذف المدينة بنجاح',
-            'success'
-            )
-            this.cityList()
-          })
-        }
-    })
+    // Swal.fire({
+    //   title: 'هل أنت متأكد؟',
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'نعم، قم بالحذف',
+    //   cancelButtonText:'إلغاء'
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //       this.service.deleteCity(brand_id).subscribe(res=>{
+    //       Swal.fire(
+    //         'نجاح',
+    //         'تم حذف المدينة بنجاح',
+    //         'success'
+    //         )
+    //         this.cityList()
+    //       })
+    //     }
+    // })
   }
 
 

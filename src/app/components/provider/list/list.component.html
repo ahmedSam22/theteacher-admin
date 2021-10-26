@@ -37,7 +37,7 @@
                 حالين </a>
               </li>
               <li class="nav-item">
-                <a (click)="getOrders('3')" [ngClass]="{'active': type == '3'}" class="nav-link" href="javascript:void(0)" role="tab">
+                <a (click)="getOrders('2')" [ngClass]="{'active': type == '2'}" class="nav-link" href="javascript:void(0)" role="tab">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
                   <circle cx="12" cy="12" r="10"></circle>
                   <circle cx="12" cy="12" r="6"></circle>
@@ -68,19 +68,19 @@
                             <th scope="col">اسم مقدم الخدمة</th>
                             <th scope="col"> الايميل</th>
                             <th scope="col"> رقم الهاتف</th>
-                            <th scope="col"> تفاصيل</th>
+                            <!-- <th scope="col"> تفاصيل</th> -->
                             <th scope="col">إعدادات</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let user of [].constructor(4);let i=index">
+                          <tr *ngFor="let user of users;let i=index">
                             <th scope="row">{{i+1}}</th>
-                            <td>Ali</td>
-                            <td>Ali@gmail.com</td>
-                            <td>6547874564</td>
-                            <td>
+                            <td>{{user?.name}}</td>
+                            <td>{{user?.email}}</td>
+                            <td>{{user?.phone}}</td>
+                            <!-- <td>
                               <i  style="cursor: pointer;" class="fas fa-eye text-success" (click)="providerDetails(provider)"></i>
-                            </td>
+                            </td> -->
                             <!-- <td>
                               <span *ngIf="type == 3">
 
@@ -98,22 +98,22 @@
                             <td>
                               <span *ngIf="type == 0">
 
-                                <i  style="cursor: pointer;" class="fas fa-check text-success" (click)="activeFamily(user?.user?.id)"></i> 
+                                <i  style="cursor: pointer;" class="fas fa-check text-success" (click)="activeFamily(user?.id)"></i> 
                               </span>
 
-                              <span *ngIf="type == 3">
+                              <span *ngIf="type == 2">
 
-                                <i  style="cursor: pointer;" class="fas fa-user-check text-success" (click)="activeFamily(user?.user?.id)"></i> 
+                                <i  style="cursor: pointer;" class="fas fa-user-check text-success" (click)="activeFamily(user?.id)"></i> 
                               </span>
                               
                               <span *ngIf="type == 1">
 
-                                <i  style="cursor: pointer;" class="fas fa-user-slash text-danger" (click)="blockFamily(user?.user?.id)"></i>
+                                <i  style="cursor: pointer;" class="fas fa-user-slash text-danger" (click)="blockFamily(user?.id)"></i>
                               </span>
-                              <span >
+                              <!-- <span >
 
-                                | <i  style="cursor: pointer;" class="fas fa-user-times text-warning" (click)="refuseFamily(user?.user?.id)"></i> 
-                              </span>
+                                | <i  style="cursor: pointer;" class="fas fa-user-times text-warning" (click)="refuseFamily(user?.id)"></i> 
+                              </span> -->
                             </td>
 
 

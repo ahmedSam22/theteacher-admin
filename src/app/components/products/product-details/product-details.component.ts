@@ -12,9 +12,9 @@ export class ProductDetailsComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA)public data: {data: string}) { }
 
   ngOnInit(): void {
-    // console.log('this.data')
-    // console.log(this.data)
-    // console.log(this.data)
+    console.log('this.data')
+    console.log(this.data)
+    console.log(this.data)
   }
 
 

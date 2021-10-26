@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
 
   categoryList(){
     this.spinner.show()
-    this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
+    this.service.allSubCategories().pipe(map(res=>res['subcategories'])).subscribe(res=>{
     this.spinner.hide()
     console.log('res')
       console.log(res)
@@ -31,16 +31,16 @@ export class ListComponent implements OnInit {
     })
   }
   deleteApp(category_id){
-    // this.spinner.show()
-    // this.service.deleteCategory(category_id).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //     'نجاح',
-    //     'تم حذف الفئة بنجاح',
-    //     'success'
-    //     )
-    //     this.categoryList()
-    // })
+    this.spinner.show()
+    this.service.deleteSubCategory(category_id).subscribe(res=>{
+      this.spinner.hide()
+      Swal.fire(
+        'نجاح',
+        'تم حذف الفئة بنجاح',
+        'success'
+        )
+        this.categoryList()
+    })
   }
   // viewApp(category){
   //   let dialogRef = this.dialog.open(CategoryDetailsComponent, {

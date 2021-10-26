@@ -42,18 +42,18 @@ export class AddComponent implements OnInit {
   // }
 
   submit(){
-    this.submitted=true;
-    if(this.form.invalid){ return}
-    this.spinner.show()
-    this.service.addCountry(this.form.value).subscribe(res=>{
-      this.spinner.hide()
-      Swal.fire(
-        'نجااااح',
-        'تم إضافة الدولة  بنجاح',
-        'success'
-        )
-        this.router.navigate(['/app/country/list'])
-    })
+    // this.submitted=true;
+    // if(this.form.invalid){ return}
+    // this.spinner.show()
+    // this.service.addCountry(this.form.value).subscribe(res=>{
+    //   this.spinner.hide()
+    //   Swal.fire(
+    //     'نجااااح',
+    //     'تم إضافة الدولة  بنجاح',
+    //     'success'
+    //     )
+    //     this.router.navigate(['/app/country/list'])
+    // })
   }
 
 }

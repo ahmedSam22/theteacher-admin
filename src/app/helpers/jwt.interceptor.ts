@@ -9,7 +9,7 @@ export class JwtInterceptor implements HttpInterceptor {
     constructor(private authenticationService: AuthenticationService) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const currentUser = this.authenticationService.currentUserValue;
-        const isLoggedIn = currentUser && currentUser.data.token;
+        const isLoggedIn = currentUser && currentUser.data.access_token;
         const isApiUrl = request.url.startsWith(environment.endpoint);
         console.log('===============JwtInterceptor=============')
         console.log(currentUser)
@@ -20,7 +20,7 @@ export class JwtInterceptor implements HttpInterceptor {
                 setHeaders: {
                     Accept: "application/json",
                     "Access-Control-Allow-Origin": "*",
-                    Authorization: `Bearer ${currentUser.data.token}`
+                    Authorization: `Bearer ${currentUser.data.access_token}`
                 }
             });
         }

@@ -36,28 +36,28 @@ export class AddComponent implements OnInit {
   get f(){return this.form.controls}
 
   countryList(){
-    this.spinner.show()
-    this.service.allCountries().pipe(map(res=>res['data'])).subscribe(res=>{
-      this.spinner.hide()
-      console.log('res')
-      console.log(res)
-      this.countries=res
-    })
+    // this.spinner.show()
+    // this.service.allCountries().pipe(map(res=>res['data'])).subscribe(res=>{
+    //   this.spinner.hide()
+    //   console.log('res')
+    //   console.log(res)
+    //   this.countries=res
+    // })
   }
 
   submit(){
-    this.submitted=true;
-    if(this.form.invalid){ return}
-    this.spinner.show()
-    this.service.addCity(this.form.value).subscribe(res=>{
-      this.spinner.hide()
-      Swal.fire(
-        'نجااااح',
-        'تم إضافة الدولة  بنجاح',
-        'success'
-        )
-        this.router.navigate(['/app/city/list'])
-    })
+  //   this.submitted=true;
+  //   if(this.form.invalid){ return}
+  //   this.spinner.show()
+  //   this.service.addCity(this.form.value).subscribe(res=>{
+  //     this.spinner.hide()
+  //     Swal.fire(
+  //       'نجااااح',
+  //       'تم إضافة الدولة  بنجاح',
+  //       'success'
+  //       )
+  //       this.router.navigate(['/app/city/list'])
+  //   })
   }
 
 }

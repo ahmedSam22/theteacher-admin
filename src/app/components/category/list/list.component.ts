@@ -32,16 +32,16 @@ export class ListComponent implements OnInit {
     })
   }
   deleteApp(category_id){
-    // this.spinner.show()
-    // this.service.deleteCategory(category_id).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //     'نجاح',
-    //     'تم حذف الفئة بنجاح',
-    //     'success'
-    //     )
-    //     this.categoryList()
-    // })
+    this.spinner.show()
+    this.service.deleteCategory(category_id).subscribe(res=>{
+      this.spinner.hide()
+      Swal.fire(
+        'نجاح',
+        'تم حذف القسم بنجاح',
+        'success'
+        )
+        this.categoryList()
+    })
   }
   // viewApp(category){
   //   let dialogRef = this.dialog.open(CategoryDetailsComponent, {

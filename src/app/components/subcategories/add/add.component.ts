@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -12,27 +14,44 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AddComponent implements OnInit {
 
   form:FormGroup;
-  constructor(private formbuilder:FormBuilder,private service:GlobalService,private spinner:NgxSpinnerService) { }
+  categories;
+  constructor(
+    private formbuilder:FormBuilder,
+    private service:GlobalService,
+    private spinner:NgxSpinnerService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
     this.form=this.formbuilder.group({
       name_ar:['',Validators.required],
       name_en:['',Validators.required],
+      category_id:['',Validators.required],
     })
+    this.categoryList()
   }
 
   files: File[] = [];
 
-onSelect(event) {
-  console.log(event.addedFiles[0]);
-  this.files=[]
-  this.files.push(...event.addedFiles);
-}
+  categoryList(){
+    this.spinner.show()
+    this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
+    this.spinner.hide()
+    console.log('res')
+      console.log(res)
+      this.categories=res
+    })
+  }
+  onSelect(event) {
+    console.log(event.addedFiles[0]);
+    this.files=[]
+    this.files.push(...event.addedFiles);
+  }
 
-onRemove(event) {
-  console.log(event);
-  this.files.splice(this.files.indexOf(event), 1);
-}
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
 
   submit(){
     console.log('Form Work')
@@ -41,13 +60,14 @@ onRemove(event) {
       ...this.form.value,
       image:this.files[0]
     }
-    this.service.addCategory(form).subscribe(res=>{
+    this.service.addSubCategory(form).subscribe(res=>{
     this.spinner.hide()
     Swal.fire(
         'نجاح',
         'تم إضافة الفئة بنجاح',
         'success'
       )
+      this.router.navigate(['/app/sub/list'])
     })
   }
 

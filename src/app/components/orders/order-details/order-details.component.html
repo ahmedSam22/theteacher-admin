@@ -4,43 +4,45 @@
     <tbody>
     <tr>
         <th scope="row">تفاصيل الطلب</th>
-        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus eligendi, praesentium minima labore aliquam, quos doloremque neque ab numquam sint accusantium, nobis autem consequuntur nisi iure possimus. Reiciendis, eos rem!</td>
+        <td>
+          {{data?.note}}
+        </td>
     </tr>
     <tr>
         <th scope="row">سعر الطلب </th>
-        <td>50 ريال</td>
+        <td>{{data?.total_price}} ريال</td>
     </tr>
-    <tr>
+    <!-- <tr>
         <th scope="row">سعر التوصيل </th>
-        <td>20 ريال</td>
-    </tr>
+        <td>{{data?.total_price?}} ريال</td>
+    </tr> -->
       <tr>
         <th scope="row">اسم مقدم الخدمة </th>
-        <td>Ghanem</td>
+        <td>{{data?.store?.name}}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <th scope="row">عنوان مقدم الخدمة </th>
-        <td>Cairo</td>
-      </tr>
+        <td>{{data?.store?.name}}</td>
+      </tr> -->
       <tr>
         <th scope="row">اسم العميل </th>
-        <td>Saeed</td>
+        <td>{{data?.user?.name}}</td>
       </tr>
       <tr>
         <th scope="row">عنوان العميل </th>
-        <td>Alexandria</td>
+        <td>{{data?.address?.area}}</td>
       </tr>
       <tr>
         <th scope="row">رقم جوال العميل </th>
-        <td>5647897965</td>
+        <td>{{data?.user?.phone}}</td>
       </tr>
       <tr>
         <th scope="row">تاريخ طلب الأوردر </th>
-        <td>12/08/2020</td>
+        <td>{{data?.created_at | date: 'dd/MM/yyyy'}} </td>
       </tr>
       <tr>
         <th scope="row">تاريخ استلام الأوردر </th>
-        <td>23/11/2020</td>
+        <td>{{data?.delivery_date}}</td>
       </tr>
     </tbody>
   </table>

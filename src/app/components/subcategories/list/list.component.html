@@ -17,9 +17,9 @@
                         <tbody>
                           <tr *ngFor="let category of categories;let i=index">
                             <th scope="row">{{i+1}}</th>
-                            <td>القسم الرئيسي</td>
-                            <td>{{category.name}}</td>
-                            <td> <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{category.imagePath}}" onerror="this.src='assets/images/image-not-found.svg'"  alt=""></td>
+                            <td>{{category.category.name_ar}} </td>
+                            <td>{{category.name_ar}}</td>
+                            <td> <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{baseUrl}}/{{category.image}}" onerror="this.src='assets/images/image-not-found.svg'"  alt=""></td>
                             <td>
                               <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp(category.id)">delete</mat-icon>
                               <!-- '

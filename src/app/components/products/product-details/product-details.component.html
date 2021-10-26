@@ -5,53 +5,60 @@
       
       <tr>
         <th scope="row">اسم التاجر  </th>
-        <td>علي</td>
+        <td>{{data?.store?.user?.name}}</td>
       </tr>
       <tr>
         <th scope="row">القسم الرئيسي   </th>
-        <td>زهور عطرة</td>
+        <td>{{data?.categories[0]?.name_ar}} </td>
       </tr>
       <tr>
         <th scope="row">القسم الفرعي  </th>
-        <td>زهور بيضاء </td>
+        <td>{{data?.subcategories[0]?.name_ar}} </td>
       </tr>
       <tr>
         <th scope="row">اسم المنتج  </th>
-        <td>الياسمين </td>
+        <td>{{data?.name}} </td>
       </tr>
-      <tr>
+      <!-- <tr>
         <th scope="row">نوع المناسبة  </th>
-        <td>عيد ميلاد </td>
-      </tr>
+        <td>{{data?.name}} </td>
+      </tr> -->
       <tr>
         <th scope="row">وصف المنتج  </th>
-        <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto eligendi odio natus, iste beatae odit libero temporibus. </td>
+        <td>
+          {{data?.description_ar}}
+        </td>
       </tr>
       <tr>
         <th scope="row">رقم السجل  </th>
-        <td>9845648489 </td>
+        <td>{{data?.store?.commercial_number}} </td>
       </tr>
       <tr>
         <th scope="row">صورة المنتج</th>
         <td>
-            <img style="width: 80px;height: 80px;border-radius: 50%;" src="assets/images/download.jpeg" alt="">
+          
+            <img style="width: 80px;height: 80px;border-radius: 50%;" src="{{data?.imagePath}}" onerror="this.src='assets/images/download.jpeg'" alt="">
         </td>
       </tr>
       <tr>
         <th scope="row">الألوان  </th>
-        <td> Red,White </td>
+        <td>
+           <span *ngFor="let color of data?.colors">{{color?.name_ar }},</span>
+          </td>
       </tr>
       <tr>
         <th scope="row">الأحجام    </th>
-        <td>small </td>
+        <td>
+          <span *ngFor="let color of data?.sizes">{{color?.name_ar }},</span>
+         </td>
       </tr>
       <tr>
         <th scope="row">السعر قبل الخصم    </th>
-        <td>40 ريال </td>
+        <td>{{data?.price}} ريال </td>
       </tr>
       <tr>
         <th scope="row">السعر بعد الخصم    </th>
-        <td>20 ريال </td>
+        <td>{{data?.price_after_discount}} ريال </td>
       </tr>
       <!-- <tr>
         <th scope="row">رقم البطاقة الشخصية  </th>

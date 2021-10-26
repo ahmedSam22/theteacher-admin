@@ -12,20 +12,21 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class ListComponent implements OnInit {
 
-  products;
-  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService) { }
+  colors;
+  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private globalService:GlobalService) { }
 
   ngOnInit(): void {
-    // this.allProducts()
+    this.allColors()
   }
 
-  allProducts(){
-    // this.spinner.show()
-    // this.globalService.allProducts().pipe(map(res=>res['data'])).subscribe(res=>{
-    //   this.spinner.hide()
-    //   this.products=res
-    //   console.log(res)
-    // })
+  allColors(){
+    this.spinner.show()
+    this.globalService.allColors().pipe(map(res=>res['data'])).subscribe(res=>{
+      this.spinner.hide()
+      this.colors=res
+      console.log('allColors')
+      console.log(res)
+    })
   }
   activeProduct(product_id){
     // this.spinner.show()
@@ -59,16 +60,16 @@ export class ListComponent implements OnInit {
   //   });
   // }
 
-  deleteColor(){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,2).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
+  deleteColor(color_id){
+    this.spinner.show()
+    this.globalService.deleteColor(color_id).subscribe(res=>{
+      this.spinner.hide()
+      Swal.fire(
+              'نجاح',
+              'تم حذف اللون بنجاح',
+              'success'
+            )
+            this.allColors()
+          })
   }
 }

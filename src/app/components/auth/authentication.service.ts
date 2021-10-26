@@ -24,13 +24,13 @@ export class AuthenticationService {
     formData.append("email", form.phone);
     formData.append("password", form.password);
     // new Response(formData).text().then(console.log)
-    return this.http.post(`${environment.endpoint}/auth/login`, formData)
+    return this.http.post(`${environment.endpoint}/login`, formData)
     .pipe( map((user:any) => {
       console.log('userrrrrrrr')
       console.log(user)
       console.log(user)
       console.log(user)
-        if (user && user.data.token) {
+        if (user && user.data.access_token) {
             localStorage.setItem(`${environment.currentUserKey}`, JSON.stringify(user));
             this.currentUserSubject.next(user);
         } return user;

@@ -22,11 +22,11 @@ export class SpecialOrdersComponent implements OnInit {
   }
 
   orderList(special,progress){
-    this.spinner.show()
-    this.service.allOrders(special,progress).pipe(map(res=>res['data'])).subscribe(res=>{
-      this.spinner.hide()
-      this.orders=res
-    })
+    // this.spinner.show()
+    // this.service.allOrders(special,progress).pipe(map(res=>res['data'])).subscribe(res=>{
+    //   this.spinner.hide()
+    //   this.orders=res
+    // })
   }
   deleteApp(){
     Swal.fire(

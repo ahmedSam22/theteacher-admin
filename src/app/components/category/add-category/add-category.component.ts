@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-category',
@@ -12,7 +13,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AddCategoryComponent implements OnInit {
 
   form:FormGroup;
-  constructor(private formbuilder:FormBuilder,private service:GlobalService,private spinner:NgxSpinnerService) { }
+  constructor(
+    private formbuilder:FormBuilder,
+    private service:GlobalService,
+    private spinner:NgxSpinnerService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
     this.form=this.formbuilder.group({
@@ -48,11 +54,12 @@ onRemove(event) {
         'تم إضافة الفئة بنجاح',
         'success'
       )
+      this.router.navigate(['/app/category/list'])
     })
   }
 
-  Hi(){
-    console.log('dsjbhfsdjhgdjshg')
-  }
+  // Hi(){
+  //   console.log('dsjbhfsdjhgdjshg')
+  // }
 
 }

@@ -14,19 +14,20 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
 export class ListComponent implements OnInit {
 
   products;
-  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService) { }
+  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private service:GlobalService) { }
 
   ngOnInit(): void {
-    // this.allProducts()
+    this.allProducts()
   }
 
   allProducts(){
-    // this.spinner.show()
-    // this.globalService.allProducts().pipe(map(res=>res['data'])).subscribe(res=>{
-    //   this.spinner.hide()
-    //   this.products=res
-    //   console.log(res)
-    // })
+    this.spinner.show()
+    this.service.allProducts().pipe(map(res=>res['data']['data'])).subscribe(res=>{
+      this.spinner.hide()
+      this.products=res
+      console.log('products')
+      console.log(res)
+    })
   }
   activeProduct(product_id){
     // this.spinner.show()

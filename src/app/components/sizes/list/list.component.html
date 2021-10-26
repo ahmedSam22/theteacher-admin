@@ -12,13 +12,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let product of [].constructor(5);let i=index">
+                <tr *ngFor="let product of sizes;let i=index">
                   <th scope="col"> {{i+1}} </th>
-                  <td>عيد ميلاد</td>
-                  <td> Birthday</td>
+                  <td>{{product.name_ar}}</td>
+                  <td> {{product.name_en}}</td>
                   <td>
                     <!-- <i style="cursor: pointer;" class="fas fa-check text-success" (click)="activeProduct(product.id)"></i> | -->
-                    <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteColor(color.id)"></i> 
+                    <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteColor(product.id)"></i> 
                     <!-- |
                     <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="productDetails(product)"></i> -->
                   </td>

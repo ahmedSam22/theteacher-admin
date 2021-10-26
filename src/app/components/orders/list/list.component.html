@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
           <li class="nav-item">
-            <a (click)="getOrders('new')" [ngClass]="{'active': type == 'new'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <a (click)="getOrders('0')" [ngClass]="{'active': type == '0'}" class="nav-link" href="javascript:void(0)" role="tab">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
               <circle cx="12" cy="12" r="10"></circle>
               <circle cx="12" cy="12" r="6"></circle>
@@ -13,7 +13,7 @@
             جديدة </a>
           </li>
           <li class="nav-item">
-            <a (click)="getOrders('active')" [ngClass]="{'active': type == 'active'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <a (click)="getOrders('1')" [ngClass]="{'1': type == 'active'}" class="nav-link" href="javascript:void(0)" role="tab">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
               <circle cx="12" cy="12" r="10"></circle>
               <circle cx="12" cy="12" r="6"></circle>
@@ -22,7 +22,7 @@
             قيد التنفيذ</a>
           </li>
           <li class="nav-item">
-            <a (click)="getOrders('finished')" [ngClass]="{'active': type == 'finished'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <a (click)="getOrders('2')" [ngClass]="{'active': type == '2'}" class="nav-link" href="javascript:void(0)" role="tab">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
               <circle cx="12" cy="12" r="10"></circle>
               <circle cx="12" cy="12" r="6"></circle>
@@ -60,11 +60,11 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let order of [].constructor(5);let i=index">
+                          <tr *ngFor="let order of orders;let i=index">
                             <th scope="row">{{i+1}}</th>
-                            <td>Saeed</td>
-                            <td>Ghanem</td>
-                            <td>60 ريال</td>
+                            <td>{{order.user.name}}</td>
+                            <td>{{order.store.name}}</td>
+                            <td>{{order.total_price}} ريال</td>
                             <td>
                               <!-- <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp()">delete</mat-icon>
                               ' -->

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -13,7 +14,12 @@ export class AddComponent implements OnInit {
 
   form:FormGroup;
   color='#c7d494';
-  constructor(private formbuilder:FormBuilder,private service:GlobalService,private spinner:NgxSpinnerService) { }
+  constructor(
+    private formbuilder:FormBuilder,
+    private service:GlobalService,
+    private spinner:NgxSpinnerService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
     this.form=this.formbuilder.group({
@@ -36,24 +42,20 @@ onRemove(event) {
 }
 
   submit(){
-    console.log('Form Work')
-    this.spinner.show()
-    let form={
+    let form = {
       ...this.form.value,
-      image:this.files[0]
+      code:this.color
     }
-    this.service.addCategory(form).subscribe(res=>{
+    this.spinner.show()
+    this.service.addColor(form).subscribe(res=>{
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم إضافة الفئة بنجاح',
+        'تم إضافة اللون بنجاح',
         'success'
       )
+      this.router.navigate(['/app/colors/list'])
     })
-  }
-
-  Hi(){
-    console.log('dsjbhfsdjhgdjshg')
   }
 
 }

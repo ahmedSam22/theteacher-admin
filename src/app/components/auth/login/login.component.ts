@@ -27,23 +27,23 @@ export class LoginComponent implements OnInit {
   }
   get f() {return this.form.controls}
   submit(){
-    // this.submitted = true;
-    // if (this.form.invalid) { 
-    //   window.scroll({ top: 0, left: 0, behavior: 'smooth' });return 
-    // }
-    // this.spinner.show()
-    // this.service.login(this.form.value).subscribe((response:any)=>{
-    // this.spinner.hide()
-    // console.log(response)
-    //   console.log(response)
-    //   this.spinner.hide()
+    this.submitted = true;
+    if (this.form.invalid) { 
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });return 
+    }
+    this.spinner.show()
+    this.service.login(this.form.value).subscribe((response:any)=>{
+    this.spinner.hide()
+    console.log(response)
+      console.log(response)
+      this.spinner.hide()
       Swal.fire(
         `نجاح تسجيل الدخول`,
         `مرحباً بعودتك, يا أدمن`,
         `success`
         )
         this.router.navigate(["/home"])
-        // })
+        })
 
   }
 }

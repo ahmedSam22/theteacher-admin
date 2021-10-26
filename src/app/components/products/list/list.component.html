@@ -8,20 +8,20 @@
                 <tr>
                   <th scope="col">  رقم </th>
                   <th scope="col">  اسم المنتج </th>
-                  <th scope="col">  السعر </th>
-                  <th scope="col">  نوع المناسبة </th>
+                  <th scope="col">  السعر قبل الخصم </th>
+                  <th scope="col">  نوع السعر بعد الخصم </th>
                   <th scope="col">  الصورة </th>
                   <th scope="col">  تفاصيل  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let product of [].constructor(5);let i=index">
+                <tr *ngFor="let product of products;let i=index">
                   <th scope="col"> {{i+1}} </th>
-                  <td>ياسمين</td>
-                  <td>55 ريال</td>
-                  <td>عيد ميلاد</td>
+                  <td>{{product.name_ar}}</td>
+                  <td>{{product.price}}</td>
+                  <td>{{product.price_after_discount}}</td>
                   <td>
-                    <img style="width: 50px;height: 50px;border-radius: 50%;" src="assets/images/download.jpeg" alt="image">
+                    <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{product.imagePath}}" onerror="this.src='assets/images/download.jpeg'"  alt="image">
                   </td>
                   <td>
                     <!-- <i style="cursor: pointer;" class="fas fa-check text-success" (click)="activeProduct(product.id)"></i> |

@@ -22,7 +22,7 @@ const routes: Routes = [
   {path:'auth/login',component:LoginComponent},
   {
     path: '',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: DashboardLayoutComponent,
     children: [
       // {path:'',component:HomeComponent, data: { title: 'الصفحة الرئيسية' }},
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'app',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: DashboardLayoutComponent,
     children: [
       {path:'users',loadChildren:()=>UsersModule},

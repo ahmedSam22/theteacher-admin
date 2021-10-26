@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  endpoint:'https://designart-admin.zabah.net/public/api',
-  baseURL:'https://designart-admin.zabah.net/public',
+  endpoint:'https://pomac.info/ward/public/api',
+  baseURL:'https://pomac.info/ward/public',
   currentUserKey:'FlowerCurrentUser',
 };

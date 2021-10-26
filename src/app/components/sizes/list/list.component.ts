@@ -12,20 +12,20 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class ListComponent implements OnInit {
 
-  products;
-  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService) { }
+  sizes;
+  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private globalService:GlobalService) { }
 
   ngOnInit(): void {
-    // this.allProducts()
+    this.allProducts()
   }
 
   allProducts(){
-    // this.spinner.show()
-    // this.globalService.allProducts().pipe(map(res=>res['data'])).subscribe(res=>{
-    //   this.spinner.hide()
-    //   this.products=res
-    //   console.log(res)
-    // })
+    this.spinner.show()
+    this.globalService.allSizes().pipe(map(res=>res['data'])).subscribe(res=>{
+      this.spinner.hide()
+      this.sizes=res
+      console.log(res)
+    })
   }
   activeProduct(product_id){
     // this.spinner.show()
@@ -59,16 +59,16 @@ export class ListComponent implements OnInit {
   //   });
   // }
 
-  deleteColor(){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,2).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
+  deleteColor(size_id){
+    this.spinner.show()
+    this.globalService.deleteSize(size_id).subscribe(res=>{
+      this.spinner.hide()
+      Swal.fire(
+              'نجاح',
+              'تم حذف الحجم بنجاح',
+              'success'
+            )
+            this.allProducts()
+          })
   }
 }
