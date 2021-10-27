@@ -10,7 +10,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي عدد مقدمي الخدمات </p>
-                            <h4 class="f-w-500 mb-0 f-26">800 شخص</h4>
+                            <h4 class="f-w-500 mb-0 f-26">{{statistics?.providers_count}} شخص</h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>
@@ -23,7 +23,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي عدد العملاء </p>
-                            <h4 class="f-w-500 mb-0 f-26">85 عميل</h4>
+                            <h4 class="f-w-500 mb-0 f-26">{{statistics?.clients_count}} عميل</h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>
@@ -36,7 +36,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي عدد المنتجات </p>
-                            <h4 class="f-w-500 mb-0 f-26">65 منتج</h4>
+                            <h4 class="f-w-500 mb-0 f-26">{{statistics?.products_count}} منتج</h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>
@@ -49,7 +49,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي عدد الطلبات الجديدة </p>
-                            <h4 class="f-w-500 mb-0 f-26">  56 طلب </h4>
+                            <h4 class="f-w-500 mb-0 f-26">  {{statistics?.new_orders}} طلب </h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>
@@ -62,7 +62,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي قيمة الطلبات الجديدة </p>
-                            <h4 class="f-w-500 mb-0 f-26">1564 ريال</h4>
+                            <h4 class="f-w-500 mb-0 f-26">{{statistics?.new_orders_total_price | number  }} ريال</h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>
@@ -75,7 +75,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي عدد الطلبات قيد التنفيذ </p>
-                            <h4 class="f-w-500 mb-0 f-26">59 طلب</h4>
+                            <h4 class="f-w-500 mb-0 f-26">{{statistics?.pending_orders}} طلب</h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>
@@ -88,7 +88,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي عدد الطلبات المنتهية </p>
-                            <h4 class="f-w-500 mb-0 f-26">95 طلب</h4>
+                            <h4 class="f-w-500 mb-0 f-26">{{statistics?.finished_orders}} طلب</h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>
@@ -101,7 +101,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي قيمة الطلبات قيد التنفيذ </p>
-                            <h4 class="f-w-500 mb-0 f-26">325 ريال</h4>
+                            <h4 class="f-w-500 mb-0 f-26">{{statistics?.pending_orders_total_price| number}} ريال</h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>
@@ -114,7 +114,7 @@
                         <div class="ecommerce-widgets media">
                           <div class="media-body">
                             <p class="f-w-500 font-roboto"> اجمالي قيمة الطلبات المنتهية </p>
-                            <h4 class="f-w-500 mb-0 f-26">325 ريال</h4>
+                            <h4 class="f-w-500 mb-0 f-26">{{statistics?.finished_orders_total_price| number}} ريال</h4>
                           </div>
                           <div class="ecommerce-box light-bg-primary"><i class="gradient fa fa-diamond" aria-hidden="true"></i></div>
                         </div>

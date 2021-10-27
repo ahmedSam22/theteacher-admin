@@ -218,5 +218,11 @@ export class GlobalService {
     return this.http.delete(`${environment.endpoint}/backend/occasion/delete?occasion_id=${category_id}`)
   }
 
+  // Occasions
+
+  homeStatistics(){
+    return this.http.get(`${environment.endpoint}/backend/reports/show`)
+  }
+
 
 }
