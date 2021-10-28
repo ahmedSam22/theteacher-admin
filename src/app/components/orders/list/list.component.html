@@ -62,8 +62,12 @@
                         <tbody>
                           <tr *ngFor="let order of orders;let i=index">
                             <th scope="row">{{i+1}}</th>
-                            <td>{{order.user.name}}</td>
-                            <td>{{order.store.name}}</td>
+                            <td>
+                              <a href="javascript:void(0)">{{order.user.name}}</a>
+                            </td>
+                            <td>
+                              <a href="javascript:void(0)">{{order.store.name}}</a>
+                            </td>
                             <td>{{order.total_price}} ريال</td>
                             <td>
                               <!-- <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp()">delete</mat-icon>

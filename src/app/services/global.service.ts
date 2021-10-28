@@ -11,74 +11,6 @@ export class GlobalService {
 
 
 
-
-  // Banner
-  
-  // allBanners(){
-  //   return this.http.get(`${environment.endpoint}/user/banners/all`)
-  // }
-  // addBanner(image){
-  //   const formData:FormData = new FormData()
-  //   formData.append('image',image)
-  //   return this.http.post(`${environment.endpoint}/admin/banner/create`,formData)
-  // }
-  // deleteBanner(Banner_id){
-  //   return this.http.delete(`${environment.endpoint}/admin/banner/delete?banner_id=${Banner_id}`)
-  // }
-
-
-
-  // Tag
-  
-  // allTags(){
-  //   return this.http.get(`${environment.endpoint}/user/home-tags/all`)
-  // }
-  // addTag(f){
-  //   const formData:FormData = new FormData()
-  //   formData.append('name_en',f.name_en)
-  //   formData.append('name_ar',f.name_ar)
-  //   return this.http.post(`${environment.endpoint}/admin/home-tag/create`,formData)
-  // }
-  // deleteTag(Tag_id){
-  //   return this.http.delete(`${environment.endpoint}/admin/home-tag/delete?home_tag_id=${Tag_id}`)
-  // }
-
-
-
-
-
-
-
-
-  
-
-
-  //All Providers
-  // allProviders(status_id){
-  //   return this.http.get(`${environment.endpoint}/admin/show/providers?status_id=${status_id}`)
-  // }
-  // deleteProvider(user_id){
-  //   return this.http.delete(`${environment.endpoint}/admin/users/delete?user_id=${user_id}`)
-  // }
-  // blockProvider(user_id){
-  //   const formData:FormData = new FormData()
-  //   formData.append('user_id',user_id)
-  //   return this.http.post(`${environment.endpoint}/admin/block-user`,formData)
-  // }
-  // acceptProvider(user_id){
-  //   const formData:FormData = new FormData()
-  //   formData.append('user_id',user_id)
-  //   return this.http.post(`${environment.endpoint}/admin/accept-provider`,formData)
-  // }
-  // rejectProvider(user_id){
-  //   const formData:FormData = new FormData()
-  //   formData.append('user_id',user_id)
-  //   return this.http.post(`${environment.endpoint}/admin/reject-provider`,formData)
-  // }
-
-
-  
-
   //All orders
   allOrders(status_id){
     return this.http.get(`${environment.endpoint}/backend/orders/all?status_id=${status_id}`)
@@ -96,6 +28,14 @@ export class GlobalService {
       formData.append('image',f.image)
       return this.http.post(`${environment.endpoint}/backend/categories/create`,formData)
     }
+    editCategory(f){
+      const formData:FormData = new FormData()
+      formData.append('name_en',f.name_en)
+      formData.append('name_ar',f.name_ar)
+      formData.append('image',f.image)
+      formData.append('category_id',f.category_id)
+      return this.http.post(`${environment.endpoint}/backend/categories/edit`,formData)
+    }
     deleteCategory(category_id){
       return this.http.delete(`${environment.endpoint}/backend/categories/delete?category_id=${category_id}`)
     }
@@ -112,6 +52,15 @@ export class GlobalService {
       formData.append('category_id',f.category_id)
       formData.append('image',f.image)
       return this.http.post(`${environment.endpoint}/backend/subcategories/create`,formData)
+    }
+    editSubCategory(f){
+      const formData:FormData = new FormData()
+      formData.append('name_en',f.name_en)
+      formData.append('name_ar',f.name_ar)
+      formData.append('category_id',f.category_id)
+      formData.append('subcategory_id',f.subcategory_id)
+      formData.append('image',f.image)
+      return this.http.post(`${environment.endpoint}/backend/subcategories/edit`,formData)
     }
     deleteSubCategory(category_id){
       return this.http.delete(`${environment.endpoint}/backend/subcategories/delete?subcategory_id=${category_id}`)
@@ -224,5 +173,12 @@ export class GlobalService {
     return this.http.get(`${environment.endpoint}/backend/reports/show`)
   }
 
+
+
+  // Filter By User ID
+
+  filterByuserId(user_id){
+    return this.http.get(`${environment.endpoint}/backend/orders/show?user_id=${user_id}`)
+  }
 
 }

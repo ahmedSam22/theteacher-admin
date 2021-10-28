@@ -8,10 +8,11 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import {MatIconModule} from '@angular/material/icon';
 import { CategoryDetailsComponent } from './category-details/category-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 
 @NgModule({
-  declarations: [ListComponent,AddCategoryComponent, CategoryDetailsComponent],
+  declarations: [ListComponent,AddCategoryComponent, CategoryDetailsComponent, EditCategoryComponent],
   imports: [
     CommonModule,
     CategoryRoutingModule,

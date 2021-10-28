@@ -6,6 +6,7 @@ import { CategoryDetailsComponent } from '../category-details/category-details.c
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
+import { EditCategoryComponent } from '../edit-category/edit-category.component';
 
 @Component({
   selector: 'app-list',
@@ -43,11 +44,14 @@ export class ListComponent implements OnInit {
         this.categoryList()
     })
   }
-  // viewApp(category){
-  //   let dialogRef = this.dialog.open(CategoryDetailsComponent, {
-  //     data:category,
-  //     height: '380px',
-  //     width: '400px',
-  //   });
-  // }
+  editPackage(category){
+    let dialogRef = this.dialog.open(EditCategoryComponent, {
+      data:category,
+      height: '650px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.categoryList()
+    });
+  }
 }

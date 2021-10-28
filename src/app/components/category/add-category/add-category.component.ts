@@ -30,6 +30,7 @@ export class AddCategoryComponent implements OnInit {
   files: File[] = [];
 
 onSelect(event) {
+  console.log('event.addedFiles[0]');
   console.log(event.addedFiles[0]);
   this.files=[]
   this.files.push(...event.addedFiles);

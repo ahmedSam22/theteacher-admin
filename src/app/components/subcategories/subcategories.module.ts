@@ -7,10 +7,11 @@ import { ListComponent } from './list/list.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditSubcategoryComponent } from './edit-subcategory/edit-subcategory.component';
 
 
 @NgModule({
-  declarations: [AddComponent, ListComponent],
+  declarations: [AddComponent, ListComponent, EditSubcategoryComponent],
   imports: [
     CommonModule,
     SubcategoriesRoutingModule,

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
+import { EditSubcategoryComponent } from '../edit-subcategory/edit-subcategory.component';
 
 @Component({
   selector: 'app-list',
@@ -42,11 +43,14 @@ export class ListComponent implements OnInit {
         this.categoryList()
     })
   }
-  // viewApp(category){
-  //   let dialogRef = this.dialog.open(CategoryDetailsComponent, {
-  //     data:category,
-  //     height: '380px',
-  //     width: '400px',
-  //   });
-  // }
+  editPackage(category){
+    let dialogRef = this.dialog.open(EditSubcategoryComponent, {
+      data:category,
+      height: '650px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.categoryList()
+    });
+  }
 }
