@@ -1,7 +1,7 @@
 <section id="category-details">
     <div class="card">
         <div class="card-details text-center">
-            <h3 class="text-center mt-3">بيانات الشخص </h3> 
+            <h3 class="text-center mt-3">بيانات العميل </h3> 
 
             <div class="row justify-content-center mb-3 mt-5">
                 <div class="col-md-4">
@@ -25,31 +25,38 @@
                 </tr>
                 <tr>
                 <th scope="row"> العنوان  </th>
-                    <td *ngIf="data?.addresses[0]?.area">{{data?.addresses[0]?.area}}</td>
-                    <td *ngIf="!data?.addresses[0]?.area" class="text-danger"> لم يتم إضافة عنوان بعد</td>
+                    <td *ngIf="data?.default_address?.area">{{data?.default_address?.area}}</td>
+                    <td *ngIf="!data?.default_address?.area" class="text-danger"> لم يتم إضافة عنوان بعد</td>
                 </tr>
 
                 <!-- status of the user  -->
 
-                    <tr *ngIf="data.status_id==0">
+                    <!-- <tr *ngIf="data.active==0">
                         <th scope="row" > الحالة  </th>
                         <td><span class="badge badge-warning">مٌعلق</span></td>
                         </tr>
-                    <tr>
+                    <tr> -->
     
-                    <tr *ngIf="data.status_id==1">
+                    <tr *ngIf="data.active==1">
                         <th scope="row" > الحالة  </th>
                         <td><span class="badge badge-success">نشط</span></td>
                         </tr>
                     <tr>
                     
-                    <tr *ngIf="data.status_id==2">
+                    <tr *ngIf="data.active==2">
                         <th scope="row" > الحالة  </th>
-                        <td><span class="badge badge-danger">مرفوض</span></td>
+                        <td><span class="badge badge-danger">محظور</span></td>
                         </tr>
                     <tr>
 
 
+                    <tr>
+                        <th scope="row"> طلبات العميل</th>
+                            <td>
+                                <a href="javascript:void(0)" (click)="userRelatedOrder(data.id)" >إضغط لعرض طلبات العميل</a>
+                            </td>
+                        </tr>
+                    <tr>    
 
 
 

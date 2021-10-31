@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-details',
@@ -8,11 +9,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class UserDetailsComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {user: any}) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {user: any},private router:Router,private dialog:MatDialog) { }
 
   ngOnInit(): void {
     console.log('user')
     console.log(this.data)
   }
 
+  userRelatedOrder(user_id){
+    this.dialog.closeAll()
+    this.router.navigate(['/app/users//user-orders',user_id])
+  }
 }
+
+
+// [routerLink]="['/app/users//user-orders',data.id]"

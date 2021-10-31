@@ -54,6 +54,7 @@
                             <td>{{user?.phone}}</td>
                             <!-- <td>{{user.name}}</td> -->
                             <td>
+                              <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="userDetails(user)"></i> |
                               <span *ngIf="type == 2">
 
                                 <i  style="cursor: pointer;" class="fas fa-user-check text-success" (click)="activeFamily(user?.id)"></i> 
