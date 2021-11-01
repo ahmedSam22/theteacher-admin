@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { OrdersRoutingModule } from './orders-routing.module';
 import { ListComponent } from './list/list.component';
-import { OrderDetailsComponent } from './order-details/order-details.component';
+import { OrderDetailsComponent } from './list/order-details/order-details.component';
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';

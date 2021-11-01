@@ -2,10 +2,11 @@ import   Swal  from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { OrderDetailsComponent } from '../order-details/order-details.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { ProviderDetailsComponent } from '../../provider/provider-details/provider-details.component';
+import { UserDetailsComponent } from '../../users/user-details/user-details.component';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -38,12 +39,30 @@ export class ListComponent implements OnInit {
   orderDetails(order){
     let dialogRef = this.dialog.open(OrderDetailsComponent, {
       data:order,
-      height: '600px',
+      height: '650px',
       width: '600px',
     });
   }
   getOrders(progress){
     this.type=progress
     this.orderList(progress)
+  }
+
+
+
+  providerDetails(user){
+    let dialogRef = this.dialog.open(ProviderDetailsComponent, {
+      data:user,
+      height: '650px',
+      width: '600px',
+    });
+  }
+
+  userDetails(user){
+    let dialogRef = this.dialog.open(UserDetailsComponent, {
+      data:user,
+      height: '500px',
+      width: '600px',
+    });
   }
 }

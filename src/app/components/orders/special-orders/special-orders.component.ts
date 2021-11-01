@@ -2,9 +2,9 @@ import   Swal  from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { OrderDetailsComponent } from '../order-details/order-details.component';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { OrderDetailsComponent } from '../list/order-details/order-details.component';
 
 @Component({
   selector: 'app-special-orders',

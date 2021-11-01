@@ -5,54 +5,54 @@
       
       <tr>
         <th scope="row">اسم مقدم الخدمة </th>
-        <td>علي</td>
+        <td>{{data?.user?.name}}</td>
       </tr>
       <tr>
         <th scope="row">الإيميل  </th>
-        <td>3li@gmail.com</td>
+        <td>{{data?.user?.email}}</td>
       </tr>
       <tr>
         <th scope="row">الجوال  </th>
-        <td>569848956 </td>
+        <td>{{data?.user?.phone}} </td>
       </tr>
       <tr>
         <th scope="row">الدولة  </th>
-        <td>مصر </td>
+        <td>{{data?.address}} </td>
       </tr>
       <tr>
         <th scope="row">المدينة  </th>
-        <td>المنصورة </td>
+        <td>{{data?.location?.name}} </td>
       </tr>
       <tr>
         <th scope="row">رقم الحساب البنكي  </th>
-        <td>569848956 </td>
+        <td>{{data?.iban}} </td>
       </tr>
       <tr>
         <th scope="row">رقم السجل  </th>
-        <td>9845648489 </td>
+        <td>{{data?.commercial_number}} </td>
       </tr>
       <tr>
         <th scope="row">صورة السجل</th>
         <td>
-            <img style="width: 50px;height: 50px;border-radius: 50%;" src="assets/images/image-not-found.svg" alt="">
+            <!-- <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{data?.images[0]}}" onerror=" src='assets/images/image-not-found.svg'" alt=""> -->
         </td>
       </tr>
       <tr>
         <th scope="row">اسم البنك  </th>
-        <td> QNB </td>
+        <td> {{data?.bank_name}} </td>
       </tr>
       <tr>
         <th scope="row">اسم المتجر   </th>
-        <td>Apple </td>
+        <td>{{data?.user?.name}} </td>
       </tr>
       <tr>
         <th scope="row">تكلفة التوصيل    </th>
-        <td>20 ريال </td>
+        <td>{{data?.delivery_fee}} ريال </td>
       </tr>
-      <tr>
+      <!-- <tr>
         <th scope="row">الحالة المالية     </th>
         <td> ؟؟ </td>
-      </tr>
+      </tr> -->
       <!-- <tr>
         <th scope="row">رقم البطاقة الشخصية  </th>
         <td>569848956 </td>

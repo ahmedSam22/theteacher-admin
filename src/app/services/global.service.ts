@@ -177,7 +177,7 @@ export class GlobalService {
 
   // Filter By User ID
 
-  filterByuserId(user_id){
+  filterOrdersByuserId(user_id){
     return this.http.get(`${environment.endpoint}/backend/orders/show?user_id=${user_id}`)
   }
 

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-provider-details',
@@ -8,13 +9,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ProviderDetailsComponent implements OnInit {
 
-  // baseUrl=environment.baseURL
+  baseUrl=environment.baseURL
   constructor(@Inject(MAT_DIALOG_DATA)public data: {data: string}) { }
 
   ngOnInit(): void {
-    // console.log('this.data')
-    // console.log(this.data)
-    // console.log(this.data)
+    console.log('this.data')
+    console.log(this.data)
   }
 
 

@@ -21,14 +21,18 @@ export class ListComponent implements OnInit {
       
     }
   ]
-  constructor( public route: ActivatedRoute,private spinner:NgxSpinnerService,private service:GlobalService) { }
+  constructor( 
+    public route: ActivatedRoute,
+    private spinner:NgxSpinnerService,
+    private service:GlobalService,
+    private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.getUsers(0)
   }
   getUsers(status_id){
     this.spinner.show()
-    this.service.allProviders(status_id).pipe(map(res=>res['users'])).subscribe((response:any)=>{
+    this.service.allProviders(status_id).pipe(map(res=>res['data'])).subscribe((response:any)=>{
       console.log(response)
       this.users = response
     this.spinner.hide()
@@ -47,7 +51,7 @@ export class ListComponent implements OnInit {
     this.service.changeUserStatus(user_id,1).subscribe(res=>{
       Swal.fire(
         'نجاح',
-        'تم إلغاء الحظر بنجاح   ',
+        'تم تنشيط مقدم الخدمة بنجاح   ',
         'success'
       )
       this.getOrders(this.type)
@@ -73,5 +77,13 @@ export class ListComponent implements OnInit {
       )
       this.getOrders(this.type)
     })
+  }
+
+  providerDetails(user){
+    let dialogRef = this.dialog.open(ProviderDetailsComponent, {
+      data:user,
+      height: '650px',
+      width: '600px',
+    });
   }
 }

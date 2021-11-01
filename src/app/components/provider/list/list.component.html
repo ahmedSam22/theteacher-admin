@@ -75,9 +75,9 @@
                         <tbody>
                           <tr *ngFor="let user of users;let i=index">
                             <th scope="row">{{i+1}}</th>
-                            <td>{{user?.name}}</td>
-                            <td>{{user?.email}}</td>
-                            <td>{{user?.phone}}</td>
+                            <td>{{user?.user?.name}}</td>
+                            <td>{{user?.user?.email}}</td>
+                            <td>{{user?.user?.phone}}</td>
                             <!-- <td>
                               <i  style="cursor: pointer;" class="fas fa-eye text-success" (click)="providerDetails(provider)"></i>
                             </td> -->
@@ -96,23 +96,25 @@
                               </span>
                             </td> -->
                             <td>
+                              <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="providerDetails(user)"></i> |
                               <span *ngIf="type == 0">
 
-                                <i  style="cursor: pointer;" class="fas fa-check text-success" (click)="activeFamily(user?.id)"></i> 
+                                <i  style="cursor: pointer;" class="fas fa-check text-success" (click)="activeFamily(user?.user_id)"></i> 
                               </span>
 
                               <span *ngIf="type == 2">
 
-                                <i  style="cursor: pointer;" class="fas fa-user-check text-success" (click)="activeFamily(user?.id)"></i> 
+                                <i  style="cursor: pointer;" class="fas fa-user-check text-success" (click)="activeFamily(user?.user_id)"></i> 
                               </span>
                               
                               <span *ngIf="type == 1">
 
-                                <i  style="cursor: pointer;" class="fas fa-user-slash text-danger" (click)="blockFamily(user?.id)"></i>
+                                <i  style="cursor: pointer;" class="fas fa-user-slash text-danger" (click)="blockFamily(user?.user_id)"></i>
                               </span>
+
                               <!-- <span >
 
-                                | <i  style="cursor: pointer;" class="fas fa-user-times text-warning" (click)="refuseFamily(user?.id)"></i> 
+                                 <i  style="cursor: pointer;" class="fas fa-user-times text-warning" (click)="refuseFamily(user?.id)"></i> 
                               </span> -->
                             </td>
 

@@ -13,7 +13,7 @@
             جديدة </a>
           </li>
           <li class="nav-item">
-            <a (click)="getOrders('1')" [ngClass]="{'1': type == 'active'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <a (click)="getOrders('3')" [ngClass]="{'1': type == 'active'}" class="nav-link" href="javascript:void(0)" role="tab">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
               <circle cx="12" cy="12" r="10"></circle>
               <circle cx="12" cy="12" r="6"></circle>
@@ -22,7 +22,7 @@
             قيد التنفيذ</a>
           </li>
           <li class="nav-item">
-            <a (click)="getOrders('2')" [ngClass]="{'active': type == '2'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <a (click)="getOrders('5')" [ngClass]="{'active': type == '2'}" class="nav-link" href="javascript:void(0)" role="tab">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
               <circle cx="12" cy="12" r="10"></circle>
               <circle cx="12" cy="12" r="6"></circle>
@@ -63,10 +63,10 @@
                           <tr *ngFor="let order of orders;let i=index">
                             <th scope="row">{{i+1}}</th>
                             <td>
-                              <a href="javascript:void(0)">{{order.user.name}}</a>
+                              <a href="javascript:void(0)" (click)="userDetails(order.user)">{{order.user.name}}</a>
                             </td>
                             <td>
-                              <a href="javascript:void(0)">{{order.store.name}}</a>
+                              <a href="javascript:void(0)" (click)="providerDetails(order.store)">{{order.store.user.name}}</a>
                             </td>
                             <td>{{order.total_price}} ريال</td>
                             <td>
