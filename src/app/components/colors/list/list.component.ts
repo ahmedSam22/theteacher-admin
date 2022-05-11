@@ -1,9 +1,8 @@
-import { GlobalService } from './../../../services/global.service';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import Swal from 'sweetalert2';
-import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { GlobalService } from 'src/app/services/global.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list',
@@ -11,65 +10,50 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
-  colors;
-  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private globalService:GlobalService) { }
+  colors=[];
+  constructor(  private spinner:NgxSpinnerService,
+    private service:GlobalService,
+    private router:Router) { }
 
   ngOnInit(): void {
-    this.allColors()
+    this.colorList() ;
   }
-
-  allColors(){
+  colorList() {
     this.spinner.show()
-    this.globalService.allColors().pipe(map(res=>res['data'])).subscribe(res=>{
-      this.spinner.hide()
-      this.colors=res
-      console.log('allColors')
-      console.log(res)
-    })
+    this.service.allColors().subscribe((res)=>{
+    this.spinner.hide()
+    this.colors=res['data'];
+    console.log("collllllor" , res['data']);
+  });
+ 
   }
-  activeProduct(product_id){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,1).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
-  }
-  refuseProduct(product_id){
-    // this.spinner.show()
-    // this.globalService.activeProduct(product_id,2).subscribe(res=>{
-    //   this.spinner.hide()
-    //   Swal.fire(
-    //           'نجاح',
-    //           'تم قبول المنتج بنجاح',
-    //           'success'
-    //         )
-    //         this.allProducts()
-    //       })
-  }
-  // productDetails(order){
-  //   let dialogRef = this.dialog.open(ProductDetailsComponent, {
-  //     data:order,
-  //     height: '600px',
-  //     width: '600px',
-  //   });
-  // }
-
-  deleteColor(color_id){
-    this.spinner.show()
-    this.globalService.deleteColor(color_id).subscribe(res=>{
-      this.spinner.hide()
+   deleteColor(color_id){
+   this.spinner.show();
+    this.service.deleteColor(color_id).subscribe(res=>{
       Swal.fire(
-              'نجاح',
-              'تم حذف اللون بنجاح',
-              'success'
-            )
-            this.allColors()
-          })
-  }
+        'نجاح',
+        'تم حذف اللون بنجاح',
+        'success'
+        )
+        this.colorList();
+      })
+   }
+  
+  
+  
+ 
+  
+  // cityList(){
+  //   this.spinner.show()
+  //   this.service.allCities().pipe(map(res=>res['data'])).subscribe(res=>{
+  //     this.spinner.hide()
+  //     console.log('res')
+  //     console.log(res)
+  //     this.cities=res
+  //   })
+  // }
+ 
+
+ 
+ 
 }

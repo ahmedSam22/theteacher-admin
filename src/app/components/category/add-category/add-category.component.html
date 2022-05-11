@@ -4,25 +4,42 @@
             <div class="col-md-12">
                 <div class="card-body">
                     <form [formGroup]="form">
+                        <div class="form-group ">
+                            <label for="">نوع البراند  </label>
+                            <select class="form-control p-1" id="brand-type" (change)="onChangeBrand($event.target.value)" >
+                                <option value="0"> كل البراندات</option>
+                                <option value="1"> براندات محددة </option>
+                            </select>
+                         </div>
+                            
+                            <div class="form-group col-12 p-2 " *ngIf="showBrand" style="margin:15px 0px ">
+                                <label for="">البراند</label>
+                                <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList"
+                                   [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}"
+                                   (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                </ng-multiselect-dropdown>
+                             </div>
+                      
                         <div class="form-group">
-                            <label for="">اسم القسم باللغة العربية</label>
+                            <label for="">اسم الخدمة بالعربي </label>
                             <input type="text" class="form-control" formControlName="name_ar">
                         </div>
                         <div class="form-group">
-                            <label for="">اسم القسم باللغة الانجليزية</label>
+                            <label for="">اسم الخدمة بالإنجليزي </label>
                             <input type="text" class="form-control" formControlName="name_en">
                         </div>
+                
                         <div class="form-group">
-                            <label for="">صورة القسم </label>
+                            <label for="">صورة الخدمة </label>
                             <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
-                                <ngx-dropzone-label>أضغط هنا لإختيار صورة القسم</ngx-dropzone-label>
+                                <ngx-dropzone-label>أضغط هنا لإختيار صورة الخدمة</ngx-dropzone-label>
                                 <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f" >
                                     <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                                 </ngx-dropzone-image-preview>
                             </ngx-dropzone>
                         </div>
                         <div class="form-group text-center mt-5">
-                            <button class="btn btn-primary" type="button" (click)="submit()">إضافة القسم</button>
+                            <button class="btn btn-primary" type="button" (click)="submit()">إضافة الخدمة</button>
                         </div>
                     </form>
                 </div>

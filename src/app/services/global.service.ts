@@ -12,59 +12,123 @@ export class GlobalService {
 
 
   //All orders
-  allOrders(status_id){
-    return this.http.get(`${environment.endpoint}/backend/orders/all?status_id=${status_id}`)
+  allOrders(type){
+    return this.http.get(`${environment.endpoint}/orders?status_id=${type}`)
   }
 
     // Category
 
     allCategories(){
-      return this.http.get(`${environment.endpoint}/categories`)
+      return this.http.get(`${environment.endpoint}/main-specialists`)
     }
     addCategory(f){
       const formData:FormData = new FormData()
-      formData.append('name_en',f.name_en)
+      console.log(f)
+      formData.append('affect_brand',f.affect_brand)
       formData.append('name_ar',f.name_ar)
+      formData.append('name_en',f.name_en)
       formData.append('image',f.image)
-      return this.http.post(`${environment.endpoint}/backend/categories/create`,formData)
+        for (let i = 0; i < f.brands.length; i++) {
+          formData.append('brands['+i+']',f.brands[i].id)
+        }
+      return this.http.post(`${environment.endpoint}/main-specialists/create`,formData)
     }
     editCategory(f){
+      console.log('ss',f)
       const formData:FormData = new FormData()
-      formData.append('name_en',f.name_en)
+      // formData.append('image',f.image)
       formData.append('name_ar',f.name_ar)
-      formData.append('image',f.image)
-      formData.append('category_id',f.category_id)
-      return this.http.post(`${environment.endpoint}/backend/categories/edit`,formData)
+      formData.append('name_en',f.name_en)
+      formData.append('main_specialist_id',f.main_specialist_id)
+      formData.append('affect_brand',f.affect_brand)
+      for (let i = 0; i < f.brands.length; i++) {
+      //  formData.append('brands['+i+']',f.brands[i].id)
+        formData.append('brands['+i+']',f.brands[i].brand_id)
+      }
+      // formData.append('name_en',f.name_en)
+      // console.log('hello form',...formData)
+      return this.http.post(`${environment.endpoint}/main-specialists/update`,formData)
     }
     deleteCategory(category_id){
-      return this.http.delete(`${environment.endpoint}/backend/categories/delete?category_id=${category_id}`)
+      console.log(category_id)
+      const forms:FormData = new FormData();
+      forms.append('main_specialist_id',category_id)
+      return this.http.get(`${environment.endpoint}/main-specialists/delete?main_specialist_id=${category_id}`)
+    }
+    getCategoryById(id){
+      return this.http.get(`${environment.endpoint}/main-specialists/show?main_specialist_id=${id}`)
+
     }
 
-    // SubCategory
+    //////////////////////////// SubCategory /////////////////////////////////
 
     allSubCategories(){
-      return this.http.get(`${environment.endpoint}/backend/subcategories/all`)
+      return this.http.get(`${environment.endpoint}/secondary-specialists`)
     }
+    // allSubCategories(main_id){
+    //   return this.http.get(`${environment.endpoint}/secondary-specialists/delete?secondary_specialist_id=${main_id}`)
+    // }
     addSubCategory(f){
       const formData:FormData = new FormData()
       formData.append('name_en',f.name_en)
       formData.append('name_ar',f.name_ar)
-      formData.append('category_id',f.category_id)
-      formData.append('image',f.image)
-      return this.http.post(`${environment.endpoint}/backend/subcategories/create`,formData)
+      formData.append('main_specialist_id',f.main_specialist_id)
+      formData.append('type',f.type)
+      return this.http.post(`${environment.endpoint}/secondary-specialists/create`,formData)
     }
+
     editSubCategory(f){
       const formData:FormData = new FormData()
-      formData.append('name_en',f.name_en)
-      formData.append('name_ar',f.name_ar)
-      formData.append('category_id',f.category_id)
-      formData.append('subcategory_id',f.subcategory_id)
-      formData.append('image',f.image)
-      return this.http.post(`${environment.endpoint}/backend/subcategories/edit`,formData)
+      
+      return this.http.post(`${environment.endpoint}/secondary-specialists/update`,f)
+    
     }
+
     deleteSubCategory(category_id){
-      return this.http.delete(`${environment.endpoint}/backend/subcategories/delete?subcategory_id=${category_id}`)
+      return this.http.get(`${environment.endpoint}/secondary-specialists/delete?secondary_specialist_id=${category_id}`)
     }
+    //////////////////////////////////Cities //////////////////////////////////
+
+    allCities(){
+      return this.http.get(`${environment.endpoint}/city`)
+    }
+    
+    addCity(f){
+      return this.http.post(`${environment.endpoint}/city/create`,f)
+    }
+    editCity(f){
+      return this.http.post(`${environment.endpoint}/city/update`,f)
+    }
+    deleteCity(city_id){
+      return this.http.get(`${environment.endpoint}/city/delete?city_id=${city_id}`)
+    }
+
+    //banners
+
+    allBanners(){
+      return this.http.get(`${environment.endpoint}/banners`)
+    }
+    addBanner(f){
+      const formData:FormData = new FormData()
+
+
+      formData.append('image',f.image)
+      return this.http.post(`${environment.endpoint}/banners/create`,formData)
+    }
+    editBanner(f){
+      console.log(f)
+      const formData:FormData = new FormData()
+     
+      formData.append('banner_id',f.banner_id)
+
+      formData.append('image',f.image)
+      return this.http.post(`${environment.endpoint}/banners/edit`,formData)
+    }
+    deleteBanner(banner_id){
+      console.log(banner_id)
+      return this.http.get(`${environment.endpoint}/banners/delete?banner_id=${banner_id}`)
+    }
+
 
 
 
@@ -73,112 +137,171 @@ export class GlobalService {
     allProducts(){
       return this.http.get(`${environment.endpoint}/products`)
     }
-    // addProduct(f){
-    //   const formData:FormData = new FormData()
-    //   formData.append('name_en',f.name_en)
-    //   formData.append('name_ar',f.name_ar)
-    //   formData.append('image',f.image)
-    //   return this.http.post(`${environment.endpoint}/backend/categories/create`,formData)
-    // }
-    // deleteProduct(category_id){
-    //   return this.http.delete(`${environment.endpoint}/backend/categories/delete?category_id=${category_id}`)
-    // }
 
 
     //All Users
   allUsers(active){
-    return this.http.get(`${environment.endpoint}/backend/users/all?type_id=1&active_id=${active}`)
+    return this.http.get(`${environment.endpoint}/users?type=1&active=${active}`)
   }
 
-  allProviders(active){
-    return this.http.get(`${environment.endpoint}/backend/users/all?type_id=2&active_id=${active}`)
-  }
-  // deleteUser(user_id){
-  //   return this.http.delete(`${environment.endpoint}/admin/users/delete?user_id=${user_id}`)
-  // }
-  // blockUser(user_id){
-  //   const formData:FormData = new FormData()
-  //   formData.append('user_id',user_id)
-  //   return this.http.post(`${environment.endpoint}/admin/block-user`,formData)
-  // }
-  // unblockUser(user_id){
-  //   const formData:FormData = new FormData()
-  //   formData.append('user_id',user_id)
-  //   return this.http.post(`${environment.endpoint}/admin/unblock-user`,formData)
-  // }
+
   
-  //All Users
-  allStores(active){
-    return this.http.get(`${environment.endpoint}/backend/users/all?type_id=2&active=${active}`)
-  }
-
-
+  
+  
   changeUserStatus(user_id,active_id){
-    const formData:FormData = new FormData()
-    formData.append('user_id',user_id)
-    formData.append('active_id',active_id)
-    return this.http.post(`${environment.endpoint}/backend/users/status/update`,formData)
+    // const formData:FormData = new FormData()
+    // formData.append('user_id',user_id)
+    // formData.append('active_id',active_id)
+    console.log('hello fro change',user_id,active_id)
+    // ${environment.endpoint}/users?type=2&active=${active}
+    return this.http.get(`${environment.endpoint}/users/active?user_id=${user_id}&active=${active_id}`)
   }
+  //////////////////////////Taxes /////////////////////////////////
+  editTaxes(f){
+    return this.http.post(`${environment.endpoint}/settings/update`,f)
+  }
+  AllTaxes(){
+    return this.http.get(`${environment.endpoint}/settings`)
+  }
+  /////////////////////////Brands//////////////////////////////////
+  getBrands(){
+    return this.http.get(`${environment.endpoint}/brands`)
 
-  // Colors
+  }
+  addBrand(f){
+    const formdata:FormData = new FormData();
+    formdata.append('image',f.image)
+    formdata.append('name_en',f.name_en)
+    formdata.append('name_ar',f.name_ar)
+   
+    return this.http.post(`${environment.endpoint}/brands/create`,formdata)
 
-  allColors(){
-    return this.http.get(`${environment.endpoint}/colors`)
   }
-  addColor(form){
-    const formData:FormData = new FormData()
-    formData.append('name_en',form.name_en)
-    formData.append('name_ar',form.name_ar)
-    formData.append('code',form.code)
-    return this.http.post(`${environment.endpoint}/backend/colors/create`,formData)
-  }
-  deleteColor(category_id){
-    return this.http.delete(`${environment.endpoint}/backend/colors/delete?color_id=${category_id}`)
-  }
+  editBrand(f){
+    console.log('edit brand golbal service ',f)
+      const formData:FormData = new FormData();
+      formData.append('brand_id',f.brand_id);
+      formData.append('image',f.image);
+      formData.append('name_ar',f.name_ar);
+      formData.append('name_en',f.name_en);
 
-
-  // Sizes
-
-  allSizes(){
-    return this.http.get(`${environment.endpoint}/sizes`)
+    return this.http.post(`${environment.endpoint}/brands/update`,formData)
   }
-  addSize(f){
-    const formData:FormData = new FormData()
-    formData.append('name_en',f.name_en)
-    formData.append('name_ar',f.name_ar)
-    return this.http.post(`${environment.endpoint}/backend/sizes/create`,formData)
-  }
-  deleteSize(category_id){
-    return this.http.delete(`${environment.endpoint}/backend/sizes/delete?size_id=${category_id}`)
-  }
-    
-  // Occasions
-
-  allOccasions(){
-    return this.http.get(`${environment.endpoint}/occasions`)
-  }
-  addOccasions(f){
-    const formData:FormData = new FormData()
-    formData.append('name_en',f.name_en)
-    formData.append('name_ar',f.name_ar)
-    return this.http.post(`${environment.endpoint}/backend/occasion/create`,formData)
-  }
-  deleteOccasions(category_id){
-    return this.http.delete(`${environment.endpoint}/backend/occasion/delete?occasion_id=${category_id}`)
-  }
-
-  // Occasions
-
-  homeStatistics(){
-    return this.http.get(`${environment.endpoint}/backend/reports/show`)
+  deleteBrand(brand_id){
+    // const deletedCity:FormData= new FormData();
+    // deletedCity.append('city_id',city_id)
+    return this.http.get(`${environment.endpoint}/brands/delete?brand_id=${brand_id}`)
   }
 
 
-
-  // Filter By User ID
-
-  filterOrdersByuserId(user_id){
-    return this.http.get(`${environment.endpoint}/backend/orders/show?user_id=${user_id}`)
+  // Exposed Questions
+  questionsList() {
+    return this.http.get(`${environment.endpoint}/frequent-questions`);
+  }
+  addQuestion(questionData) {
+    return this.http.post(`${environment.endpoint}/frequent-questions/create`, questionData);
+  }
+  updateQuestion(questionObj) {
+    return this.http.post(`${environment.endpoint}/frequent-questions/update`, questionObj);
+  }
+  deleteQuestion(question_id) {
+    return this.http.get(`${environment.endpoint}/frequent-questions/delete?question_id=${question_id}`);
   }
 
+  // Add Model
+  addModel(modelData) {
+    return this.http.post(`${environment.endpoint}/types/create`, modelData);
+  }
+  allModels() {
+    return this.http.get(`${environment.endpoint}/types`);
+  }
+  updateModel(updatedModel) {
+    return this.http.post(`${environment.endpoint}/types/update`, updatedModel);
+  }
+  deleteModel(model_id) {
+    return this.http.get(`${environment.endpoint}/types/delete?type_id=${model_id}`);
+  }
+
+  //clients 
+  getClients(){
+    return this.http.get(`${environment.endpoint}/clients`);
+
+  }
+  //maintainers
+  getMaintainers(active_status){
+    return this.http.get(`${environment.endpoint}/maintainers?active=${active_status}`);
+
+  }
+  changeMaintainerStatus(id,active){
+
+    return this.http.get(`${environment.endpoint}/maintainers/active?maintainer_id=${id}&active=${active}`);
+
+  }
+  //deliveries 
+  getDeliveries(status){
+   
+    return this.http.get(`${environment.endpoint}/deliveries?active=${status}`);
+
+  }
+  changeDeliveriesStatus(id,active){
+
+    return this.http.get(`${environment.endpoint}/deliveries/active?delivery_user_id=${id}&active=${active}`);
+
+  }
+  addSubCategoryValue(f){
+    return this.http.post(`${environment.endpoint}/secondary-specialists-values/create`, f);
+
+  }
+  deletesubcatvalue(id){
+    return this.http.get(`${environment.endpoint}/secondary-specialists-values/delete?secondary_specialist_value_id=${id}`);
+
+  }
+  //comp
+  getComp(type){
+    return this.http.get(`${environment.endpoint}/contacts?type=${type}`);
+
+  }
+  editMaintain(f){}
+  addMaintain(f){}
+  
+//////////////////////////// Years Of Creation /////////////////////////////
+  allYears(){
+    return this.http.get(`${environment.endpoint}/years`);
+  }
+  addYear(f){
+    return this.http.post(`${environment.endpoint}/years/create`, f);
+  }
+  editYear(f){
+    return this.http.post(`${environment.endpoint}/years/update`, f);
+  }
+  deleteYear(id){
+    return this.http.get(`${environment.endpoint}/years/delete?year_id=${id}`);
+
+  }
+
+//////////////////////////Band ///////////////////////////
+addBand(f){
+  return this.http.post(`${environment.endpoint}/secondary-specialists-values/create`, f);
+}
+///////////////////////////Color/////////////////////////////
+addColor(f){
+  return this.http.post(`${environment.endpoint}/colors/create`, f);
+}
+allColors(){
+  return this.http.get(`${environment.endpoint}/colors`);  
+}
+deleteColor(id){
+ return this.http.get(`${environment.endpoint}/colors/delete?color_id=${id}`);
+}
+////////////////////////////////Terms Of Conditions //////////////////////////////////////
+addTermsFiles(f){
+  return this.http.post(`${environment.endpoint}/settings/update-files`, f);
+}
+//////////////////////////////////Prices ///////////////////////////
+allPrices(){
+  return this.http.get(`${environment.endpoint}/prices`); 
+}
+editPrices(f){
+  return this.http.post(`${environment.endpoint}/prices/edit`, f);
+}
 }

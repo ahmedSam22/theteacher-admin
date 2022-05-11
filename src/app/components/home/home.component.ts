@@ -30,26 +30,26 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDate()
-    this.homeStatistics()
+    // this.getDate()
+    // this.homeStatistics()
   }
-  getDate(){
-    setInterval(() => { this.timeNow = new Date() }, 1);
-    var myDate = new Date();
-    var hrs = myDate.getHours();
-    if (hrs < 12)
-      this.welcomePhrase = 'صباح الخير';
-    else 
-      this.welcomePhrase = 'مساء الخير';
-  }
+  // getDate(){
+  //   setInterval(() => { this.timeNow = new Date() }, 1);
+  //   var myDate = new Date();
+  //   var hrs = myDate.getHours();
+  //   if (hrs < 12)
+  //     this.welcomePhrase = 'صباح الخير';
+  //   else 
+  //     this.welcomePhrase = 'مساء الخير';
+  // }
 
-  homeStatistics(){
-    this.spinner.show()
-    this.service.homeStatistics().pipe(map(res=>res['data'])).subscribe(res=>{
-      this.spinner.hide()
-      console.log('Home statistics')
-      console.log(res)
-      this.statistics=res
-    })
-  }
+  // homeStatistics(){
+  //   this.spinner.show()
+  //   this.service.homeStatistics().pipe(map(res=>res['data'])).subscribe(res=>{
+  //     this.spinner.hide()
+  //     console.log('Home statistics')
+  //     console.log(res)
+  //     this.statistics=res
+  //   })
+  // }
 }

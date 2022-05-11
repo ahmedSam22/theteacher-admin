@@ -1,0 +1,33 @@
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <h5>عرض الأسئلة</h5>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>السؤال</th>
+                                <th>الإجابة</th>
+                                <th>ضبط</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let questionObj of questionsArr">
+                                <th>{{ questionObj.question }}</th>
+                                <td>{{ questionObj.answer }}</td>
+                                <td>
+                                    <!-- <button class="btn btn-danger" (click)="onDeleteQuestion()">حذف</button> -->
+                                    <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="onEditQuestion(questionObj)"></i> |
+                                    <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="onDeleteQuestion(questionObj.id)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ColorsRoutingModule } from './colors-routing.module';
-import { AddComponent } from './add/add.component';
+import { ColorRoutingModule } from './colors-routing.module';
 import { ListComponent } from './list/list.component';
-import { ColorPickerModule } from 'ngx-color-picker';
+import { AddComponent } from './add/add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [AddComponent, ListComponent],
+  declarations: [ListComponent, AddComponent],
   imports: [
     CommonModule,
-    ColorsRoutingModule,
-    ColorPickerModule,
+    ColorRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxDropzoneModule,
+    MatIconModule
   ]
 })
 export class ColorsModule { }

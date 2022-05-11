@@ -1,33 +1,37 @@
-<section id="add-main-page" *ngIf="orders?.length != 0">
+<section id="add-main-page">
     <div class="card">
-      <div class="row">
-        <div class="col-md-12 position-relative">
-            <table class="table table-striped mt-5">
-                <thead>
-                  <tr>
-                    <th scope="col">  رقم </th>
-                    <th scope="col">  اسم اللون بالعربية </th>
-                    <th scope="col">  اسم اللون بالانجليزية </th>
-                    <th scope="col">  كود اللون </th>
-                    <th scope="col"> حذف  </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let color of colors;let i=index">
-                    <th scope="col"> {{i+1}} </th>
-                    <td>{{color.name_ar}}</td>
-                    <td> {{color.name_en}}</td>
-                    <td>{{color.code}}</td>
-                    <td>
-                      <!-- <i style="cursor: pointer;" class="fas fa-check text-success" (click)="activeProduct(product.id)"></i> | -->
-                      <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteColor(color.id)"></i> 
-                      <!-- |
-                      <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="productDetails(product)"></i> -->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">اسم اللون</th>
+                            <th scope="col">إعدادات</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let color of colors;let i=index">
+                            <th scope="row">{{i+1}}</th>
+                        
+                            <td>
+                                {{color.name}}
+                            </td>
+                            <td>
+                              <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteColor(color.id)"></i> 
+                              <!-- | -->
+                              <!-- <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editCity(city)"></i>  -->
+              
+
+                              <!-- '
+                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp()">visibility</mat-icon> -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-  </section>
+</section>

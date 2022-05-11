@@ -7,7 +7,6 @@
                         <thead class="thead-dark">
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">اسم الدولة</th>
                             <th scope="col">اسم المدينة</th>
                             <th scope="col">إعدادات</th>
                           </tr>
@@ -15,14 +14,16 @@
                         <tbody>
                           <tr *ngFor="let city of cities;let i=index">
                             <th scope="row">{{i+1}}</th>
-                            <td>
-                                {{city.country.name}}
-                            </td>
+                        
                             <td>
                                 {{city.name}}
                             </td>
                             <td>
-                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp(city.id)">delete</mat-icon>
+                              <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteCity(city.id)"></i> 
+                              |
+                              <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editCity(city)"></i> 
+              
+
                               <!-- '
                               <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp()">visibility</mat-icon> -->
                             </td>

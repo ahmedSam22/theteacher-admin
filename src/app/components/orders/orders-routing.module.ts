@@ -4,7 +4,7 @@ import { ListComponent } from './list/list.component';
 import { SpecialOrdersComponent } from './special-orders/special-orders.component';
 
 const routes: Routes = [
-  {path:'list',component:ListComponent},
+  {path:'list',component:ListComponent ,data:{title:'قائمة الطلبات'}},
   {path:'special',component:SpecialOrdersComponent},
 ];
 

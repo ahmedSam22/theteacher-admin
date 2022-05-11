@@ -1,0 +1,57 @@
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <form [formGroup]="form" >
+                        <div class="Map">  
+                           <div class="col-md-12" > 
+                             <div id="map"></div>
+                           </div>
+                        </div>  <br>
+                        <div class="form-group">
+                            <label for="">اسم الوكالة</label>
+                            <input type="text" class="form-control" formControlName="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">الإيميل</label>
+                            <input type="email" class="form-control" formControlName="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="">رقم الهاتف</label>
+                            <input type="text" class="form-control" formControlName="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="">الرقم السري</label>
+                            <input type="password" class="form-control" formControlName="password">
+                        </div>
+                        <div class="form-group">
+                            <label for=""> تأكيد الرقم السري</label>
+                            <input type="password" class="form-control" formControlName="confirm_password">
+                        </div>
+                        <div class="form-group">
+                            <label for=""> لينك الموقع</label>
+                            <input type="url" class="form-control" formControlName="link">
+                        </div>
+                        <div class="form-group">
+                            <label for="">نبذة عن الوكالة</label>
+                            <textarea type="text" class="form-control" formControlName="info"> </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="">الصورة</label>
+                            <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
+                                <ngx-dropzone-label>أضغط هنا لإختيار صورة الوكالة</ngx-dropzone-label>
+                                <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f" >
+                                </ngx-dropzone-image-preview>
+                            </ngx-dropzone>
+                        </div>
+                        
+                        <div class="form-group text-center mt-5">
+                            <button class="btn btn-primary" type="button" (click)="submit()">تعديل مسؤول صيانة </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

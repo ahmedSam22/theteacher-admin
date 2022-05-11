@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -15,7 +14,9 @@ import { HomeComponent } from './components/home/home.component';
 import { WrongRouteComponent } from './components/auth/errors/wrong-route/wrong-route.component';
 import {ConnectionServiceModule} from 'ng-connection-service';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+//import { AddpriceComponent } from './components/prices/addprice/addprice.component';
+ 
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,17 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     LoginComponent,
     HomeComponent,
     WrongRouteComponent,
+  //  AddpriceComponent,
+
+   // ListpricesComponent,
+  
+ 
+   // AddComponent,
+  //  ListComponent,
+   // editComponentTaxes,
+     
+ 
+
   ],
   imports: [
     BrowserModule,

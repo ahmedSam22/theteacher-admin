@@ -1,0 +1,17 @@
+table{
+    width: 100%;
+    th,td{
+        text-align: right !important;
+        vertical-align: middle;
+        mat-icon{
+            cursor: pointer;
+        }
+        padding: 1em !important;
+    }
+    tr th {
+        font-size: 16px;
+    }
+    thead {
+        margin-bottom: 15px !important;
+    }
+}

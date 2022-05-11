@@ -1,0 +1,40 @@
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <h5>تعديل الأسئلة الشائعة</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+                        <mat-form-field appearance="outline">
+                            <mat-label> السؤال باللغة العربية</mat-label>
+                            <input matInput type="text" formControlName="question_ar">
+                        </mat-form-field>
+                        <br>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>الإجابة باللغة العربية</mat-label>
+                            <input matInput type="text" formControlName="answer_ar">
+                        </mat-form-field>
+                        <br>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label> السؤال باللغة الإنجليزية</mat-label>
+                            <input matInput type="text" formControlName="question_en">
+                        </mat-form-field>
+                        <br>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>الإجابة باللغة الإنجليزية</mat-label>
+                            <input matInput type="text" formControlName="answer_en">
+                        </mat-form-field>
+                        <div class="form-group text-center mt-5">
+                            <button class="btn btn-primary" type="submit">تعديل البيانات</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

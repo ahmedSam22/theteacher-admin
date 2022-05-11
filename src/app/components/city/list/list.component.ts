@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 import { GlobalService } from 'src/app/services/global.service';
+import { EditCityComponent } from '../edit-city/edit-city.component';
 
 @Component({
   selector: 'app-list',
@@ -26,17 +27,35 @@ export class ListComponent implements OnInit {
   }
 
   cityList(){
-    // this.spinner.show()
-    // this.service.allCities().pipe(map(res=>res['data'])).subscribe(res=>{
-    //   this.spinner.hide()
-    //   console.log('res')
-    //   console.log(res)
-    //   this.cities=res
-    // })
+    this.spinner.show()
+    this.service.allCities().pipe(map(res=>res['data'])).subscribe(res=>{
+      this.spinner.hide()
+      console.log('res')
+      console.log(res)
+      this.cities=res
+    })
   }
 
 
-  deleteApp(brand_id){
+  deleteCity(city_id){
+    this.spinner.show()
+    this.service.deleteCity(city_id).subscribe(res=>{
+      Swal.fire(
+        'نجاح',
+        'تم حذف المدينة بنجاح',
+        'success'
+        )
+        this.cityList()
+      })
+    // this.service.deleteSubCategory(category_id).subscribe(res=>{
+    //   this.spinner.hide()
+    //   Swal.fire(
+    //     'نجاح',
+    //     'تم حذف الفئة بنجاح',
+    //     'success'
+    //     )
+    //     this.categoryList()
+    // })
     // Swal.fire({
     //   title: 'هل أنت متأكد؟',
     //   icon: 'warning',
@@ -47,7 +66,7 @@ export class ListComponent implements OnInit {
     //   cancelButtonText:'إلغاء'
     // }).then((result) => {
     //   if (result.isConfirmed) {
-    //       this.service.deleteCity(brand_id).subscribe(res=>{
+    //       this.service.deleteCity(city_id).subscribe(res=>{
     //       Swal.fire(
     //         'نجاح',
     //         'تم حذف المدينة بنجاح',
@@ -59,7 +78,16 @@ export class ListComponent implements OnInit {
     // })
   }
 
-
+  editCity(city){
+    let dialogRef = this.dialog.open(EditCityComponent, {
+      data:city,
+      height: '650px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.cityList()
+    });
+  }
 
   // viewApp(){
   //   let dialogRef = this.dialog.open(AppInfoComponent, {

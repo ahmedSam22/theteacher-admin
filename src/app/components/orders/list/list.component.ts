@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ProviderDetailsComponent } from '../../provider/provider-details/provider-details.component';
+import { ProviderDetailsComponent } from '../../brands/provider-details/provider-details.component';
 import { UserDetailsComponent } from '../../users/user-details/user-details.component';
 @Component({
   selector: 'app-list',
@@ -20,13 +20,26 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderList(this.type)
+
   }
 
   orderList(type){
-    this.spinner.show()
-    this.service.allOrders(type).pipe(map(res=>res['orders'])).subscribe(res=>{
+   // this.spinner.show()
+    this.service.allOrders(type).pipe(map(res=>res['data'])).subscribe(res=>{
       this.spinner.hide()
-      this.orders=res
+      this.orders=res.data
+      // for (let i = 0; i < this.orders.length; i++) {
+      //   const maintainer_id = this.orders[i].maintaner.id;
+      //   const main_specialist_id = this.orders[i].main_specialist_id
+      //   const user_id = this.orders[i].user.id;
+      //   this.service.getCategoryById(7).subscribe(res=>{
+      //     console.log(res['data'].name)
+      //     console.log(this.orders[i])
+      //   })
+      //   // console.log(element)
+        
+      // }
+      console.log(this.orders)
     })
   }
   deleteApp(){
@@ -43,9 +56,9 @@ export class ListComponent implements OnInit {
       width: '600px',
     });
   }
-  getOrders(progress){
-    this.type=progress
-    this.orderList(progress)
+  getOrders(x){
+    this.type=x
+    this.orderList(x)
   }
 
 

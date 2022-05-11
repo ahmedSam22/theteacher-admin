@@ -1,0 +1,26 @@
+ <section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="submit()">
+          
+                        <div class="form-group" >
+                            <label for="">قيمة الضريبة الأساسية</label>
+                            <input type="text" class="form-control"  formControlName="vat_precent">
+                        </div>
+                        <div class="form-group">
+                            <label for=""> نسبة التطبيق</label>
+                            <input type="text" class="form-control"  formControlName="app_precent">
+                        </div>
+                        
+              
+                        <div class="form-group text-center mt-5">
+                            <button class="btn btn-primary" type="submit" >تعديل الضريبة الأساسية</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

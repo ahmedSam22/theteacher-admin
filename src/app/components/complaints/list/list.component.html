@@ -1,0 +1,64 @@
+<div class="col-md-12 project-list">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist" style="display:flex;     flex-wrap: wrap;">
+          <li class="nav-item">
+            <a (click)="getType('1')" [ngClass]="{'active': type == '0'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+             المقترحات </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="getType('2')" [ngClass]="{'1': type == 'active'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            الشكاوى  </a>
+          </li>
+    
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section id="add-main-page" *ngIf="comps?.length != 0">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-12 position-relative">
+          <table class="table table-striped mt-5">
+              <thead>
+                <tr>
+                  <th scope="col">  رقم </th>
+                  <th scope="col">
+                      <ng-container  *ngIf="type==1">اسم المقترح</ng-container>
+                      <ng-container  *ngIf="type==2">اسم الشكوى</ng-container>
+
+                    </th>
+                  <th scope="col"> الوصف </th>
+                  <!-- <th scope="col"> حذف  </th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let comp of comps;let i=index">
+                  <th scope="col"> {{i+1}} </th>
+                  <td>{{comp.title}}</td>
+                  <td> {{comp.description}}</td>
+                  <!-- <td>
+                 
+                    <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="compDetails(comp)"></i>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+      </div>
+  </div>
+  </div>
+</section>

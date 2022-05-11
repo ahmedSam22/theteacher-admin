@@ -8,15 +8,21 @@ import { AuthGuard } from './guards/auth.guard';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { CategoryModule } from './components/category/category.module';
 import { OrdersModule } from './components/orders/orders.module';
-import { ProviderModule } from './components/provider/provider.module';
+import { ProviderModule } from './components/brands/provider.module';
 import { CountryModule } from './components/country/country.module';
 import { CityModule } from './components/city/city.module';
 import { SubcategoriesModule } from './components/subcategories/subcategories.module';
-import { ProductsModule } from './components/products/products.module';
-import { ColorsModule } from './components/colors/colors.module';
-import { SizesModule } from './components/sizes/sizes.module';
-import { OccasionsModule } from './components/occasions/occasions.module';
-
+import { ProductsModule } from './components/car_models/products.module';
+import { BannersModule } from './components/banners/banners.module';
+import { SizesModule } from './components/complaints/sizes.module';
+import { OccasionsModule } from './components/yearofcreation/occasions.module';
+import { TagsModule } from './components/questions/tags.module';
+import { MaintainersModule } from './components/maintainers/maintainers.module';
+import { DeliveryModule } from './components/deliveries/deliveries.module';
+import {ColorsModule} from './components/colors/colors.module';
+import {TermsModule} from './components/terms-and-conditions/terms.module'
+import { TaxesModule } from './components/taxes/taxes.module';
+import { PricesModule } from './components/prices/prices.modules';
 const routes: Routes = [
   {path:'',component:LoginComponent},
   {path:'auth/login',component:LoginComponent},
@@ -25,7 +31,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: DashboardLayoutComponent,
     children: [
-      // {path:'',component:HomeComponent, data: { title: 'الصفحة الرئيسية' }},
       {path:'home',component:HomeComponent, data: { title: 'الصفحة الرئيسية' }},
     ]
   },
@@ -35,16 +40,25 @@ const routes: Routes = [
     component: DashboardLayoutComponent,
     children: [
       {path:'users',loadChildren:()=>UsersModule},
-      {path:'providers',loadChildren:()=>ProviderModule},
+      {path:'maintainer',loadChildren:()=>MaintainersModule},
+      {path:'deliveries',loadChildren:()=>DeliveryModule},
+      {path:'brands',loadChildren:()=>ProviderModule},
       {path:'orders',loadChildren:()=>OrdersModule},
       {path:'country',loadChildren:()=>CountryModule},
       {path:'city',loadChildren:()=>CityModule},
-      {path:'category',loadChildren:()=>CategoryModule},
+      {path:'services',loadChildren:()=>CategoryModule},
       {path:'sub',loadChildren:()=>SubcategoriesModule},
-      {path:'products',loadChildren:()=>ProductsModule},
+      {path:'car-models',loadChildren:()=>ProductsModule},
+      {path:'banners',loadChildren:()=>BannersModule},
+      {path:'complaints',loadChildren:()=>SizesModule},
+      {path:'yearofcreation',loadChildren:()=>OccasionsModule},
+      {path:'question',loadChildren:()=>TagsModule},
       {path:'colors',loadChildren:()=>ColorsModule},
-      {path:'sizes',loadChildren:()=>SizesModule},
-      {path:'occasions',loadChildren:()=>OccasionsModule},
+      {path:'terms',loadChildren:()=>TermsModule},
+      {path:'taxes',loadChildren:()=>TaxesModule},
+      {path:'prices',loadChildren:()=>PricesModule},
+      
+      
     ]
   },
   {

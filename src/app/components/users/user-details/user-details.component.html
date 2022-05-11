@@ -13,29 +13,38 @@
             <tbody>
                 <tr>
                 <th scope="row">الاسم</th>
-                    <td>{{data.name}}</td>
+                    <td *ngIf="data?.client?.first_name || data?.client?.last_name">{{data?.client?.first_name}} {{data?.client?.last_name}}</td>
+                    <td *ngIf="!data?.client?.first_name || !data?.client?.last_name">لا يوجد اسم</td>
+
                 </tr>
                 <tr>
                 <th scope="row">الايميل </th>
-                    <td>{{data.email}}</td>
+                    <td *ngIf="data.email" >{{data?.email}}</td>
+                    <td *ngIf="!data.email" >لا يوجد ايميل</td>
+
                 </tr>
                 <tr>
                 <th scope="row"> الهاتف</th>
-                    <td>{{data.phone}}</td>
+                    <td *ngIf="data.phone">{{data?.phone}}</td>
+                    <td *ngIf="!data.phone">لا يوجد رقم هاتف</td>
+
                 </tr>
                 <tr>
-                <th scope="row"> العنوان  </th>
-                    <td *ngIf="data?.default_address?.area">{{data?.default_address?.area}}</td>
-                    <td *ngIf="!data?.default_address?.area" class="text-danger"> لم يتم إضافة عنوان بعد</td>
+                <th scope="row"> المدينة  </th>
+                    <td *ngIf="data?.client?.city">{{data?.client?.city}}</td>
+                    <td *ngIf="!data?.client?.city" class="text-danger"> لم يتم إضافة مدينة بعد</td>
                 </tr>
 
                 <!-- status of the user  -->
 
-                    <!-- <tr *ngIf="data.active==0">
+                    <tr *ngIf="data.active==0">
                         <th scope="row" > الحالة  </th>
-                        <td><span class="badge badge-warning">مٌعلق</span></td>
+                        <td>
+                            <span *ngIf="data?.type===0" class="badge badge-warning">مٌعلق</span>
+                            <span *ngIf="data?.type===1" class="badge badge-success">مُفعل</span>
+                        </td>
                         </tr>
-                    <tr> -->
+                    <tr>
     
                     <tr *ngIf="data.active==1">
                         <th scope="row" > الحالة  </th>
@@ -50,19 +59,18 @@
                     <tr>
 
 
-                    <tr>
+                    <!-- <tr>
                         <th scope="row"> طلبات العميل</th>
                             <td>
                                 <a href="javascript:void(0)" (click)="userRelatedOrder(data.id)" >إضغط لعرض طلبات العميل</a>
                             </td>
                         </tr>
-                    <tr>    
+                    <tr>     -->
 
 
 
             </tbody>
             </table>
-            <!-- <button class="btn btn-danger mt-3 mb-3" (click)="closeCard()">حسناً</button> -->
             
 
         </div>

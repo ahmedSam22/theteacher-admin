@@ -1,0 +1,48 @@
+<h3 class="text-center">بيانات الخدمة الفرعيه  </h3> 
+ <br>
+<table class="table" dir="rtl">
+    <tbody>
+      
+      <tr>
+        <th scope="row">اسم الخدمة الفرعيه  </th>
+        <td>{{data?.name}}</td>
+      </tr>
+      
+      <tr *ngIf="data.values.length !== 0">
+        
+            <th >
+               الاسم 
+            </th>   
+            <th>
+                السعر
+
+            </th>
+            <th>
+              الاعدادات
+
+          </th>
+    
+        <!-- <th scope="row" > نوع الخدمات المتاحه</th>
+        <td>{{item?.name}}  </td> -->
+
+       
+      </tr>
+      <tr *ngFor="let item of data?.values">
+
+        <td>{{item?.name}}  </td>
+
+        <td>{{item?.price}}  </td>
+
+        <td>
+          <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deletex(item.id)"></i>
+
+        </td>
+      </tr>
+      <tr *ngIf="data.values.length == 0">
+
+     
+        <h2 class="pos">    لا يوجد بيانات</h2>
+      
+      </tr>
+    </tbody>
+  </table>

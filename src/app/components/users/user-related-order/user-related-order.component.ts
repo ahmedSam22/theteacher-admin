@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ProviderDetailsComponent } from '../../provider/provider-details/provider-details.component';
+import { ProviderDetailsComponent } from '../../brands/provider-details/provider-details.component';
 import { UserDetailsComponent } from '../../users/user-details/user-details.component';
 import { OrderDetailsComponent } from '../../orders/list/order-details/order-details.component';
 import { ActivatedRoute } from '@angular/router';
@@ -33,10 +33,10 @@ export class UserRelatedOrderComponent implements OnInit {
 
   filterOrdersByuserId(user_id){
     this.spinner.show()
-    this.service.filterOrdersByuserId(user_id).pipe(map(res=>res['data'])).subscribe(res=>{
-        this.spinner.hide()
-        this.orders=res
-      })
+    // this.service.filterOrdersByuserId(user_id).pipe(map(res=>res['data'])).subscribe(res=>{
+    //     this.spinner.hide()
+    //     this.orders=res
+    //   })
   }
   
   orderDetails(order){

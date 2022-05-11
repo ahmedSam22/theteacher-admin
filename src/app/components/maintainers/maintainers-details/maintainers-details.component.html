@@ -1,0 +1,76 @@
+<section id="category-details">
+    <div class="card">
+        <div class="card-details text-center">
+            <h3 class="text-center mt-3">بيانات العميل </h3> 
+
+            <div class="row justify-content-center mb-3 mt-5">
+                <div class="col-md-4">
+                    <img class="w-100" style="border-radius: 50%;" src="{{data.imagePath}}" onerror="this.src='assets/images/image-not-found.svg'" alt="" >
+                </div>
+            </div>
+
+            <table class="table" dir="rtl">
+            <tbody>
+                <tr>
+                <th scope="row">الاسم</th>
+                    <td>{{data.name?data.name:'لا يوجد اسم'}} </td>
+                  
+
+                </tr>
+                <tr>
+                <th scope="row">الايميل </th>
+                    <td>{{data.email ? data.email : 'لا يوجد ايميل'}}</td>
+                  
+
+                </tr>
+                <tr>
+                <th scope="row"> الهاتف</th>
+                <td >{{data.phone ? data.phone :'لا يوجد رقم هاتف'}}</td>
+
+
+                </tr>
+          
+
+                <!-- status of the user  -->
+
+                    <!-- <tr *ngIf="data.active==0">
+                        <th scope="row" > الحالة  </th>
+                        <td>
+                            <span *ngIf="data?.type===0" class="badge badge-warning">مٌعلق</span>
+                            <span *ngIf="data?.type===1" class="badge badge-success">مُفعل</span>
+                        </td>
+                        </tr> -->
+                    <tr>
+<!--     
+                    <tr *ngIf="data.active==1">
+                        <th scope="row" > الحالة  </th>
+                        <td><span class="badge badge-success">نشط</span></td>
+                        </tr>
+                    <tr> -->
+<!--                     
+                    <tr *ngIf="data.active==2">
+                        <th scope="row" > الحالة  </th>
+                        <td><span class="badge badge-danger">محظور</span></td>
+                        </tr>
+                    <tr> -->
+
+
+                    <!-- <tr>
+                        <th scope="row"> طلبات العميل</th>
+                            <td>
+                                <a href="javascript:void(0)" (click)="userRelatedOrder(data.id)" >إضغط لعرض طلبات العميل</a>
+                            </td>
+                        </tr>
+                    <tr>     -->
+
+
+
+            </tbody>
+            </table>
+            
+
+        </div>
+    </div>
+</section>
+
+

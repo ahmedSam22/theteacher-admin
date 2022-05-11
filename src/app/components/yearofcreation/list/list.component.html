@@ -1,0 +1,31 @@
+<section id="add-main-page">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-12 position-relative">
+            <table class="table table-striped mt-5">
+                <thead>
+                  <tr>
+                    <th scope="col">  رقم </th>
+                    <th scope="col"> سنة الصنع  </th>
+                     <th scope="col"> اعدادات  </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let year of years;let i=index">
+                    <th scope="col"> {{i+1}} </th>
+                    <td>{{year.year}}</td>
+                    
+                    <td>
+                      <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editYear(year)"></i> |
+                           <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteYear(year.id)"></i> 
+                               
+                      <!-- |
+                      <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="productDetails(product)"></i> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+    </div>
+  </section>

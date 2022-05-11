@@ -14,7 +14,7 @@ import { EditCategoryComponent } from '../edit-category/edit-category.component'
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
+  flag:boolean=false
   categories;
   baseUrl=environment.baseURL;
   constructor(private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
@@ -33,12 +33,13 @@ export class ListComponent implements OnInit {
     })
   }
   deleteApp(category_id){
+    console.log(category_id)
     this.spinner.show()
     this.service.deleteCategory(category_id).subscribe(res=>{
       this.spinner.hide()
       Swal.fire(
         'نجاح',
-        'تم حذف القسم بنجاح',
+        'تم حذف الخدمة بنجاح',
         'success'
         )
         this.categoryList()
@@ -47,7 +48,18 @@ export class ListComponent implements OnInit {
   editPackage(category){
     let dialogRef = this.dialog.open(EditCategoryComponent, {
       data:category,
-      height: '650px',
+      height: '600px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.categoryList()
+    });
+  }
+  viewCat(cat){
+    console.log(cat)
+    let dialogRef = this.dialog.open(CategoryDetailsComponent, {
+      data:cat,
+      height: '500px',
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {

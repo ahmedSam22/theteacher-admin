@@ -5,28 +5,28 @@
     <tr>
         <th scope="row">تفاصيل الطلب</th>
         <td>
-          {{data?.note}}
+          {{data.notes ? data?.notes : 'لا يوجد تفاصيل'}}
         </td>
     </tr>
     <tr>
         <th scope="row">سعر الطلب </th>
-        <td>{{data?.total_price}} ريال</td>
+        <td>{{data?.total}} ريال</td>
     </tr>
     <tr>
       <th scope="row">عنوان العميل </th>
-      <td>{{data?.user?.default_address?.area}}</td>
+      <td>{{data.user.client.city ? data.user.client.city :'لا يوجد عنوان'}}</td>
     </tr>
       <tr>
         <th scope="row">اسم مقدم الخدمة </th>
-        <td>{{data?.store?.user?.name}}</td>
+        <td>{{data?.maintaner?.name}}</td>
       </tr>
       <tr>
         <th scope="row">اسم العميل </th>
-        <td>{{data?.user?.name}}</td>
+        <td>{{data.user.name ? data.user.name : ' لا يوجد اسم '}}</td>
       </tr>
       <tr>
         <th scope="row">عنوان التوصيل </th>
-        <td>{{data?.address?.area}}</td>
+        <td>{{data?.address.address}}</td>
       </tr>
       <tr>
         <th scope="row">رقم جوال العميل </th>
@@ -34,16 +34,16 @@
       </tr>
       <tr>
         <th scope="row">تاريخ طلب الأوردر </th>
-        <td>{{data?.created_at | date: 'dd/MM/yyyy'}} </td>
+        <td>{{data.created_at? data.created_at  : 'لا يوجد'}} </td>
       </tr>
       <tr>
         <th scope="row">تاريخ استلام الأوردر </th>
-        <td>{{data?.delivery_date}}</td>
+        <td>{{data.updated_at ? data.created_at : 'لا يوجد'}}</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="container" *ngIf="data?.order_items?.length != 0">
+  <!-- <div class="container" *ngIf="data?.order_items?.length != 0">
     <hr>
     <p>المنتجات</p>
     <div class="row">
@@ -53,4 +53,4 @@
         </a>
       </div>
     </div>
-  </div>
+  </div> -->

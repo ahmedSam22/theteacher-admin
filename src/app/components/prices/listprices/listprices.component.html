@@ -1,0 +1,40 @@
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">وسيلة النقل </th>
+                            <th scope="col">إتجاة النقل </th>
+                            <th scope="col"> السعر</th>
+                            <th scope="col">إعدادات</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let p of prices;let i=index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>
+                                {{p.transfer_name}}
+                            </td>
+                           
+                            <td>
+                                {{p.transfer_type_name}}
+                            </td>
+                            <td>
+                                {{p.price}}
+                            </td>
+
+                            <td>
+                            <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editPrice(p.id)"></i> 
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

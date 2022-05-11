@@ -14,8 +14,7 @@ import { Router } from '@angular/router';
 export class AddComponent implements OnInit {
 
   form:FormGroup;
-  a=[2,8,3]
-  b=[4,2,5]
+
   countries;
   submitted=false;
   constructor(
@@ -27,37 +26,38 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.form=this.formbuilder.group({
-      country:['',Validators.required],
-      city:['',Validators.required],
+      
+       name_ar:['',Validators.required],
+       name_en:['',Validators.required],
     })
-    this.countryList()
+    // this.countryList()
   }
 
   get f(){return this.form.controls}
 
-  countryList(){
-    // this.spinner.show()
-    // this.service.allCountries().pipe(map(res=>res['data'])).subscribe(res=>{
-    //   this.spinner.hide()
-    //   console.log('res')
-    //   console.log(res)
-    //   this.countries=res
-    // })
-  }
+  // countryList(){
+  //   this.spinner.show()
+  //   this.service.allCities().pipe(map(res=>res['data'])).subscribe(res=>{
+  //     this.spinner.hide()
+  //     console.log('res')
+  //     console.log(res)
+  //     this.countries=res
+  //   })
+  // }
 
   submit(){
-  //   this.submitted=true;
-  //   if(this.form.invalid){ return}
-  //   this.spinner.show()
-  //   this.service.addCity(this.form.value).subscribe(res=>{
-  //     this.spinner.hide()
-  //     Swal.fire(
-  //       'نجااااح',
-  //       'تم إضافة الدولة  بنجاح',
-  //       'success'
-  //       )
-  //       this.router.navigate(['/app/city/list'])
-  //   })
+    this.submitted=true;
+    if(this.form.invalid){ return}
+    this.spinner.show()
+    this.service.addCity(this.form.value).subscribe(res=>{
+      this.spinner.hide()
+      Swal.fire(
+        'نجااااح',
+        'تم إضافة المدينة  بنجاح',
+        'success'
+        )
+        this.router.navigate(['/app/city/list'])
+    })
   }
 
 }

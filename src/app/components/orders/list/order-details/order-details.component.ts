@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductDetailsComponent } from 'src/app/components/products/product-details/product-details.component';
+import { ProductDetailsComponent } from 'src/app/components/car_models/product-details/product-details.component';
 
 @Component({
   selector: 'app-order-details',

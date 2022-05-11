@@ -4,22 +4,22 @@
             <div class="col-md-12">
                 <div class="card-body">
                     <form [formGroup]="form" (ngSubmit)="submit()">
+                 
                         <div class="form-group">
-                            <label for="">اختر الدولة </label>
-                            <select class="form-control" formControlName="country">
-                                <option [value]="country.id" *ngFor="let country of countries">{{country.name}}</option>
-                            </select>
-                            <p class="text-danger mt-2" *ngIf="f.country.errors && submitted">
+                            <label for="">اسم المدينة بالعربي</label>
+                            <input type="text" class="form-control" formControlName="name_ar">
+                            <p class="text-danger mt-2" *ngIf="f.name_ar.errors && submitted">
                                 هذا الحقل مطلوب
                             </p>
                         </div>
                         <div class="form-group">
-                            <label for="">اسم المدينة</label>
-                            <input type="text" class="form-control" formControlName="city">
-                            <p class="text-danger mt-2" *ngIf="f.city.errors && submitted">
+                            <label for="">اسم المدينة بالإنجليزي</label>
+                            <input type="text" class="form-control" formControlName="name_en">
+                            <p class="text-danger mt-2" *ngIf="f.name_en.errors && submitted">
                                 هذا الحقل مطلوب
                             </p>
                         </div>
+                        
                         <div class="form-group text-center mt-5">
                             <button class="btn btn-primary" type="submit">إضافة المدينة</button>
                         </div>

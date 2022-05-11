@@ -1,0 +1,30 @@
+
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <form [formGroup]="myform" (ngSubmit)="submit()">
+                        <!-- <input type="file" (change)="onSelect($event)">  -->
+                       <div class="form-group">
+                            <button class="btn btn-primary btn-lg" style="display:block; " onclick="document.getElementById('getTermsFile').click()" >ملف الشروط و الأحكام  
+                            </button>
+                             <input type='file' id="getTermsFile" style="display:none" class="form-control" formControlName="terms" (change)="termsChange($event)">  
+                        </div>
+                       
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg" style="display:block; " onclick="document.getElementById('getResponseFile').click()">ملف شروط إخلاء المسؤولية
+                            </button>
+ 
+                             <input type='file' id="getResponseFile" style="display:none" class="form-control" formControlName="responsible" (change)="reponsibilityChange($event)">  
+                        </div> 
+                      
+                        <div class="form-group text-center mt-5">
+                            <button class="btn btn-primary " type="submit">إضافة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

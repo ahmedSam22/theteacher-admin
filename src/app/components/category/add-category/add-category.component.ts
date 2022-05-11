@@ -11,8 +11,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent implements OnInit {
-
+  dropdownList = [];
+  dropdownSettings = {};
   form:FormGroup;
+  brands;
+  selectedItems: any[];
+  brandType ;
+  showBrand=false; 
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -21,9 +26,25 @@ export class AddCategoryComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.showBrand=false
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'اختيار الكل ',
+      unSelectAllText: 'الغاء الاختيار',
+      itemsShowLimit: 10,
+      allowSearchFilter: false
+    };
     this.form=this.formbuilder.group({
       name_ar:['',Validators.required],
       name_en:['',Validators.required],
+    })
+    this.service.getBrands().subscribe(res=>{
+      this.brands = res['data'];
+      this.dropdownList = this.brands
+      console.log(this.dropdownList)
+
     })
   }
 
@@ -40,22 +61,45 @@ onRemove(event) {
   console.log(event);
   this.files.splice(this.files.indexOf(event), 1);
 }
-
+onItemSelect(item: any) {
+ 
+}
+onSelectAll(items: any) {
+ 
+}
+onChangeBrand(event){
+ 
+  this.brandType=event;
+  console.log("Brand Type",this.brandType)
+  if(this.brandType==0){
+    this.showBrand=false
+  }
+  else{
+    this.showBrand=true
+  }
+}
   submit(){
     console.log('Form Work')
+    console.log(this.form.value)
+    console.log(this.selectedItems)
     this.spinner.show()
-    let form={
-      ...this.form.value,
-      image:this.files[0]
+    let f={
+      name_ar:this.form.value.name_ar,
+      image:this.files[0],
+      affect_brand:this.brandType,
+      brands:this.selectedItems,
+      name_en:this.form.value.name_en,
     }
-    this.service.addCategory(form).subscribe(res=>{
+    console.log('the sended form is ',f)
+    this.service.addCategory(f).subscribe(res=>{
+      console.log(res)
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم إضافة الفئة بنجاح',
+        'تم إضافة الخدمة بنجاح',
         'success'
       )
-      this.router.navigate(['/app/category/list'])
+      this.router.navigate(['/app/services/list'])
     })
   }
 

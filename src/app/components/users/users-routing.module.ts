@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'clients',component:ClientsComponent},
   {path:'stores',component:StoresComponent},
   {path:'delivery',component:DeliveryComponent},
-  {path:'list',component:ListComponent},
+  {path:'list',component:ListComponent ,data:{title:'قائمة المستخدمين '} },
   {path:'user-orders/:user-id',component:UserRelatedOrderComponent,data:{title:'الطلبات الخاصة بالعميل'}},
 ];
 

@@ -14,11 +14,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./edit-subcategory.component.scss']
 })
 export class EditSubcategoryComponent implements OnInit {
-
+  typeval;
   form:FormGroup;
   categories;
   image_edit=false;
   baseUrl=environment.baseURL;
+  selectedOpt ;
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -28,60 +29,53 @@ export class EditSubcategoryComponent implements OnInit {
     ) { 
       this.categoryList()
     }
-
+    changeType(e){
+      this.typeval=e;
+    //  this.form.value.type=this.typeval;
+      console.log("type",this.typeval)
+    }
   ngOnInit(): void {
+    this.selectedOpt=this.data.type;
+    console.log(this.data);
     this.form=this.formbuilder.group({
-      name_ar:[this.data.name_ar,Validators.required],
       name_en:[this.data.name_en,Validators.required],
-      category_id:[this.data.category_id,Validators.required],
+      name_ar:[this.data.name_ar,Validators.required],
+      main_specialist_id:[this.data.main_specialist_id,Validators.required],
+      type:[this.data.type , Validators.required]
     })
-    console.log(this.data)
   }
-
-  files: File[] = [];
 
   categoryList(){
     this.spinner.show()
     this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
     this.spinner.hide()
-    console.log('res')
-      console.log(res)
+    console.log(res)
       this.categories=res
     })
   }
-  onSelect(event) {
-    console.log(event.addedFiles[0]);
-    this.files=[]
-    this.files.push(...event.addedFiles);
-  }
+ 
+  closecard(){
+    this.dialog.closeAll()
 
-  onRemove(event) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
   }
-
   submit(){
     console.log('Form Work')
     this.spinner.show()
-    let form={
-      ...this.form.value,
-      image:this.files[0],
-      subcategory_id:this.data.id
-    }
-    this.service.editSubCategory(form).subscribe(res=>{
+     
+    this.service.editSubCategory({...this.form.value,secondary_specialist_id:this.data.id
+    }).subscribe(res=>{
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم تعديل الفئة بنجاح',
+        'تم تعديل الخدمة بنجاح',
         'success'
       )
       this.dialog.closeAll()
-      this.router.navigate(['/app/sub/list'])
+      this.router.navigate(['/app/sub/list']);
+
+      console.log("resssssssss" , res)
     })
   }
 
-  Hi(){
-    console.log('dsjbhfsdjhgdjshg')
-  }
 
 }
