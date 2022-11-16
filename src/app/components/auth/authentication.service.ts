@@ -21,10 +21,10 @@ export class AuthenticationService {
   }
   login(form){
     const formData: FormData = new FormData();
-    formData.append("email", form.phone);
+    formData.append("email", form.email);
     formData.append("password", form.password);
     // new Response(formData).text().then(console.log)
-    return this.http.post(`${environment.endpoint}/login`, formData)
+    return this.http.post(`${environment.endpoint}/admin/login`, formData)
     .pipe( map((user:any) => {
       console.log('userrrrrrrr')
       console.log(user)

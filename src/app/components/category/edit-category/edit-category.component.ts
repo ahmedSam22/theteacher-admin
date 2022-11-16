@@ -5,7 +5,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+// import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-edit-category',
@@ -23,6 +23,7 @@ export class EditCategoryComponent implements OnInit {
   arr=[];
   showTypes=false;
   changType;
+  ch=false;
   @ViewChild('multiSelect') multiSelect;
   constructor(
     private formbuilder:FormBuilder,
@@ -34,36 +35,13 @@ export class EditCategoryComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.showTypes=false ;
-    console.log("dattttttttttttta" , this.data.brands)
-    this.selectedItems=this.data.brands
-    for(let i=0 ; i<this.selectedItems.length ; i++){
-       
-      this.arr.push(this.selectedItems[i].id);
-      
-    }
-    console.log("ssssssss",this.arr)
+    console.log("ssssssss",this.data)
      
     this.form=this.formbuilder.group({
-      name_ar:[this.data.name_ar,Validators.required],
-      name_en:[this.data.name_en,Validators.required],
-      affect_brand:[this.data.affect_brand,Validators.required],
-      brands:[this.data.brands,Validators.required],
-     
-    })
-     console.log("asdasdaSDAsdasasdaSD",this.form.value.brands);
-    // this.form.value.brands.push(this.arr);
-    this.service.getBrands().subscribe(res=>{
-      this.brands = res['data'];
-      this.dropdownList = this.brands
-    })
- 
-    if(this.data.affect_brand==0 ){
-      this.showTypes=false ;
-    }
-   else {
-    this.showTypes=true ;
-   }
+      name:[this.data.name,Validators.required],
+      category_id:[this.data.id,Validators.required],
+      })
+  
   }
 
   files: File[] = [];
@@ -79,43 +57,45 @@ onRemove(event) {
   console.log(event);
   this.files.splice(this.files.indexOf(event), 1);
 }
-onItemSelect(event){
 
-}
-onSelectAll(events){
+// onItemSelect(event){
 
-}
-onChangeBrand(e){
-  this.changType=e ;
-  if(this.changType==0){
-    this.showTypes=false ;
-  }
-  else {
-    this.showTypes=true ;
-  }
-}
+// }
+// onSelectAll(events){
+
+// }
+
+// onChangeBrand(e){
+//   this.changType=e ;
+//   if(this.changType==0){
+//     this.showTypes=false ;
+//   }
+//   else {
+//     this.showTypes=true ;
+//   }
+// }
+// onChangeSpecialist(e){
+//   this.selectedItems=e.value
+//   console.log("CDDDDDD",this.selectedItems)
+//   this.ch=true
+// }
   submit(){
-   
+   let form= {
+     ...this.form.value , 
+     image:this.files[0] || null
+   }
     this.spinner.show()
-    console.log('Form Work')
-      console.log(this.files[0])
-    let form={
-      ...this.form.value,
-     // image:this.files[0],
-      main_specialist_id:this.data.id,
-     
-    }
-    console.log('submitting the form', form)
+    
     this.service.editCategory(form).subscribe(res=>{
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم تعديل الخدمة بنجاح',
+        'تم تعديل القسم الرئيسي بنجاح',
         'success'
       )
-      // this.router.navigate(['/app/category/list'])
+      this.router.navigate(['/app/services/list'])
       this.dialog.closeAll()
-      console.log("cattttttttttttttt", res)
+   
     })
   }
 

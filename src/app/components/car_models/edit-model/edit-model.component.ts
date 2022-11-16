@@ -26,37 +26,26 @@ export class EditModelComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
+    console.log("mmmm",this.data);
     this.form = this.formbuilder.group({
-      // name:[this.data.name, Validators.required],
-      name_ar:[this.data.name_ar, Validators.required],
-      name_en:[this.data.name_en, Validators.required],
-      brand_id:[this.data.brand_id, Validators.required],
+      name:[this.data.name, Validators.required],
+      model_id:[this.data.id, Validators.required],
     });
+
     this.service.getBrands().subscribe(res=>{
       this.brands = res['data'];
     })
   }
 
   onSubmit(){
-    // let formn = {
-    //   name: this.form.value.name,
-    //   brand_id: this.form.value.brand_id,
-    //   type_id: this.data.id
-    // }
-    let formn = {
-      name_ar: this.form.value.name_ar,
-      name_en: this.form.value.name_en,
-      brand_id: this.form.value.brand_id,
-      type_id: this.data.id
-    }
+     console.log("dsadas",this.form.value)
     this.spinner.show();
-    this.service.updateModel(formn).subscribe(res=>{
-      console.log(res)
+    this.service.editModels(this.form.value).subscribe(res=>{
+      console.log("resssss",res)
       this.spinner.hide();
       Swal.fire(
         'نجاح',
-        'تم إضافة الموديل بنجاح',
+        'تم تعديل الموديل بنجاح',
         'success'
       )
       this.dialog.closeAll();

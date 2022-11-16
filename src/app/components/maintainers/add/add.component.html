@@ -9,6 +9,22 @@
                              <div id="map"></div>
                            </div>
                         </div>  <br>
+                        <div class="row">  
+                        <div class="form-group col-6 p-2 " style="margin:15px 0px ">
+                            <label for="">البراند</label>
+                            <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList"
+                               [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}"
+                               (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                            </ng-multiselect-dropdown>
+                         </div>
+                         <div class="form-group col-6 p-2 " style="margin:15px 0px " *ngIf="showMainSpecialist">
+                            <label for="">الخدمة الرئيسية </label>
+                            <ng-multiselect-dropdown [settings]="dropdownSettings2" [data]="dropdownList2"
+                               [(ngModel)]="selectedItems2" [ngModelOptions]="{standalone: true}"
+                               (onSelect)="onItemSelect2($event)" (onSelectAll)="onSelectAll2($event)">
+                            </ng-multiselect-dropdown>
+                         </div>
+                        </div>
                         <div class="form-group">
                             <label for="">اسم الوكالة</label>
                             <input type="text" class="form-control" formControlName="name">
@@ -35,7 +51,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">نبذة عن الوكالة</label>
-                            <textarea type="text" class="form-control" formControlName="info"> </textarea>
+                            <textarea type="text" class="form-control" formControlName="description"> </textarea>
                         </div>
                         <div class="form-group">
                             <label for="">الصورة</label>
@@ -45,13 +61,7 @@
                                 </ngx-dropzone-image-preview>
                             </ngx-dropzone>
                         </div>
-                        <!-- <div class="Map">  
-                          
-                                    <div class="col-md-12" > 
-                                        <div id="map"></div>
-                                    </div>
-                            
-                        </div> -->
+                       
                         <div class="form-group text-center mt-5">
                             <button class="btn btn-primary" type="button" (click)="submit()">إضافة مسؤول صيانة </button>
                         </div>

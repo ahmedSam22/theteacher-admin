@@ -14,9 +14,9 @@
                 <div class="form-group text-left">
                   <label class="col-form-label ">البريد الالكتروني</label>
                   <!-- placeholder="+966 (5) XXX-XXXXX" -->
-                  <input class="form-control " dir="ltr" type="email" required=""  placeholder="example@gmail.com" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
-                  <div *ngIf="submitted && f.phone.errors" class="errors-container mt-2">
-                    <p class="error-element" *ngIf="f.phone.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                  <input class="form-control " dir="ltr" type="email" required=""  placeholder="example@gmail.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                  <div *ngIf="submitted && f.email.errors" class="errors-container mt-2">
+                    <p class="error-element" *ngIf="f.email.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
                  </div>
                 </div>
                 <div class="form-group">

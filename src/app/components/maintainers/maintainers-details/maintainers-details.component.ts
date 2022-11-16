@@ -8,12 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./maintainers-details.component.scss']
 })
 export class MaintainersDetailsComponent implements OnInit {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {user: any},private router:Router,private dialog:MatDialog) { }
+  brands = []
+  specialists =[]
+  info;
+  constructor(@Inject(MAT_DIALOG_DATA) public data:{user},private router:Router,private dialog:MatDialog) { }
 
   ngOnInit(): void {
     console.log('user')
-    console.log(this.data)
+    this.info=this.data
+    console.log("user",this.info)
+
+    this.brands=this.info.maintainer.brands;
+    console.log("BBBBBB", this.brands)
+
+    this.specialists=this.info.maintainer.specialists;
+    console.log("BBBBBB", this.specialists)
   }
 
 }

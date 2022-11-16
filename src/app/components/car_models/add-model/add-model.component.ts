@@ -25,21 +25,19 @@ export class AddModelComponent implements OnInit {
     ) { }
   ngOnInit(): void {
     this.form=this.formbuilder.group({
-      name_ar:['',Validators.required],
-      name_en:['',Validators.required],
+      name :['',Validators.required],
       brand_id:['',Validators.required],
     });
+
     this.service.getBrands().subscribe(res=>{
       this.brands = res['data'];
     });
     
   }
   onSubmit(){
-   // console.log('Form Work');
-    //console.log(this.brands);
-   // console.log(this.form.value)
+  
     this.spinner.show();
-    this.service.addModel(this.form.value).subscribe(res=>{
+    this.service.addModels(this.form.value).subscribe(res=>{
       console.log("services:",res)
     this.spinner.hide()
     Swal.fire(

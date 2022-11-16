@@ -9,6 +9,27 @@
                              <div id="map"></div>
                            </div>
                         </div>  <br>
+                        <div class="row">  
+                            <!-- formControlName="brands" -->
+                            <mat-form-field>
+                                <mat-label> البراندات</mat-label> <br> 
+                                <mat-select   multiple (selectionChange)="onChange($event)"  >
+                                  <mat-option *ngFor="let brand of dropdownList" [value]="brand">
+                                    {{brand.name_ar}}
+                                  </mat-option>
+                                </mat-select>
+                             </mat-form-field>
+                             <!-- formControlName="specialists" -->
+                             <mat-form-field *ngIf="showMainSpecialist">
+                                <mat-label> الخدمات الرئيسية</mat-label> <br> 
+                                <mat-select   multiple  (selectionChange)="onChangeSpecialist($event)">
+                                  <mat-option *ngFor="let special of dropdownList2" [value]="special">
+                                    {{special.name}}
+                                  </mat-option>
+                                </mat-select>
+                             </mat-form-field>
+
+                        </div>
                         <div class="form-group">
                             <label for="">اسم الوكالة</label>
                             <input type="text" class="form-control" formControlName="name">
@@ -21,29 +42,39 @@
                             <label for="">رقم الهاتف</label>
                             <input type="text" class="form-control" formControlName="phone">
                         </div>
-                        <div class="form-group">
-                            <label for="">الرقم السري</label>
-                            <input type="password" class="form-control" formControlName="password">
-                        </div>
-                        <div class="form-group">
-                            <label for=""> تأكيد الرقم السري</label>
-                            <input type="password" class="form-control" formControlName="confirm_password">
-                        </div>
+                       
                         <div class="form-group">
                             <label for=""> لينك الموقع</label>
                             <input type="url" class="form-control" formControlName="link">
                         </div>
                         <div class="form-group">
                             <label for="">نبذة عن الوكالة</label>
-                            <textarea type="text" class="form-control" formControlName="info"> </textarea>
+                            <textarea type="text" class="form-control" formControlName="description"> </textarea>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="">الصورة</label>
                             <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
                                 <ngx-dropzone-label>أضغط هنا لإختيار صورة الوكالة</ngx-dropzone-label>
                                 <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f" >
                                 </ngx-dropzone-image-preview>
                             </ngx-dropzone>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="">صورة الخدمة </label>
+                            <ng-container *ngIf="image_edit">
+                                <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
+                                    <ngx-dropzone-label>أضغط هنا لإختيار صورة القسم</ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f" >
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </ngx-dropzone>
+                            </ng-container>
+                            <div class="text-center" *ngIf="!image_edit">
+                                <div style="position: relative;">
+                                    <i style="cursor: pointer;    cursor: pointer;position: absolute;top: 3px;" class="fas fa-edit text-primary" (click)="image_edit=!image_edit"></i> 
+                                    <img style="width: 150px;height: 150px;" src="{{data.imagePath}}" alt="">
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="form-group text-center mt-5">

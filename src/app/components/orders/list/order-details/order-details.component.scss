@@ -1,6 +1,22 @@
 table{
-    th,td{
+    th{
+        text-align: center;
+        vertical-align: middle;
+        background-color: #d2ceef;
+    }
+    td{
         text-align: center;
         vertical-align: middle;
     }
+    h4 {
+        font-weight: bold;
+       
+    }
+    
 }
+
+mark{
+    background-color: #fff1f9;
+    background-color:#eef5eb;
+}
+ 

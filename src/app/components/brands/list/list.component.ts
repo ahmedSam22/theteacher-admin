@@ -16,8 +16,9 @@ import { ProviderDetailsComponent } from '../provider-details/provider-details.c
 export class ListComponent implements OnInit {
 
   type=0;
+  brands
   public selectedRole = this.route.snapshot.paramMap.get('role');
- brands
+ 
   constructor( 
     public route: ActivatedRoute,
     private spinner:NgxSpinnerService,
@@ -30,7 +31,7 @@ export class ListComponent implements OnInit {
   getbrands(){
     this.spinner.show()
     this.service.getBrands().pipe(map(res=>res['data'])).subscribe((response:any)=>{
-      console.log(response)
+      console.log("All brands", response)
       this.brands = response
     this.spinner.hide()
     })
@@ -50,6 +51,7 @@ export class ListComponent implements OnInit {
       this.getbrands()
     });
   }
+
   deleteBrand(brand_id){
     this.spinner.show()
     this.service.deleteBrand(brand_id).subscribe(res=>{
@@ -62,4 +64,5 @@ export class ListComponent implements OnInit {
             this.getbrands()
           })
   }
+
 }

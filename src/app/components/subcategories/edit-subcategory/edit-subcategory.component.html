@@ -4,38 +4,15 @@
             <div class="col-md-12">
                 <div class="card-body">
                     <form [formGroup]="form">
+                       
                         <div class="form-group">
-                            <label for=""> اختيار قسم رئيسي  </label>
-                            <select class="form-control p-1" formControlName="main_specialist_id">
-                                <option [value]="category.id" *ngFor="let category of categories">{{category.name}}  </option>
-                            </select>
-                        </div>
-                        <div class="form-group ">
-                            <label for="">اختيار نوع القائمة </label>
-                            <select class="form-control p-1" formControlName="type" id="typeselect" (change)="changeType($event.target.value)"  >
-                                <option value="{{selectedOpt}}" disabled style="background-color:rgb(218, 218, 218)"> {{selectedOpt}} </option>
-                                <option value="sigle"> اختيار واحد </option>
-                                <option value="multi"> اختيارات متعددة </option>
-                                <option value="list"> قائمة اختيارات </option>
-                            </select>
+                            <label for="">اسم القسم الفرعي </label>
+                            <input type="text" class="form-control" formControlName="name">
                         </div>
                         
-                        <div class="form-group">
-                            <label for="">اسم الخدمة الفرعية بالعربي</label>
-                            <input type="text" class="form-control" formControlName="name_ar">
-                        </div>
-                        <div class="form-group">
-                            <label for="">اسم الخدمة الفرعية بالإنجليزي</label>
-                            <input type="text" class="form-control" formControlName="name_en">
-                        </div>
-                 
                         <div class="form-group text-center mt-5">
-                            <button class="btn btn-primary" type="button" (click)="submit()">تعديل الخدمة الفرعيه </button> &nbsp;
-                                 <!-- <button type="submit" (click)="closecard()"  class="btn btn-warning" routerLink='/app/sub/add-values/{{data.id}}' >اضافة بنود خدمة فرعيه</button>  -->
-
-                                 <button type="submit" (click)="closecard()"  class="btn btn-warning" routerLink='/app/sub/add-values/{{data.id}}' > اضافة بنود خدمة فرعيه</button> 
-
-                        </div>
+                            <button class="btn btn-primary" type="button" (click)="submit()">تعديل القسم الفرعي </button> 
+                         </div>
                     </form>
                 </div>
             </div>

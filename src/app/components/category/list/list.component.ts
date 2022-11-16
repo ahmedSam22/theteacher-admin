@@ -39,7 +39,7 @@ export class ListComponent implements OnInit {
       this.spinner.hide()
       Swal.fire(
         'نجاح',
-        'تم حذف الخدمة بنجاح',
+        'تم حذف القسم الرئيسي بنجاح',
         'success'
         )
         this.categoryList()

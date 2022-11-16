@@ -26,8 +26,8 @@ export class EditComponent implements OnInit {
     console.log("hello");
     console.log( this.data );
     this.form=this.formbuilder.group({
-      year:[this.data.year,Validators.required],
-      year_id:[this.data.id,Validators.required],
+      date:[this.data.date,Validators.required],
+      manufacture_date_id:[this.data.id,Validators.required],
     })
     
   }
@@ -35,11 +35,7 @@ export class EditComponent implements OnInit {
 
   submit(){
     this.spinner.show()
-    let form={
-      ...this.form.value,
-    }
-    console.log('submitting the form', form)
-    this.service.editYear(form).subscribe(res=>{
+    this.service.editYear(this.form.value).subscribe(res=>{
     this.spinner.hide()
     Swal.fire(
         'نجاح',

@@ -7,31 +7,21 @@
                         <div class="form-row">
                             <div class="form-group col-6">
                                 <label for=""> اختيار قسم رئيسي  </label>
-                                <select class="form-control p-1" formControlName="main_specialist_id">
-                                    <option [value]="category.id" *ngFor="let category of categories">{{category.name}}  </option>
+                                <select class="form-control p-1" formControlName="category_id">
+                                    <option [value]="category.id" *ngFor="let category of categories">{{category.name}} </option>
                                 </select>
                             </div>
+                       
                             <div class="form-group col-6">
-                                <label for="">اختيار نوع القائمة </label>
-                                <select class="form-control p-1" formControlName="type"  (change)="changeType($event.target.value)">
-                                    <option value="single"> اختيار واحد </option>
-                                    <option value="multi"> اختيارات متعددة </option>
-                                    <option value="list"> قائمة اختيارات </option>
-                                </select>
+                                <label for="">اسم القسم الفرعي </label>
+                                <input type="text" class="form-control" formControlName="name">
                             </div>
-                            <div class="form-group col-6">
-                                <label for="">اسم الخدمة الفرعية بالعربي</label>
-                                <input type="text" class="form-control" formControlName="name_ar">
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="">اسم الخدمة الفرعية بالإنجليزي</label>
-                                <input type="text" class="form-control" formControlName="name_en">
-                            </div>
+                            
                         </div>
                  
                
                         <div class="form-group text-center mt-5">
-                            <button class="btn btn-primary" type="button" (click)="submit()">إضافة خدمة فرعية</button>
+                            <button class="btn btn-primary" type="button" (click)="submit()">إضافة قسم فرعي</button>
                         </div>
                     </form>
                 </div>

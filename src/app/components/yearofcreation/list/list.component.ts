@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
     constructor(
     private dialog:MatDialog,
     private spinner:NgxSpinnerService,
-    private globalService:GlobalService
+    private service:GlobalService
     ) { }
 
   ngOnInit(): void {
@@ -26,18 +26,18 @@ export class ListComponent implements OnInit {
 
   allYears(){
     this.spinner.show()
-    this.globalService.allYears().subscribe(res=>{
-      this.spinner.hide()
-      this.years=res['data']
-      console.log(this.years)
-    })
+    // this.service.allYears().subscribe(res=>{
+    //   this.spinner.hide()
+    //   this.years=res['data']
+    //   console.log(this.years)
+    // })
     
   
-    // this.globalService.allYears().pipe(map(res=>res['data'])).subscribe(res=>{
-    //   this.spinner.hide()
-    //   this.years=res
-    //   console.log(res)
-    // })
+    this.service.allYears().pipe(map(res=>res['data'])).subscribe(res=>{
+      this.spinner.hide()
+      this.years=res
+      console.log("yeeeeeeeeeeeers",this.years)
+    })
   }
   editYear(year){
   
@@ -52,7 +52,7 @@ export class ListComponent implements OnInit {
   }
   deleteYear(year_id){
     this.spinner.show()
-    this.globalService.deleteYear(year_id).subscribe(res=>{
+    this.service.deleteYear(year_id).subscribe(res=>{
       this.spinner.hide()
       Swal.fire(
               'نجاح',

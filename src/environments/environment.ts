@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  endpoint:'https://Pomac.info/outler/public/api/backend',
+  endpoint:'https://scar-new-backend.scarksa.com/public/api',
   baseURL:'https://Pomac.info/outler/public',
-  currentUserKey:'outleradmin',
+  currentUserKey:'scaradmin',
 };

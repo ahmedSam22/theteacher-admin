@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  endpoint:'https://pomac.info/satahat/public/api/backend',
+  endpoint:'https://scar-new-backend.scarksa.com/public/api',
   baseURL:'https://pomac.info/satahat/public',
-  currentUserKey:'Sathatadmin',
+  currentUserKey:'scaradmin',
 };

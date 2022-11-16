@@ -22,11 +22,11 @@ export class ListComponent implements OnInit {
 
   compList(type){
     this.spinner.show()
-    this.globalService.getComp(type).pipe(map(res=>res['data'])).subscribe(res=>{
-      this.spinner.hide()
-      this.comps=res.data
-      console.log(res.data)
-    })
+    // this.globalService.getComp(type).pipe(map(res=>res['data'])).subscribe(res=>{
+    //   this.spinner.hide()
+    //   this.comps=res.data
+    //   console.log(res.data)
+    // })
   }
 
   compDetails(comp){

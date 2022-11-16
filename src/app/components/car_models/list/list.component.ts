@@ -16,69 +16,62 @@ export class ListComponent implements OnInit {
 
   models = [];
   brands = [];
-
-  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private globalService: GlobalService) { }
+  model:any;
+  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private service: GlobalService) { }
 
   ngOnInit(): void {
+   this.getAllBrands() ;
 
-
-    this.spinner.show();
-    this.globalService.getBrands().subscribe(res=>{
-      console.log(res);
-      this.brands = res['data'];
-      console.log('Brands', this.brands);
-      this.globalService.allModels()
-      .pipe(
-        map( models => {
-          const newModels = [];
-          for( let model of models['data'] ) {
-            let brandObj = this.brands.find( brand => model.brand_id == brand.id )
-            let newModel = { ...model, brandName: brandObj?.name }
-            newModels.push(newModel);
-          }
-          return newModels;
-        })
-      )
-      .subscribe( newModels => {
-        console.log('newModels', newModels);
-        this.spinner.hide();
-        this.models = newModels;
-        console.log('Models', this.models);
-      });
-    });
-
-
-    
-
-    
   }
 
-  onShowModels(){
-    this.spinner.show();
-    this.globalService.getBrands().subscribe(res=>{
-      console.log(res);
-      this.brands = res['data'];
-      console.log('Brands', this.brands);
-    });
-    this.globalService.allModels()
-    .pipe(
-      map( models => {
-        const newModels = [];
-        for( let model of models['data'] ) {
-          let brandObj = this.brands.find( brand => model.brand_id == brand.id )
-          let newModel = { ...model, brandName: brandObj?.name }
-          newModels.push(newModel);
-        }
-        return newModels;
-      })
-    )
-    .subscribe( newModels => {
-      console.log('newModels', newModels);
-      this.spinner.hide();
-      this.models = newModels;
-      console.log('Models', this.models);
-    });
+  getAllBrands(){
+    this.service.getBrands().subscribe((res:any)=>{ 
+      this.brands=res['data'] ;
+      console.log("All Brands" , this.brands)
+      this.model= this.brands[0].id ;
+      this.getAllModels(this.model);
+    })
   }
+
+  changeBrands(event) {
+    this.model=event.target.value
+    this.getAllModels(this.model)
+  }
+
+  getAllModels(model){
+     this.model=model
+     this.service.getModelsByBrandId(this.model).subscribe((res:any)=>{
+     this.models=res['data']
+        console.log("All Models" , this.models)
+     })
+  }
+
+  // onShowModels(){
+  //   this.spinner.show();
+  //   this.globalService.getBrands().subscribe(res=>{
+  //     console.log(res);
+  //     this.brands = res['data'];
+  //     console.log('Brands', this.brands);
+  //   });
+  //   this.globalService.allModels()
+  //   .pipe(
+  //     map( models => {
+  //       const newModels = [];
+  //       for( let model of models['data'] ) {
+  //         let brandObj = this.brands.find( brand => model.brand_id == brand.id )
+  //         let newModel = { ...model, brandName: brandObj?.name }
+  //         newModels.push(newModel);
+  //       }
+  //       return newModels;
+  //     })
+  //   )
+  //   .subscribe( newModels => {
+  //     console.log('newModels', newModels);
+  //     this.spinner.hide();
+  //     this.models = newModels;
+  //     console.log('Models', this.models);
+  //   });
+  // }
 
   onShowModel(model) {
     let dialogRef = this.dialog.open( ProductDetailsComponent, {
@@ -87,6 +80,7 @@ export class ListComponent implements OnInit {
       width: '600px',
     });
   }
+
   onEditModel(model) {
     let dialogRef = this.dialog.open( EditModelComponent, {
       data: model,
@@ -95,19 +89,22 @@ export class ListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe( res => {
       console.log(res);
-      this.onShowModels();
+      // this.onShowModels();
+      this.getAllBrands() 
     })
   }
+
   onDeleteModel(model_id) {
-    this.globalService.deleteModel(model_id).subscribe( deleteResponse => {
+    this.service.deleteModels(model_id).subscribe( deleteResponse => {
       console.log(deleteResponse);
       this.spinner.hide();
       Swal.fire(
         'نجااااح',
-        'تم حذف السؤال  بنجاح',
+        'تم حذف الموديل  بنجاح',
         'success'
         )
     });
-    this.onShowModels();
+ // this.onShowModels();
+  this.getAllBrands() 
   }
 }

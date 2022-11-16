@@ -22,7 +22,7 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.form=this.formbuilder.group({
-      year:['',Validators.required],
+      date:['',Validators.required],
     })
   }
  
@@ -30,11 +30,8 @@ export class AddComponent implements OnInit {
   submit(){
   
     this.spinner.show()
-    let form={
-      ...this.form.value 
-    }
-    console.log(form)
-    this.service.addYear(form).subscribe(res=>{
+    
+    this.service.addYear(this.form.value).subscribe(res=>{
     this.spinner.hide()
     Swal.fire(
         'نجاح',

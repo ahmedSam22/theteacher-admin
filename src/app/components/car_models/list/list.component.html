@@ -2,32 +2,33 @@
   <div class="card">
     <div class="row">
       <div class="col-md-12 position-relative">
-          <!-- <h5>كل المنتجات</h5> -->
-          <table class="table table-striped mt-5">
+        <div class="form-group col-6">
+          <label for=""> اختيار قسم رئيسي  </label>
+          <!-- formControlName="category_id"  -->
+          <select class="form-control p-1"  (change)="changeBrands($event)">
+              <option [value]="brand.id" *ngFor="let brand of brands">{{brand.name}} </option>
+          </select>
+      </div>
+      <div  class="text-center" *ngIf="models.length==0">
+        <p> There Is No Models Yet </p>
+       </div>
+     
+          <table class="table table-striped mt-5" *ngIf="models.length!=0">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">رقم الموديل</th>
-                  <th scope="col">أسم الموديل</th>
-
-                  <th scope="col">أسم البراند</th>
+                  <th scope="col">اسم البراند</th>
                   <th scope="col">إعدادات</th>
-
-                  <!-- <th scope="col">  اسم المنتج </th>
-                  <th scope="col">  السعر قبل الخصم </th>
-                  <th scope="col">  نوع السعر بعد الخصم </th>
-                  <th scope="col">  الصورة </th>
-                  <th scope="col">  تفاصيل  </th> -->
-                </tr>
+               </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let model of models; let i = index">
                   <th scope="col">{{ i + 1 }}</th>
                   <td>{{model.name}}</td>
-                  <td>{{ model['brandName'] }}</td>
                   <td>
                     <i style="cursor: pointer;" class="fas fa-eye text-success" (click)="onShowModel(model)"></i> |
                     <i class="fas fa-edit text-primary" style="cursor: pointer;" (click)="onEditModel(model)"></i> |
-                    <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="onDeleteModel(model.id)"></i>
+                    <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="onDeleteModel(model.id)"></i>  
 
                   </td>
                 </tr>

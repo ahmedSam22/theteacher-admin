@@ -1,11 +1,11 @@
 <form [formGroup]="form">
     <div class="form-group">
-        <label for="">اسم البراند بالعربي</label>
-        <input type="text" class="form-control" formControlName="name_ar">
+        <label for="">اسم البراند </label>
+        <input type="text" class="form-control" formControlName="name">
     </div>
     <div class="form-group">
-        <label for="">اسم البراند بالإنجليزي</label>
-        <input type="text" class="form-control" formControlName="name_en">
+        <label for=""> الوصف</label>
+        <input type="text" class="form-control" formControlName="description">
     </div>
 <div class="form-group">
     <label for="">صورة البراند </label>
@@ -20,7 +20,7 @@
     <div class="text-center" *ngIf="!image_edit">
         <div style="position: relative;">
             <i style="cursor: pointer;    cursor: pointer;position: absolute;top: 3px;" class="fas fa-edit text-primary" (click)="image_edit=!image_edit"></i> 
-            <img style="width: 150px;height: 150px;" src="{{data.imagePath}}" alt="">
+            <img style="width: 150px;height: 150px;" src="{{data.logoImagePath}}" alt=""  >
         </div>
     </div>
 </div>

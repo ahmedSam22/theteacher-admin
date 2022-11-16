@@ -5,9 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { TermsRoutingModule } from './terms-routing.module';
 import { AddComponent } from './add/add.component';
- 
+ import { SafePipe } from '../../safepipe.pipe';
 @NgModule({
-  declarations: [AddComponent ],
+  declarations: [AddComponent,SafePipe ],
   imports: [
     CommonModule,
     TermsRoutingModule,

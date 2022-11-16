@@ -1,7 +1,7 @@
 <section id="category-details">
     <div class="card">
         <div class="card-details text-center">
-            <h3 class="text-center mt-3">بيانات العميل </h3> 
+            <h3 class="text-center mt-3">بيانات مسؤول الصيانة  </h3> 
 
             <div class="row justify-content-center mb-3 mt-5">
                 <div class="col-md-4">
@@ -14,23 +14,43 @@
                 <tr>
                 <th scope="row">الاسم</th>
                     <td>{{data.name?data.name:'لا يوجد اسم'}} </td>
-                  
-
                 </tr>
                 <tr>
                 <th scope="row">الايميل </th>
                     <td>{{data.email ? data.email : 'لا يوجد ايميل'}}</td>
-                  
-
-                </tr>
+                 </tr>
                 <tr>
                 <th scope="row"> الهاتف</th>
                 <td >{{data.phone ? data.phone :'لا يوجد رقم هاتف'}}</td>
-
-
                 </tr>
-          
+                <tr>
+                    <th scope="row">الوصف</th>
+                    <td >{{data.maintainer.description  ? data.maintainer.description  :'لا يوجد وصف'}}</td>
+                 </tr>
+                 <tr>
+                    <th scope="row">البراندات </th>
+                    <!-- <td >{{brands ? data.maintainer.transferName :'لا يوجد  الناقل'}}</td> -->
+                   <td *ngFor="let b of brands"> {{b.brand.name_ar}}</td>
+                </tr>
+                 
+                <tr>
+                    <th scope="row">الخدمات الرئيسية </th>
+                    <!-- <td >{{brands ? data.maintainer.transferName :'لا يوجد  الناقل'}}</td> -->
+                   <td *ngFor="let s of specialists "> {{s.specialist.name_ar}}</td>
+                </tr>
 
+                <tr>
+                    <th scope="row">لينك الموقع</th>
+                    <td >{{data.maintainer.link  ? data.maintainer.link  :'لا يوجد لينك للموقع'}}</td>
+                 </tr>
+                 <!-- <tr>
+                    <th scope="row">الخدمات </th>
+                    <td >{{data.delivery.transferName  ? data.delivery.transferName :'لا يوجد  الناقل'}}</td>
+                 </tr>
+                 <tr>
+                    <th scope="row">لينك الموقع </th>
+                    <td >{{data.delivery.transferName  ? data.delivery.transferName :'لا يوجد  الناقل'}}</td>
+                 </tr> -->
                 <!-- status of the user  -->
 
                     <!-- <tr *ngIf="data.active==0">

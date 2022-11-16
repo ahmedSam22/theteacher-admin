@@ -22,18 +22,12 @@ export class AddComponent implements OnInit {
     private spinner:NgxSpinnerService,
     private router:Router
     ) { }
-    changeType(e){
-      this.typeval=e;
-    //  this.form.value.type=this.typeval;
-      console.log("type",this.typeval)
-    }
+    
   ngOnInit(): void {
     this.form=this.formbuilder.group({
-      name_ar:['',Validators.required],
-      name_en:['',Validators.required],
-      main_specialist_id:['',Validators.required],
-      type:['',Validators.required],
-    })
+      name :['',Validators.required],
+      category_id:['',Validators.required],
+     })
     this.categoryList()
   }
  
@@ -42,30 +36,21 @@ export class AddComponent implements OnInit {
     this.spinner.show()
     this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
     this.spinner.hide()
-    console.log('res')
-      console.log(res)
-      this.categories=res
+    this.categories=res
     })
   }
 
 
   submit(){
-    console.log('Form Work')
     this.spinner.show()
-    let form={
-      ...this.form.value,
-      // type:this.typeval
-   
-    }
-    console.log(form)
-    this.service.addSubCategory(form).subscribe(res=>{
+     this.service.addSubCategory(this.form.value).subscribe(res=>{
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم إضافة الخدمة الفرعية بنجاح',
+        'تم إضافة القسم الفرعي بنجاح',
         'success'
       )
-      console.log("helllllllo",res)
+      console.log("Sub Category",res)
       this.router.navigate(['/app/sub/list'])
     })
   }

@@ -12,11 +12,13 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { HomeComponent } from './components/home/home.component';
 import { WrongRouteComponent } from './components/auth/errors/wrong-route/wrong-route.component';
-import {ConnectionServiceModule} from 'ng-connection-service';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-//import { AddpriceComponent } from './components/prices/addprice/addprice.component';
- 
- 
+import { ConnectionServiceModule } from 'ng-connection-service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+// import { EditProductComponent } from './components/products/edit-product/edit-product.component';
+// import { AddProductComponent } from './components/products/add-product/add-product.component';
+// import { DetailsProductComponent } from './components/products/details-product/details-product.component';
+// import { ListProductsComponent } from './components/products/list-product/list-product.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,17 +26,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     LoginComponent,
     HomeComponent,
     WrongRouteComponent,
-  //  AddpriceComponent,
-
-   // ListpricesComponent,
-  
- 
-   // AddComponent,
-  //  ListComponent,
-   // editComponentTaxes,
-     
- 
-
+    
   ],
   imports: [
     BrowserModule,

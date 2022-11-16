@@ -4,27 +4,63 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card-body">
-                    <form [formGroup]="myform" (ngSubmit)="submit()">
+                    <!-- (ngSubmit)="submit()" -->
+                    <form [formGroup]="myform">
                         <!-- <input type="file" (change)="onSelect($event)">  -->
                        <div class="form-group">
-                            <button class="btn btn-primary btn-lg" style="display:block; " onclick="document.getElementById('getTermsFile').click()" >ملف الشروط و الأحكام  
-                            </button>
+                            <button class="btn btn-primary btn-lg" style="display:inline-block; " onclick="document.getElementById('getTermsFile').click()" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                  </svg> ملف الشروط و الأحكام  
+                              </button>
+                            
                              <input type='file' id="getTermsFile" style="display:none" class="form-control" formControlName="terms" (change)="termsChange($event)">  
-                        </div>
-                       
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-lg" style="display:block; " onclick="document.getElementById('getResponseFile').click()">ملف شروط إخلاء المسؤولية
-                            </button>
- 
-                             <input type='file' id="getResponseFile" style="display:none" class="form-control" formControlName="responsible" (change)="reponsibilityChange($event)">  
+                          <div class="form-group" style="display:inline-block; margin:10px">     
+                            <span> {{termfilename}}</span> &nbsp;
+                             <button class="btn" style="background-color:#aa54b0">  <a [href]="terms|safe" alt="error" target="_blank" *ngIf="terms.length!=0||termcheck==true" style="color:white">  download  </a> </button> |
+                             <button class="btn" type="submit" (click)="onSubmitTerms()" style="background-color:#ff56ab">upload</button>
+                         </div>
                         </div> 
+                        
+                         
                       
-                        <div class="form-group text-center mt-5">
-                            <button class="btn btn-primary " type="submit">إضافة</button>
-                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg" style="display:inline-block;" onclick="document.getElementById('getResponseFile').click()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                  </svg>    
+                                ملف شروط إخلاء المسؤولية
+                            </button>
+                            <input type='file' id="getResponseFile" style="display:none" class="form-control" formControlName="responsible" (change)="reponsibilityChange($event)">  
+                            <div  class="form-group" style="display:inline-block; margin:10px">
+                                <span> {{responsefilename}}</span> &nbsp;
+                                <button class="btn " style="background-color:#aa54b0">  <a [href]="repFiles|safe" alt="error" target="_blank" *ngIf="repFiles.length!=0||respcheck==true" style="color:white"> download  </a> </button> |
+                               <button class="btn " type="submit" (click)="onSubmitResp()" style="background-color:#ff56ab">upload</button>
+                             </div>
+                        </div> 
+                       
+                          <div class="form-group" >
+                            <button class="btn btn-primary btn-lg" style="display: inline-block;" onclick="document.getElementById('getPrivacyFile').click()" > 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                  </svg>    
+                                ملف سياسة الخصوصية   
+                            </button>
+                             <input type='file' id="getPrivacyFile" style="display:none" class="form-control" formControlName="privacy" (change)="privacyChange($event)">  
+                             <div  class="form-group" style="display:inline-block; margin:10px"> 
+                                <span> {{privacyfilename}}</span> &nbsp;
+                               <button class="btn" style="background-color:#aa54b0">  <a [href]="privacy|safe" alt="error" target="_blank" *ngIf="privacy.length!=0||privcheck==true" style="color:white"> download  </a> </button> |
+                               <button class="btn" type="submit" (click)="onSubmitPrivacy()" style="background-color:#ff56ab">upload</button>
+                            </div>
+                            
+                            </div>
+                           <!-- <div class="form-group text-center mt-5">
+                            <button class="btn btn-primary " type="submit" (click)="onSubmit()">تعديل</button>
+                        </div> -->
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- <iframe src="{{terms|safe}}" style="width:600px;height:200px;"></iframe> -->
 </section>

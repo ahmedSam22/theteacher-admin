@@ -10,7 +10,8 @@ import { MaintainersDetailsComponent } from './maintainers-details/maintainers-d
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 
-
+import {MatSelectModule} from '@angular/material/select';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   declarations:
    [ListComponent, MaintainersDetailsComponent, AddComponent, EditComponent],
@@ -20,7 +21,9 @@ import { EditComponent } from './edit/edit.component';
     NgxDropzoneModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule,
+    MatSelectModule
   ]
 })
 export class MaintainersModule { }

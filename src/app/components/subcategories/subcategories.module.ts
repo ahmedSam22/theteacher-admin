@@ -9,11 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditSubcategoryComponent } from './edit-subcategory/edit-subcategory.component';
 import { DetailsComponent } from './details/details.component';
-import { AddValuesComponent } from './add-values/add-values.component';
+ 
 
 
 @NgModule({
-  declarations: [AddComponent, ListComponent, EditSubcategoryComponent, DetailsComponent, AddValuesComponent],
+  declarations: [AddComponent, ListComponent, EditSubcategoryComponent, DetailsComponent ],
   imports: [
     CommonModule,
     SubcategoriesRoutingModule,

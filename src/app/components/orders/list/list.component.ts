@@ -15,7 +15,7 @@ import { UserDetailsComponent } from '../../users/user-details/user-details.comp
 export class ListComponent implements OnInit {
 
   orders;
-  type=0;
+  type='0';
   constructor(private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class ListComponent implements OnInit {
       //   // console.log(element)
         
       // }
-      console.log(this.orders)
+      console.log("orderrrrrrs",this.orders)
     })
   }
   deleteApp(){
@@ -49,11 +49,13 @@ export class ListComponent implements OnInit {
       'success'
       )
   }
-  orderDetails(order){
+  orderDetails(order,type){
+    this.dialog.closeAll()
     let dialogRef = this.dialog.open(OrderDetailsComponent, {
-      data:order,
-      height: '650px',
-      width: '600px',
+      // data:order,
+      data: {data:order, type:type},
+      height: '800px',
+      width: '800px',
     });
   }
   getOrders(x){
@@ -66,16 +68,16 @@ export class ListComponent implements OnInit {
   providerDetails(user){
     let dialogRef = this.dialog.open(ProviderDetailsComponent, {
       data:user,
-      height: '650px',
-      width: '600px',
+      height: '800px',
+      width: '800px',
     });
   }
 
   userDetails(user){
     let dialogRef = this.dialog.open(UserDetailsComponent, {
       data:user,
-      height: '500px',
-      width: '600px',
+      height: '800px',
+      width: '800px',
     });
   }
 }

@@ -1,56 +1,268 @@
-<h3 class="text-center">بيانات  الطلب </h3> 
+<h4 class="text-center"><mark> بيانات الطلب</mark> </h4> 
  <br>
-<table class="table" dir="rtl">
+<table class="table">
     <tbody>
-    <tr>
-        <th scope="row">تفاصيل الطلب</th>
-        <td>
-          {{data.notes ? data?.notes : 'لا يوجد تفاصيل'}}
-        </td>
-    </tr>
-    <tr>
-        <th scope="row">سعر الطلب </th>
-        <td>{{data?.total}} ريال</td>
-    </tr>
-    <tr>
-      <th scope="row">عنوان العميل </th>
-      <td>{{data.user.client.city ? data.user.client.city :'لا يوجد عنوان'}}</td>
-    </tr>
-      <tr>
-        <th scope="row">اسم مقدم الخدمة </th>
-        <td>{{data?.maintaner?.name}}</td>
-      </tr>
-      <tr>
-        <th scope="row">اسم العميل </th>
-        <td>{{data.user.name ? data.user.name : ' لا يوجد اسم '}}</td>
-      </tr>
-      <tr>
-        <th scope="row">عنوان التوصيل </th>
-        <td>{{data?.address.address}}</td>
-      </tr>
-      <tr>
-        <th scope="row">رقم جوال العميل </th>
-        <td>{{data?.user?.phone}}</td>
-      </tr>
-      <tr>
-        <th scope="row">تاريخ طلب الأوردر </th>
-        <td>{{data.created_at? data.created_at  : 'لا يوجد'}} </td>
-      </tr>
-      <tr>
-        <th scope="row">تاريخ استلام الأوردر </th>
-        <td>{{data.updated_at ? data.created_at : 'لا يوجد'}}</td>
-      </tr>
+        <tr>
+          <th >رقم الطلب</th>
+          <th>تاريخ الطلب</th>
+          <th  >عنوان استلام الطلب</th>
+          <th  >عنوان تسليم الطلب</th>
+        </tr>
+       <tr>
+          <td> {{data.data.id!=null ? data.data.id : 'لا يوجد رقم للطلب'}} </td>
+          <td> {{data.data.created_at!=null ? data.data.created_at : 'لا يوجد تاريخ للطلب'}} </td>
+          <td> {{data.data.address!=null ? data.data.address.address_name : 'لا يوجد عنوان استلام للطلب'}}</td>
+          <td> {{data.data.deliveryaddress!=null ? data.data.deliveryaddress.address_name : 'لا يوجد عنوان تسليم للطلب'}}</td>
+       </tr>
     </tbody>
-  </table>
+</table>
+  <br>
+  <h4 class="text-center"><mark>بيانات العميل </mark> </h4> 
+  <br> 
+ <table class="table"  >
+     <tbody> 
+      <tr>
+        <th>اسم العميل </th>
+        <th>هاتف العميل </th>
+        <th>إيميل العميل </th>
+        <th>المدينة  </th>
+      </tr>
+       <tr>
+          <td>{{data.data.user!=null ? data.data.user.name:'لا يوجد اسم للعميل'}}</td>
+          <td>{{data.data.user!=null ? data.data.user.phone:'لا يوجد هاتف للعميل'}}</td>
+          <td>{{data.data.user!=null ? data.data.user.email : ' لا يوجد إيميل للعميل '}}</td>
+          <td>{{data.data.user.client!=null ? data.data.user.client.city: 'لا توجد مدينة للعميل'}}</td>
+        </tr>
+        
+     </tbody>
+</table>
+  <br>
+  <h4 class="text-center"> <mark> تفاصيل الخدمة </mark> </h4> 
+  <br>
+<table class="table">
+   <tbody>
+     <tr>
+      <th>اسم الخدمة الرئيسية </th>
+      <th>اسم الخدمة الفرعية </th>
+      
+    </tr>
+    <tr>
+      <td>{{data.data.specialist!=null ? data.data.specialist.name_ar:'لا يوجد اسم الخدمة الرئيسية'}}</td>
+      <td>{{data.data.specialist!=null ? data.data.specialist.name_ar:'لا يوجد اسم الخدمة الرئيسية'}}</td>
+      <!-- <td *ngFor="let s of alls">{{ s!=null ? s.specialist.name_ar : ' لا يوجد خدمة رئيسية '}}</td>
+      <td *ngFor="let s of alls">{{ s!=null ? s.specialist.name_ar : ' لا يوجد خدمة رئيسية '}}</td> -->
+      <!-- <td *ngFor="let sub of subspecialist">{{sub!=null ? sub.name_ar: 'لا توجد خدمة فرعية'}}</td> -->
+     
+    </tr>
+  </tbody> 
+    <tbody *ngIf="!hide_bands"> 
+    <tr> 
+      <th>اسم البند </th>
+      <th> سعر البند </th>
+    </tr>
+     <tr *ngFor="let sub of subspecialist"> 
+      <td>{{sub.value!=null ? sub.value.name_ar:'لا يوجد اسم لبند الخدمة الفرعية'}}</td>
+      <td>{{sub.value!=null ? sub.value.price:'لا يوجد سعر لبند الخدمة الفرعية'}}</td>
+     
+       </tr>
+      </tbody>
 
-  <!-- <div class="container" *ngIf="data?.order_items?.length != 0">
-    <hr>
-    <p>المنتجات</p>
-    <div class="row">
-      <div class="col-md-3" *ngFor="let order_item of data.order_items" (click)="productDetails(order_item.product)">
-        <a href="javascript:void(0)" rel="noopener noreferrer">
-          <img class="w-100" src="{{order_item.product.imagePath}}" alt="">
-        </a>
-      </div>
-    </div>
-  </div> -->
+  </table>
+  <br>
+  <h4 class="text-center"><mark>تفاصيل السيارة </mark> </h4> 
+  <br> 
+ <table class="table" >
+     <tbody> 
+      <tr>
+        <th>اسم السيارة </th>
+        <th>براند السيارة  </th>
+        <th>موديل السيارة  </th>
+        <th>سنة صنع السيارة  </th>
+        <th>لون السيارة  </th>
+        <th> رقم لوحة السيارة</th>
+        <th> حروف اللوحة </th>
+        <th> نوع التأمين</th>
+       
+      </tr>
+       <tr>
+          <td>{{data.data.car!=null ? data.data.car.name:'لا يوجد اسم للسيارة'}}</td>
+          <td>{{data.data.car!=null ? data.data.car.brand.name_ar:'لا يوجد براند للسيارة'}}</td>
+          <td>{{data.data.car!=null ? data.data.car.type : ' لا يوجد موديل للسيارة '}}</td>
+          <td>{{data.data.car!=null ? data.data.car.year: 'لا يوجد سنة صنع للسيارة'}}</td>
+          <td>{{data.data.car!=null ? data.data.car.color: 'لا يوجد لون للسيارة'}}</td>
+          <td>{{data.data.car!=null ? data.data.car.car_numbers: 'لا يوجد رقم لوحة للسيارة'}}</td>
+          <td>{{data.data.car!=null ? data.data.car.car_letters: 'لا يوجد حروف للوحة للسيارة'}}</td>
+          <td>{{data.data.car!=null ? data.data.car.insurance_type: 'لا يوجد تأمين للسيارة'}}</td>
+        </tr>
+        
+     </tbody>
+</table>
+<br>
+<div>
+  <h4 class="text-center"><mark>تكلفة الطلب</mark> </h4> 
+  <br> 
+ <table class="table" >
+     <tbody> 
+      <tr>
+        <th> تكلفة الخدمة</th>
+        <th>تكلفة النقل  </th>
+        <th>ضريبة القيمة المضافة  </th>
+        <th>نسبة التطبيق   </th>
+        <th> الإجمالي </th>
+      </tr>
+       <tr>
+          <td>{{data.data.mentain_price!=null ? data.data.mentain_price:'لا يوجد تكلفة للخدمة'}}</td>
+          <td>{{data.data.transfer_price!=null ? data.data.transfer_price:'لا يوجد تكلفة للنقل'}}</td>
+          <td>{{data.data.vat_precent!=null ? data.data.vat_precent : ' لا يوجد ضريبة القيمة المضافة '}}</td>
+          <td>{{data.data.app_precent!=null ? data.data.app_precent : 'لا يوجد نسبة للتطبيق'}}</td>
+          <td>{{data.data.total!=null ? data.data.total: ' لا يوجد إجمالي'}}</td>
+        </tr>
+        
+     </tbody>
+</table>
+</div>
+ 
+ 
+<div>  
+  <br>
+  <h4 class="text-center"> <mark> بيانات المندوب </mark> </h4> 
+  <br>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>اسم المندوب </th>
+        <th> هاتف المندوب</th>
+        <th> الإيميل</th>
+        <th> نوع الناقل</th>
+        <th> المدينة</th>
+      </tr>
+      <tr>
+        <td>{{data.data.delivery!=null ? data.data.delivery.name:'لا يوجد اسم المندوب'}}</td>
+        <td>{{data.data.delivery!=null ? data.data.delivery.phone:'لا يوجد هاتف المندوب'}}</td>
+        <td>{{data.data.delivery!=null ? data.data.delivery.email:'لا يوجد إيميل المندوب'}}</td>
+        <td>{{data.data.delivery!=null ? data.data.delivery.delivery.transferName:'لا يوجد نوع الناقل '}}</td>
+        <td>{{data.data.delivery!=null ? data.data.delivery.delivery.cityname:'لا يوجد مدينة '}}</td>
+      </tr>
+    </tbody> 
+  </table>
+ 
+</div>
+  
+<div *ngIf="!hide_pics">  
+  <br>
+  <h4 class="text-center"> <mark> الصوووووور   </mark> </h4> 
+  <br>
+  
+</div>
+ 
+<div *ngIf="secondStatus"> 
+ 
+    <br>
+    <h4 class="text-center"> <mark> بيانات الوكالة </mark> </h4> 
+    <br>
+     <table class="table">
+      <tbody>
+        <tr>
+          <th>اسم الوكالة </th>
+          <th> هاتف الوكالة</th>
+          <th> إيميل الوكالة</th>
+          <th> لينك الوكالة</th>
+          <th> وصف الوكالة</th>
+        </tr>
+        <tr>
+          <td>{{data.data.maintaner!=null ? data.data.maintaner.name:'لا يوجد اسم الوكالة'}}</td>
+          <td>{{data.data.maintaner!=null ? data.data.maintaner.phone:'لا يوجد هاتف الوكالة'}}</td>
+          <td>{{data.data.maintaner!=null ? data.data.maintaner.email:'لا يوجد إيميل الوكالة'}}</td>
+          <td>{{data.data.maintaner.maintainer!=null ? data.data.maintaner.maintainer.link:'لا يوجد لينك الوكالة'}}</td>
+          <td>{{data.data.maintaner.maintainer!=null ? data.data.maintaner.maintainer.description:'لا يوجد وصف الوكالة'}}</td>
+          </tr>
+      </tbody> 
+    </table>
+   </div>
+   <div *ngIf="!hide_extend">  
+  <div *ngIf="fifthStatus" > 
+  <br>
+  <h4 class="text-center"> <mark> طلب التمديد </mark> </h4> 
+  <br>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>السبب</th>
+        <th>الفترة</th>
+        <th>المبلغ</th>
+        
+      </tr>
+      <tr *ngFor="let extend of extendOrder">
+        <td>{{extend!=null ? extend.reason:'لا يوجد سبب لفترة التمديد'}}</td>
+        <td>{{extend!=null ? extend.extra_days:'لا يوجد فترة تمديد '}}</td>
+        <td>{{extend!=null ? extend.extra_price:'لا يوجد مبلغ لفترة التمديد'}}</td>
+      </tr>
+    </tbody> 
+  </table>
+</div>
+</div>
+ 
+ 
+<div *ngIf="thirteenSatus">  
+  <br>
+  <h4 class="text-center"> <mark>  الغاء الطلب </mark> </h4> 
+  <br>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>السبب</th>
+        <th>الفترة</th>
+        <th>المبلغ</th>
+        
+      </tr>
+      <tr>
+        <td>{{data.data.reason!=null ? data.data.reason:' لا يوجد سبب  '}}</td>
+        <td>{{data.data.extra_days!=null ? data.data.extra_days:'لا يوجد فترة   '}}</td>
+        <td>{{data.data.extra_price!=null ? data.data.extra_price:'لا يوجد مبلغ   '}}</td>
+      </tr>
+    </tbody> 
+  </table>
+<!-- </div> -->
+ 
+ <div   >  
+  <br>
+  <h4 class="text-center"> <mark>رفض التصليح</mark> </h4> 
+  <br>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>السبب</th>
+        <th>الفترة</th>
+        <th>المبلغ</th>
+        
+      </tr>
+      <tr>
+        <td>{{data.data.reason!=null ? data.data.reason:'لا يوجد سبب  '}}</td>
+        <td>{{data.data.extra_days!=null ? data.data.extra_days:'لا يوجد   '}}</td>
+        <td>{{data.data.extra_price!=null ? data.data.extra_price:'لا يوجد مبلغ  '}}</td>
+      </tr>
+    </tbody> 
+  </table>
+</div>
+
+<div  >  
+  <br>
+  <h4 class="text-center"> <mark>الغاء المندوب </mark> </h4> 
+  <br>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>السبب</th>
+        <th>الفترة</th>
+        <th>المبلغ</th>
+        
+      </tr>
+      <tr>
+        <td>{{data.data.reason!=null ? data.data.reason:'لا يوجد سبب  '}}</td>
+        <td>{{data.data.extra_days!=null ? data.data.extra_days:'لا يوجد   '}}</td>
+        <td>{{data.data.extra_price!=null ? data.data.extra_price:'لا يوجد مبلغ  '}}</td>
+      </tr>
+    </tbody> 
+  </table>
+</div>
+</div>

@@ -10,6 +10,51 @@
               <circle cx="12" cy="12" r="6"></circle>
               <circle cx="12" cy="12" r="2"></circle>
             </svg>
+            الطلبات الجديدة </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="getOrders('1')" [ngClass]="{'1': type == 'active'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            الطلب في الصيانة </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="getOrders('2')" [ngClass]="{'active': type == '2'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            الطلب في طريقه للعميل  </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="getOrders('3')" [ngClass]="{'active': type == '3'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+               طلبات مكتملة </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="getOrders('4')" [ngClass]="{'active': type == '4'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+              طلبات ملغية </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a (click)="getOrders('0')" [ngClass]="{'active': type == '0'}" class="nav-link" href="javascript:void(0)" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
             الطلبات المستلمة </a>
           </li>
           <li class="nav-item">
@@ -138,7 +183,7 @@
               <circle cx="12" cy="12" r="2"></circle>
             </svg>
                 تم الألغاء من المندوب  </a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -155,22 +200,18 @@
                             <th scope="col">#</th>
                             <th scope="col">اسم العميل</th>
                             <th scope="col">اسم مقدم الخدمة</th>
-                            <th scope="col">  سعر الطلب</th>
+                            <th scope="col"> سعر الطلب</th>
                             <th scope="col">إعدادات</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let order of orders;let i=index">
-                            <th scope="row">{{i+1}}</th>
+                          <tr *ngFor="let order of orders ;let i=index">
+                            <th >{{i+1}}</th>
+                            <td>{{order.user.name!=null?order.user.name: 'اسم العميل غير موجود'}} </td>
+                            <td>{{order.maintaner!=null?order.maintaner.name :'اسم مقدم الخدمة غير موجود'}}</td>
+                            <td>{{order.total!=null?order.total:'سعر الطلب غير موجود'}}</td>
                             <td>
-                              {{order.user.name ? order.user.name : 'لا يوجد اسم'}}
-                              <td>{{order.maintaner.name ? order.maintaner.name : 'لا يوجد اسم'}}</td>
-
-                            <td>{{order.total ? order.total : 'لا يوجد سعر'}}</td>
-                            <td>
-                              <!-- <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-danger" (click)="deleteApp()">delete</mat-icon>
-                              ' -->
-                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="orderDetails(order)">visibility</mat-icon>
+                               <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="orderDetails(order,type)">visibility</mat-icon>
                             </td>
                           </tr>
                         </tbody>

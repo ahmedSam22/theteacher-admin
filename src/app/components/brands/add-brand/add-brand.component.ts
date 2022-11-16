@@ -23,8 +23,8 @@ export class AddBrandComponent implements OnInit {
 
   ngOnInit(): void {
     this.form=this.formbuilder.group({
-      name_ar:['',Validators.required],
-      name_en:['',Validators.required],
+      name:['',Validators.required],
+      description:['',Validators.required],
     })
   }
 
@@ -43,9 +43,9 @@ onRemove(event) {
 
   submit(){
     let form = {
-      name_ar:this.form.value.name_ar,
-      name_en:this.form.value.name_en,
-      image:this.files[0]
+      name:this.form.value.name,
+      description:this.form.value.description,
+      logo_image:this.files[0]
     }
     this.spinner.show()
     this.service.addBrand(form).subscribe(res=>{

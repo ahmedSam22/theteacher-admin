@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { GlobalService } from 'src/app/services/global.service';
 import Swal from 'sweetalert2';
 import { MaintainersDetailsComponent } from '../../maintainers/maintainers-details/maintainers-details.component';
+import { DeliveryDetailsComponent } from '../delivery-details/delivery-details.component';
 
 @Component({
   selector: 'app-list',
@@ -80,7 +81,7 @@ export class ListComponent implements OnInit {
 
 
   userDetails(user){
-    let dialogRef = this.dialog.open(MaintainersDetailsComponent, {
+    let dialogRef = this.dialog.open(DeliveryDetailsComponent, {
       data:user,
       height: '500px',
       width: '600px',

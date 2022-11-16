@@ -1,7 +1,7 @@
 @import '~ngx-toastr/toastr';
 
 @font-face {
-    font-family: 'Noto Sans Kufi Arabic';
+  font-family: 'Noto Sans Kufi Arabic';
     font-style: normal;
     font-weight: 400;
     src: url(/assets/fonts/custom/ArbFONTS-NotoKufiArabic-Regular.ttf);
@@ -92,4 +92,7 @@ table{
   }
 }
 
+.mat-select-value {
+  height: 30px;
+}
  

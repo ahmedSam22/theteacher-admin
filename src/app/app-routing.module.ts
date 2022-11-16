@@ -12,7 +12,7 @@ import { ProviderModule } from './components/brands/provider.module';
 import { CountryModule } from './components/country/country.module';
 import { CityModule } from './components/city/city.module';
 import { SubcategoriesModule } from './components/subcategories/subcategories.module';
-import { ProductsModule } from './components/car_models/products.module';
+import { ModelsModule } from './components/car_models/models.module';
 import { BannersModule } from './components/banners/banners.module';
 import { SizesModule } from './components/complaints/sizes.module';
 import { OccasionsModule } from './components/yearofcreation/occasions.module';
@@ -23,6 +23,7 @@ import {ColorsModule} from './components/colors/colors.module';
 import {TermsModule} from './components/terms-and-conditions/terms.module'
 import { TaxesModule } from './components/taxes/taxes.module';
 import { PricesModule } from './components/prices/prices.modules';
+import { ProductsModule } from './components/products/products.modules';
 const routes: Routes = [
   {path:'',component:LoginComponent},
   {path:'auth/login',component:LoginComponent},
@@ -48,7 +49,7 @@ const routes: Routes = [
       {path:'city',loadChildren:()=>CityModule},
       {path:'services',loadChildren:()=>CategoryModule},
       {path:'sub',loadChildren:()=>SubcategoriesModule},
-      {path:'car-models',loadChildren:()=>ProductsModule},
+      {path:'car-models',loadChildren:()=>ModelsModule},
       {path:'banners',loadChildren:()=>BannersModule},
       {path:'complaints',loadChildren:()=>SizesModule},
       {path:'yearofcreation',loadChildren:()=>OccasionsModule},
@@ -57,8 +58,7 @@ const routes: Routes = [
       {path:'terms',loadChildren:()=>TermsModule},
       {path:'taxes',loadChildren:()=>TaxesModule},
       {path:'prices',loadChildren:()=>PricesModule},
-      
-      
+      {path:'products',loadChildren:()=>ProductsModule},
     ]
   },
   {

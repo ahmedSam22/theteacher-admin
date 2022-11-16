@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -13,21 +12,24 @@ import Swal from 'sweetalert2';
   styleUrls: ['./edit-brand.component.scss']
 })
 export class EditBrandComponent implements OnInit {
+  form:FormGroup;
+  image_edit=false;
 
   constructor(  private service:GlobalService,
-    private spinner:NgxSpinnerService,    private router:Router,private formbuilder:FormBuilder,    private dialog:MatDialog,@Inject(MAT_DIALOG_DATA) public data:any,) { }
-form:FormGroup
+    private spinner:NgxSpinnerService,private router:Router,private formbuilder:FormBuilder, private dialog:MatDialog,@Inject(MAT_DIALOG_DATA) public data:any,) { }
+ 
   ngOnInit(): void {
-    console.log(this.data)
+    console.log("Brands ",this.data)
     this.form=this.formbuilder.group({
-      name_ar:[this.data.name_ar,Validators.required],
-      name_en:[this.data.name_en,Validators.required],
+      name:[this.data.name,Validators.required],
+      description:[this.data.description,Validators.required],
     })
-    console.log(this.form)
+    
   }
   files: File[] = [];
-
+  
   onSelect(event) {
+    this.image_edit=true;
     console.log(event.addedFiles[0]);
     this.files=[]
     this.files.push(...event.addedFiles);
@@ -37,17 +39,20 @@ form:FormGroup
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
+
   submit(){
-    let formx = {
-      // name:this.form.value.name,
-      name_ar:this.form.value.name_ar,
-      name_en:this.form.value.name_en,
-      brand_id:this.data.id,
-      image:this.files[0]
-     }
-     console.log(formx)
+   
+    let form ; 
+    
+      form= {
+        name:this.form.value.name,
+        description:this.form.value.description,
+        brand_id:+this.data.id,
+        logo_image:this.files[0] || null
+       }
+       
      this.spinner.show()
-     this.service.editBrand(formx).subscribe(res=>{
+     this.service.editBrand(form).subscribe(res=>{
      this.spinner.hide()
      Swal.fire(
          'نجاح',

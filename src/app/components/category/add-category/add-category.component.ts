@@ -13,11 +13,12 @@ import { Router } from '@angular/router';
 export class AddCategoryComponent implements OnInit {
   dropdownList = [];
   dropdownSettings = {};
+  selectedItems: any[];
   form:FormGroup;
   brands;
-  selectedItems: any[];
+  
   brandType ;
-  showBrand=false; 
+
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -26,7 +27,7 @@ export class AddCategoryComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.showBrand=false
+ 
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -37,15 +38,9 @@ export class AddCategoryComponent implements OnInit {
       allowSearchFilter: false
     };
     this.form=this.formbuilder.group({
-      name_ar:['',Validators.required],
-      name_en:['',Validators.required],
+      name:['',Validators.required],
     })
-    this.service.getBrands().subscribe(res=>{
-      this.brands = res['data'];
-      this.dropdownList = this.brands
-      console.log(this.dropdownList)
 
-    })
   }
 
   files: File[] = [];
@@ -61,42 +56,41 @@ onRemove(event) {
   console.log(event);
   this.files.splice(this.files.indexOf(event), 1);
 }
-onItemSelect(item: any) {
+
+// onItemSelect(item: any) {
  
-}
-onSelectAll(items: any) {
+// }
+// onSelectAll(items: any) {
  
-}
-onChangeBrand(event){
+// }
+// onChangeBrand(event){
  
-  this.brandType=event;
-  console.log("Brand Type",this.brandType)
-  if(this.brandType==0){
-    this.showBrand=false
-  }
-  else{
-    this.showBrand=true
-  }
-}
+//   this.brandType=event;
+//   console.log("Brand Type",this.brandType)
+//   if(this.brandType==0){
+//     this.showBrand=false
+//   }
+//   else{
+//     this.showBrand=true
+//   }
+// }
+
   submit(){
     console.log('Form Work')
     console.log(this.form.value)
     console.log(this.selectedItems)
     this.spinner.show()
     let f={
-      name_ar:this.form.value.name_ar,
+      name:this.form.value.name,
       image:this.files[0],
-      affect_brand:this.brandType,
-      brands:this.selectedItems,
-      name_en:this.form.value.name_en,
     }
     console.log('the sended form is ',f)
     this.service.addCategory(f).subscribe(res=>{
-      console.log(res)
+    console.log(res)
     this.spinner.hide()
     Swal.fire(
         'نجاح',
-        'تم إضافة الخدمة بنجاح',
+        'تم إضافة القسم الرئيسي بنجاح',
         'success'
       )
       this.router.navigate(['/app/services/list'])

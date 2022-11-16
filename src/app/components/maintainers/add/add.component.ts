@@ -14,26 +14,64 @@ import Swal from 'sweetalert2';
 })
 export class AddComponent implements OnInit {
   form!:FormGroup;
+  locationName;
+  dropdownList = [];
+  dropdownSettings = {};
+  selectedItems: any[];
+  specialists;
+  dropdownList2 = [];
+  dropdownSettings2 = {};
+  selectedItems2: any[];
+  brands;
+  showMainSpecialist = false
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
     private spinner:NgxSpinnerService,
     private router:Router
     ) { }
-    locationName;
     
   ngOnInit(): void {
+    this.showMainSpecialist = false;
     this.form=this.formbuilder.group({
      
       name:['',Validators.required],
+      description:['',Validators.required],
+      link:['',Validators.required],
       email:['',Validators.required],
       phone:['',Validators.required],
       password:['',Validators.required],
       confirm_password:['',Validators.required],
-      link:['',Validators.required],
-      info:['',Validators.required],
+      
+     
     })
-
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'اختيار الكل ',
+      unSelectAllText: 'الغاء الاختيار',
+      itemsShowLimit: 10,
+      allowSearchFilter: false
+    };
+    this.dropdownSettings2 = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'اختيار الكل ',
+      unSelectAllText: 'الغاء الاختيار',
+      itemsShowLimit: 10,
+      allowSearchFilter: false
+    };
+    this.service.getBrands().subscribe(res=>{
+      this.brands = res['data'];
+      this.dropdownList = this.brands
+      console.log(this.dropdownList)
+    
+    })
+    
+    this.mainSpecialist(this.selectedItems)
+    
     const map = new mapboxgl.Map({ 
       container: 'map', // container ID,
        
@@ -76,6 +114,14 @@ export class AddComponent implements OnInit {
       });
 
   }
+  mainSpecialist(selectedItems){
+    this.service.getMainSpecialistByBrandId(selectedItems).subscribe(res=>{
+      this.specialists = res['data'];
+      this.dropdownList2 = this.specialists
+      console.log("dropdownList2",this.dropdownList2)
+
+    })
+  }
   lat:any ; 
   lng:any;
   selectLocation(location: any) {
@@ -97,13 +143,31 @@ onRemove(event) {
   console.log(event);
   this.files.splice(this.files.indexOf(event), 1);
 }
+onItemSelect(item: any) {
+  this.showMainSpecialist = true;
+ 
+    this.mainSpecialist(item.id)
+}
+onSelectAll(items: any) {
+  this.showMainSpecialist = true;
+  
+  this.mainSpecialist(items.id)
+}
+onItemSelect2(item:any) {
+
+}
+onSelectAll2(items:any){
+
+}
 submit(){
   console.log("lng:"+this.lng ,"lat:"+this.lat);
   let form = {
     ...this.form.value,
     lat:this.lat,
     lng:this.lng,
-    image:this.files[0]
+    image:this.files[0],
+    specialists:this.selectedItems2 ,
+    brands:this.selectedItems,
   }
   this.spinner.show()
   // this.service.addMaintain(form).subscribe(res=>{
@@ -113,8 +177,10 @@ submit(){
   //     'تم إضافة مسؤول الصيانة بنجاح',
   //     'success'
   //   )
-  // //  this.router.navigate(['/app/brands/list'])
+  //  this.router.navigate(['/app/maintainer/list'])
+  // console.log("resssss register " , res)
   // })
+  
 }
  
 }
