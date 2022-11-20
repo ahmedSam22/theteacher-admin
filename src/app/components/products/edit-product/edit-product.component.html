@@ -156,10 +156,21 @@
                         </div>
                         <!-- الصور الموضحة للمنتج -->
                         <!-- *ngIf="data.descriptionImagesPaths.length!=0" -->
-                            <div *ngIf="data.descriptionImagesPaths.length!=0">  
+                        
+                              <!-- <div class="col-12 my-2" *ngIf="data.descriptionImagesPaths.length==0 && !edit" > 
+                                <ng-container >
+                                    <ngx-dropzone (change)="onSelectDescription_images($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
+                                        <ngx-dropzone-label>أضغط هنا لإختيار  مجموعه من الصور الموضحة للمنتج</ngx-dropzone-label>
+                                        <ngx-dropzone-image-preview *ngFor="let df of description_files" [removable]="true" (removed)="onRemovedDescription_images(df)" [file]="df">
+                                            <ngx-dropzone-label>{{ df.name }} ({{ df.type }})</ngx-dropzone-label>
+                                        </ngx-dropzone-image-preview>
+                                    </ngx-dropzone>
+                                </ng-container>
+                            </div> -->
+                       
                             <label for=""> الصور الموضحة للمنتج </label>
-                            <div class="row justify-content-center" *ngFor="let descpath of data.descriptionImagesPaths ; let index=index">
-                            <div class="col-12 my-2" *ngIf="edit[index]"> 
+                            <div class="row justify-content-center" >
+                              <div class="col-12 my-2"  *ngIf="image_edit2" > 
                                 <ng-container >
                                     <ngx-dropzone (change)="onSelectDescription_images($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
                                         <ngx-dropzone-label>أضغط هنا لإختيار  مجموعه من الصور الموضحة للمنتج</ngx-dropzone-label>
@@ -170,15 +181,15 @@
                                 </ng-container>
                             </div>
                                 <div class="col-3" > 
-                                    <div class="text-center" *ngIf="!edit[index]">
-                                        <div style="position: relative;">
-                                            <i style="cursor: pointer;    cursor: pointer;position: absolute;top: 3px;" class="fas fa-edit text-primary" (click)="edit[index]=!edit[index]"></i> 
+                                    <div class="text-center" *ngIf="!image_edit2">
+                                        <div style="position: relative;" *ngFor="let descpath of data.descriptionImagesPaths ; let index=index" >
+                                            <i style="cursor: pointer;    cursor: pointer;position: absolute;top: 3px;" class="fas fa-edit text-primary" (click)="image_edit2=!image_edit2"></i> 
                                             <img style="width: 150px;height: 150px;" src="{{descpath}}" onerror="src='assets/images/no-product.png'" alt=""  >
                                         </div>
                                     </div>
                             </div> 
                             </div>
-                        </div>
+                         
                         <div class="form-group text-center mt-5">
                             <button class="btn btn-primary" type="button" (click)="submit()"> تعديل المنتج</button>
                         </div>

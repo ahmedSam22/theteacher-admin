@@ -33,7 +33,7 @@ manufacture_date_id:any ;
 product_compatibles_date:any=[];
 image_edit=false;
 image_edit2=false;
-edit=[]
+// edit=[]
 d_images:any =[]
 images:any=[]
 model_str:any
@@ -53,9 +53,9 @@ subcategory_str:any
   ngOnInit(): void {
     var model_obj:any  , model_arr=[] , subcategory_obj:any , subcategory_arr=[]
 
-    for(let i=0 ;i<this.data.descriptionImagesPaths.length; i++){
-      this.edit[i]=false
-    }
+    //for(let i=0 ;i<this.data.descriptionImagesPaths.length; i++){
+    //   this.edit[i]=false
+    // }
    
     this.form=this.formbuilder.group({
       name:[this.data.name,Validators.required],
@@ -206,13 +206,14 @@ onChangeCompatibleYear(event) {
  
 description_files:File[] =[] ;
 onSelectDescription_images(event) {
+  this.image_edit2=true;
+  // for(let i=0 ;i<this.data.descriptionImagesPaths.length; i++){
+  //    this.edit[i]=true
+     
+  //  }
+  console.log(event.addedFiles); 
  
-  for(let i=0 ;i<this.data.descriptionImagesPaths.length; i++){
-     this.edit[i]=true
-   
-   }
-  console.log(event.addedFiles);
-  this.description_files.push(...event.addedFiles);
+   this.description_files.push(...event.addedFiles);
 
   let images_form = {
     files:this.description_files
@@ -220,7 +221,7 @@ onSelectDescription_images(event) {
   
   this.service.uploadFiles(images_form).subscribe((res:any)=>{
     this.d_images=res['data']
-    
+    console.log("description images ",this.d_images )
   })
 }
 
@@ -231,7 +232,7 @@ onRemovedDescription_images(event) {
 
 files:File[] = [];
 onSelect(event) {
-  this.image_edit=true;
+ this.image_edit=true;
  console.log(event.addedFiles);
  this.files=[]
  this.files.push(...event.addedFiles);
@@ -260,6 +261,7 @@ onRemove(event) {
 //     console.log("edit filter" ,res['data'].products )
 //   })
 // }
+
 submit(){
   
  // user change subcategories
@@ -280,70 +282,6 @@ submit(){
   
   this.model_str=this.convertArrofObjsToStr(this.models)
  }
-
-  // let sub=[]
-  // var newArray = this.subCategories.reduce(function(acc, curr) {
-  //  var findIfNameExist = acc.findIndex(function(item) {
-  //     return item.cat === curr.cat;
-  //   })
-  //   if (findIfNameExist === -1) {
-  //     let obj = {
-  //       'cat': curr.cat,
-  //       "value": [curr.sub]
-  //     }
-  //     acc.push(obj)
-  //   } 
-  //   else {
-  //   acc[findIfNameExist].value.push(curr.sub)
-  //   }
-  //   return acc;
-  //  }, []);
-
-  // console.log(newArray)
-
-  //  for(var i=0 ; i<newArray.length ; i++){
-  //   sub.push(newArray[i].value)
-  // }
-
-  // let str_sub = sub.map(a => a.join(",")).join('|');
-  // console.log("sub",sub)
-  // console.log("str_sub",str_sub);
-//////////////////////////////////////////////////////////////
- 
- 
-// let mod=[]
-
-// var newArray2 = this.models.reduce(function(acc, curr) {
-//   var findIfNameExist2 = acc.findIndex(function(item) {
-//      return item.cat === curr.cat;
-//    })
-//    if (findIfNameExist2 === -1) {
-//      let obj = {
-//        'cat': curr.cat,
-//        "value": [curr.sub]
-//      }
-//      acc.push(obj)
-//    } 
-//    else {
-//    acc[findIfNameExist2].value.push(curr.sub)
-//    }
-//    return acc;
-//   }, []);
-
-// console.log(newArray2)
-// for(var j=0 ; j<newArray2.length ; j++){
-//     mod.push(newArray2[j].value)
-//  }
-  
-
-// let str_mod = mod.map(a => a.join(",")).join('|');
- 
-// console.log("str_mod",str_mod);
-//  console.log("mod1",mod)
-// let m =JSON.stringify(mod)
-//  console.log("mod2",typeof(m),m)
-
-/////////////////////////////////////////////////////////////////////////
  
     let f={
       product_id:this.data.id ,
