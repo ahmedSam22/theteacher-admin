@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
-import { threadId } from 'worker_threads';
+
 
 @Component({
   selector: 'app-add-product',
@@ -15,10 +15,11 @@ export class AddProductComponent implements OnInit {
   dropdownList = [];
   dropdownSettings = {};
   selectedItems: any[];
-  form:FormGroup;
+ 
   // brands;
   brandType ;
 /////////////////SCAR///////////////////
+form:FormGroup;
 category:any ;
 categories:any=[];
 mainCategories:any=[]
@@ -33,6 +34,9 @@ years:any=[];
 product_compatibles_model:any=[];
 manufacture_date_id:any ;
 product_compatibles_date:any
+
+d_images:any =[]
+images:any=[]
 ////////////////////////////////////////
   constructor(
     private formbuilder:FormBuilder,
@@ -166,6 +170,15 @@ description_files:File[] = [];
 onSelectDescription_images(event) {
  console.log(event.addedFiles);
  this.description_files.push(...event.addedFiles);
+
+ let images_form = {
+  files:this.description_files
+}
+
+this.service.uploadFiles(images_form).subscribe((res:any)=>{
+  this.d_images=res['data']
+  
+})
 }
 
 onRemovedDescription_images(event) {
@@ -178,6 +191,13 @@ onSelect(event) {
  console.log(event.addedFiles);
  this.files=[]
  this.files.push(...event.addedFiles);
+
+ let images_form = {
+  files:this.files
+}
+ this.service.uploadFiles(images_form).subscribe((res:any)=>{
+  this.images=res['data']
+ })
 }
 
 onRemove(event) {
@@ -425,37 +445,49 @@ console.log("str_mod",str_mod);
 //  console.log("mod2",typeof(m),m)
 
 /////////////////////////////////////////////////////////////////////////
+     // image:this.files[0],
+    // desc_images:this.description_files
+  let f={
+      image :this.images,
+      name:this.form.value.name,
+      price:this.form.value.price,
+      discount_percent:this.form.value.discount_percent,
+      piece_number:this.form.value.name,
+      manufacture_place:this.form.value.manufacture_place,
+      description:this.form.value.description,
+      manufacture_date_id:this.manufacture_date_id,
+      categories: this.categories,
+      subcategories:str_sub ,
+      brands:this.brands ,
+      models:str_mod ,
+      product_compatibles: this.product_compatibles_model,
+      product_compatibles_date:this.product_compatibles_date,
+      desc_images:this.d_images
+    }
  
-  //   let f={
-  //     image:this.files[0],
-  //     name:this.form.value.name,
-  //     price:this.form.value.price,
-  //     discount_percent:this.form.value.discount_percent,
-  //     piece_number:this.form.value.name,
-  //     manufacture_place:this.form.value.manufacture_place,
-  //     description:this.form.value.description,
-  //     manufacture_date_id:this.manufacture_date_id,
-  //     categories: this.categories,
-  //     subcategories:str_sub ,
-  //     brands:this.brands ,
-  //     models:str_mod ,
-  //     product_compatibles: this.product_compatibles_model,
-  //     product_compatibles_date:this.product_compatibles_date,
-  //     desc_images:this.description_files
-  //   }
+    console.log('the sended form is ',f)
+     this.spinner.show()
+    this.service.addProducts(f).subscribe((res:any)=>{
+      this.spinner.hide()
+    console.log("addProducts",res)
+    if(res.status==true){
+     Swal.fire(
+        `Success`,
+        `${res.message}`,
+        `success`
+      )
+       this.router.navigate(['app/products/lists'])
+    }
+    else {
+      Swal.fire(
+        `Fail`,
+        `${res.errors[0]}`,
+        `error`
+      )
+    }
+   
     
-  //   console.log('the sended form is ',f)
-  //  // this.spinner.show()
-  //   this.service.addProducts(f).subscribe((res:any)=>{
-  //   console.log("addProducts",res)
-  //   this.spinner.hide()
-  //   // Swal.fire(
-  //   //     'نجاح',
-  //   //     'تم إضافة المنتج بنجاح',
-  //   //     'success'
-  //   //   )
-  //     //this.router.navigate(['/app/services/list'])
-  //   })
+    })
   }
 
  

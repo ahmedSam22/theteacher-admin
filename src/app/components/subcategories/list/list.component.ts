@@ -17,17 +17,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ListComponent implements OnInit {
   categories=[];
   subcategories = [];
-  category :any ;
-  // brands:any = [];
-  // x = [];
-  // form:FormGroup;
-  // baseUrl=environment.baseURL;
+  category_change:any=[] ;
+  
   constructor(  private formbuilder:FormBuilder,private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
-    // this.form=this.formbuilder.group({
-    //   category_id:['',Validators.required],
-    //  })
     this.categoryList()
   }
 
@@ -35,19 +29,22 @@ export class ListComponent implements OnInit {
     this.service.allCategories().subscribe((res:any)=>{
       this.categories = res['data']
       console.log("All Categories" ,this.categories)
-      this.category=this.categories[0].id 
-      this.getAllSubcategories(this.category)
+      this.category_change[0]=this.categories[0].id 
+      this.getAllSubcategories(this.category_change)
     })
   }
 
   changeCategory(event) {
-    this.category=event.target.value
-    this.getAllSubcategories(this.category)
+    this.category_change[0]=event.target.value
+    this.getAllSubcategories(this.category_change)
   }
 
   getAllSubcategories(category){
-     this.category=category
-     this.service.getSubcategoryByCategoryId(this.category).subscribe((res:any)=>{
+
+    this.category_change[0]=category[0]
+    this.spinner.show()
+     this.service.getSubcategoryByCategoryId(this.category_change).subscribe((res:any)=>{
+      this.spinner.hide()
      this.subcategories=res['data']
         console.log("All SubCategories" , this.subcategories)
      })

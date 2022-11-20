@@ -18,8 +18,8 @@ export class DashboardLayoutComponent implements OnInit {
         let title = this.getTitle(router.routerState, router.routerState.root).join('-');
         this.pageTitle = title
         // change page title in browser
-        document.title = `أدمن اوتلر - ${title}`
-        // document.title = `أدمن اوتلر - outler`
+        document.title = `Scar Admin ${title}`
+        
         // titleService.setTitle(title);
       }
     });

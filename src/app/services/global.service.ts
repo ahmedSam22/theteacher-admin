@@ -8,21 +8,31 @@ import { environment } from 'src/environments/environment';
 export class GlobalService {
 
   constructor(private http:HttpClient) { }
- 
-    // Category
-    allCategories() {
-      return this.http.get(`${environment.endpoint}/categories/all`)
-    }
+ //////////////////////////////// Upload Files ///////////////////////////////
+ uploadFiles(f) {
+  const formData:FormData = new FormData()
+  console.log(f)
+  for (let i = 0; i < f.files.length; i++) {
+    formData.append('files['+i+']',f.files[i])
+  }
 
-    addCategory(f) {
+  return this.http.post(`${environment.endpoint}/files/upload`,formData)
+}
+ ////////////////////////////////Category/////////////////////////////////////
+
+  allCategories() {
+    return this.http.get(`${environment.endpoint}/categories/all`)
+  }
+
+  addCategory(f) {
       const formData:FormData = new FormData()
       console.log(f)
       formData.append('name',f.name)
       formData.append('image',f.image)
       return this.http.post(`${environment.endpoint}/admin/category/create`,formData)
-    }
+  }
 
-    editCategory(f) {
+  editCategory(f) {
       console.log('ss',f)
       const formData:FormData = new FormData()
       formData.append('name',f.name)
@@ -31,47 +41,47 @@ export class GlobalService {
         formData.append('image',f.image)
       }
       return this.http.post(`${environment.endpoint}/admin/category/update`,formData)
-    }
+  }
 
-    deleteCategory(category_id){
+  deleteCategory(category_id){
       console.log(category_id)
       const forms:FormData = new FormData();
       return this.http.delete(`${environment.endpoint}/admin/category/delete?category_id=${category_id}`)
-    }
+  }
 
-    //category details
-    getCategoryById(category_id){
+  //category details
+  getCategoryById(category_id){
       return this.http.get(`${environment.endpoint}/category/show?category_id=${category_id}`)
-    }
+   }
 
-    //////////////////////////// SubCategory /////////////////////////////////
+  //////////////////////////// SubCategory /////////////////////////////////
   
-    addSubCategory(f){
+  addSubCategory(f){
       const formData:FormData = new FormData()
       formData.append('name',f.name)
       formData.append('category_id',f.category_id)
       return this.http.post(`${environment.endpoint}/admin/subcategory/create`,formData)
-    }
+  }
 
-    editSubCategory(f){
+  editSubCategory(f){
       const formData:FormData = new FormData()
       formData.append('name',f.name)
       formData.append('sub_category_id',f.sub_category_id)
       return this.http.post(`${environment.endpoint}/admin/subcategory/update`,f)
-    }
+  }
 
-    deleteSubCategory(sub_category_id){
+  deleteSubCategory(sub_category_id){
       return this.http.delete(`${environment.endpoint}/admin/subcategory/delete?sub_category_id=${sub_category_id}`)
-    }
+  }
 
-    getSubcategoryByCategoryId(category_ids:any){
+  getSubcategoryByCategoryId(category_ids:any){
      const formData:FormData = new FormData()
       for (let i = 0; i < category_ids.length; i++) {
         formData.append('category_ids['+i+']',category_ids[i])
       }
       return this.http.post(`${environment.endpoint}/subcategories/all`,formData)
       // return this.http.get(`${environment.endpoint}/subcategories/all?category_id=${category_ids}`)
-    }
+  }
   /////////////////////////Brands//////////////////////////////////
   getBrands(){
     return this.http.get(`${environment.endpoint}/brands/all`)
@@ -156,13 +166,29 @@ editYear(f){
 deleteYear(manufacture_date_id){
   return this.http.delete(`${environment.endpoint}/admin/manufacture-date/delete?manufacture_date_id=${manufacture_date_id}`);
 }
-////////////////////////////////SCAR Products ///////////////////////////////
- filter(){
-    //return this.http.get(`${environment.endpoint}/contacts?type=${type}`);
+////////////////////////////////Products ///////////////////////////////
+  
+  filterProduct(form) {
+    const formData:FormData = new FormData()
+      let notNullValue;
+    // let i=0;
+     for(let prop in form) {
+       //console.log(i);
+       if(form[prop].length!=0){
+        // i++;
+         notNullValue = {[prop]: form[prop]}
+         //console.log(notNullValue)
+         console.log("prop", prop ,...form[prop] )
+         formData.append(prop +'['+0+']',form[prop])
+       }
+     }
+      return this.http.post(`${environment.endpoint}/products/filter`,formData)
   }
 
   addProducts(f){
     const formData:FormData = new FormData()
+    console.log("sf",f.subcategories)
+    console.log("mf",f.models)
     // debugger;
     console.log(f)
     formData.append('image',f.image)
@@ -205,43 +231,61 @@ deleteYear(manufacture_date_id){
     return this.http.post(`${environment.endpoint}/admin/product/create`,formData)
   } 
 
-
   editProducts(f){
     const formData:FormData = new FormData()
+    console.log("sf",f.subcategories)
+    console.log("mf",f.models)
+    // debugger;
     console.log(f)
+    formData.append('image',f.image)
+    formData.append('product_id',f.product_id)
     formData.append('name',f.name)
     formData.append('description',f.description)
-    formData.append('link',f.link)
-    formData.append('image',f.image)
-    formData.append('email',f.email)
-    formData.append('phone',f.phone)
-    formData.append('lat',f.lat)
-    formData.append('lng',f.lng)
-    formData.append('maintainer_id',f.maintainer_id)
-    for (let i = 0; i < f.specialists.length; i++) {
-      if(f.flag==0){
-        formData.append('specialists['+i+']',f.specialists[i].main_specialist_id)
-      //  console.log("sppppp111111",f.specialists[i].main_specialist_id)
-      }
-      else {
-       formData.append('specialists['+i+']',f.specialists[i].id)
-      //  console.log("sppppp222222",f.specialists[i].id)
-      }
-        
+    formData.append('price',f.price)
+    formData.append('discount_percent',f.discount_percent)
+    formData.append('piece_number',f.piece_number)
+    formData.append('manufacture_place',f.manufacture_place)
+    formData.append('manufacture_date_id',f.manufacture_date_id)
+
+    formData.append('subcategory_ids',f.subcategories)
+    formData.append('model_ids',f.models)
+    
+    // description_images
+    if(f.desc_images.length!=0){
+      for (let i = 0; i < f.desc_images.length; i++) {
+        formData.append('description_images['+i+']',f.desc_images[i])
+        }
     }
-      for (let y= 0; y < f.brands.length; y++) {
-        if(f.flag==0){
-          formData.append('brands['+y+']',f.brands[y].brand_id)
-         // console.log("baaaaa111111",f.brands[y].brand_id)
-        }
-        else {
-          formData.append('brands['+y+']',f.brands[y].id)
-       //   console.log("baaaaaa222222",f.brands[y].id)
-        }
+    
+    // categories
+    for (let i = 0; i < f.categories.length; i++) {
+        formData.append('category_ids['+i+']',f.categories[i])
       }
-    return this.http.post(`https://Pomac.info/outler/public/api/backend/maintainers/update`,formData)
+ 
+    //brands
+    for (let i = 0; i < f.brands.length; i++) {
+      formData.append('brand_ids['+i+']',f.brands[i])
+    }
+ 
+    //product_compatibles_model_ids
+       for (let i = 0; i < f.product_compatibles.length; i++) {
+        formData.append('product_compatibles_model_ids['+i+']',f.product_compatibles[i])
+      }
+     
+    //product_compatibles_manufacture_date 
+      for (let i = 0; i < f.product_compatibles_date.length; i++) {
+        formData.append('product_compatibles_manufacture_date_ids['+i+']',f.product_compatibles_date[i])
+      }
+      return this.http.post(`${environment.endpoint}/admin/product/update`,formData)
   }
   
+  deleteProducts(product_id){
+    return this.http.delete(`${environment.endpoint}/admin/product/delete?product_id=${product_id}`);
+  }
+  ////////////////////////////////SCAR Products ///////////////////////////////
+
+
+
  //////////////////////////////////Cities //////////////////////////////////
     allSubCategories(){
       return this.http.get(`${environment.endpoint}/secondary-specialists`)
@@ -285,9 +329,6 @@ deleteYear(manufacture_date_id){
       console.log(banner_id)
       return this.http.get(`${environment.endpoint}/banners/delete?banner_id=${banner_id}`)
     }
-
-
-
 
  
     allProducts(){

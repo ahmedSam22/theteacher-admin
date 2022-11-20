@@ -1,1 +1,218 @@
-<p>edit-product works!</p>
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <form [formGroup]="form">
+                          
+                            <div class="form-row" style="background-color:#f6f6f7 ; border-radius:5px ; margin:10px ">
+                                
+                              <!-- الأقسام الرئيسية -->
+                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
+                                <mat-form-field>
+                                    <mat-label> الأقسام الرئيسية</mat-label> <br> 
+                                    <mat-select multiple (selectionChange)="onChangeCategory($event)">
+                                      <mat-option *ngFor="let category of all_categories " [value]="category.id" >
+                                        {{category.name}}
+                                      </mat-option>
+                                    </mat-select>
+                                 </mat-form-field>
+                               </div> 
+
+                               <!-- الأقسام الفرعية -->
+                               <div class="form-group col-3 p-2" style="margin:15px 0px "  >
+                                <mat-form-field>
+                                    <mat-label> الأقسام الفرعية</mat-label> <br> 
+                                    <mat-select  multiple (selectionChange)="onChangeSubCategory($event)" >
+                                      <!-- [value]="[{cat:subcategory.category_id ,sub:subcategory.id}] -->
+                                      <mat-option *ngFor="let subcategory of subcategories_of_maincategories" [value]="{sub:subcategory.id , cat:subcategory.category_id }">
+                                        {{subcategory.name}}
+                                      </mat-option>
+                                    </mat-select>
+                                 </mat-form-field>
+                               </div> 
+
+                               <!-- البراندات -->
+                               <div class="form-group col-3 p-2" style="margin:15px 0px ">
+                                <mat-form-field>
+                                    <mat-label> البراندات</mat-label> <br> 
+                                    <mat-select  multiple (selectionChange)="onChangeBrands($event)" >
+                                      <mat-option *ngFor="let brand of all_brands" [value]="brand.id" >
+                                        {{brand.name}}
+                                      </mat-option>
+                                    </mat-select>
+                                 </mat-form-field>
+                               </div> 
+
+                               <!-- الموديلات -->
+                               <div class="form-group col-3 p-2" style="margin:15px 0px ">
+                                <mat-form-field>
+                                    <mat-label> الموديلات</mat-label> <br> 
+                                    <mat-select  multiple (selectionChange)="onChangeModels($event)" >
+                                      
+                                      <mat-option *ngFor="let models of models_of_brands" [value]="{sub:models.id,cat:models.brand_id}">
+                                        {{models.name}}
+                                      </mat-option>
+                                    </mat-select>
+                                 </mat-form-field>
+                               </div> 
+                               
+                               <!-- سنة الصنع -->
+                               <div class="form-group col-3 p-2" style="margin:15px 0px ">
+                                <mat-form-field>
+                                    <mat-label> سنة الصنع </mat-label> <br> 
+                                    <mat-select (selectionChange)="onChangeManufactureDate($event)" >
+                                      <mat-option *ngFor="let year of years " [value]="year.id" >
+                                        {{year.date}}
+                                      </mat-option>
+                                    </mat-select>
+                                 </mat-form-field>
+                               </div> 
+
+                               <!-- الموديلات المتوافقه للمنتج -->
+                               <div class="form-group col-3 p-2" style="margin:15px 0px ">
+                                <mat-form-field>
+                                    <mat-label> الموديلات المتوافقه للمنتج</mat-label> <br> 
+                                    <mat-select   multiple (selectionChange)="onChangeCompatibleProductModel($event)" >
+                                      <mat-option *ngFor="let compatible_models of models_of_brands " [value]="compatible_models.id" >
+                                        {{compatible_models.name}}
+                                      </mat-option>
+                                    </mat-select>
+                                 </mat-form-field>
+                               </div> 
+
+                               <!-- سنوات صنع الموديلات المتوافقه للمنتج -->
+                               <div class="form-group col-3 p-2" style="margin:15px 0px ">
+                                <mat-form-field>
+                                    <mat-label> سنوات صنع الموديلات المتوافقه للمنتج </mat-label> <br> 
+                                    <mat-select   multiple (selectionChange)="onChangeCompatibleYear($event)" >
+                                      <mat-option *ngFor="let compatible_product_year of years " [value]="compatible_product_year.id" >
+                                        {{compatible_product_year.date}}
+                                      </mat-option>
+                                    </mat-select>
+                                 </mat-form-field>
+                               </div> 
+
+                            </div> 
+                              
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for=""> اسم المنتج </label>
+                                <input type="text" class="form-control" formControlName="name">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            
+                            <div class="form-group col-6">
+                                <label for=""> رقم القطعة </label>
+                                <input type="text" class="form-control" formControlName="piece_number">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for=""> بلد المنشأ </label>
+                                <input type="text" class="form-control" formControlName="manufacture_place">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-4">
+                                <label for=""> سعر المنتج </label>
+                                <input type="text" class="form-control" formControlName="price">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for=""> نسبة الخصم </label>
+                                <input type="text" class="form-control" formControlName="discount_percent">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for=""> سعر المنتج بعد الخصم </label>
+                                <input type="text" class="form-control" [value]="data.price_after_discount" disabled="true">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="">وصف المنتج </label>
+                                <textarea type="text" class="form-control" formControlName="description"></textarea>
+                            </div>
+                       </div>
+
+                       <!-- صورة المنتج  -->
+                       <div class="form-group">
+                            <label for=""> الصورة الرئيسية للمنتج </label>
+                            <ng-container *ngIf="image_edit">
+                                <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
+                                    <ngx-dropzone-label>أضغط هنا لإختيار الصورة الرئيسية للمنتج</ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f" >
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </ngx-dropzone>
+                            </ng-container>
+                            <div class="text-center" *ngIf="!image_edit">
+                                <div style="position: relative;">
+                                    <i style="cursor: pointer;    cursor: pointer;position: absolute;top: 3px;" class="fas fa-edit text-primary" (click)="image_edit=!image_edit"></i> 
+                                    <img style="width: 150px;height: 150px;" src="{{data.imagePath}}"  onerror="src='assets/images/no-product.png'" alt=""  >
+                                </div>
+                            </div>
+                        </div>
+                        <!-- الصور الموضحة للمنتج -->
+                        <!-- *ngIf="data.descriptionImagesPaths.length!=0" -->
+                            <div *ngIf="data.descriptionImagesPaths.length!=0">  
+                            <label for=""> الصور الموضحة للمنتج </label>
+                            <div class="row justify-content-center" *ngFor="let descpath of data.descriptionImagesPaths ; let index=index">
+                            <div class="col-12 my-2" *ngIf="edit[index]"> 
+                                <ng-container >
+                                    <ngx-dropzone (change)="onSelectDescription_images($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
+                                        <ngx-dropzone-label>أضغط هنا لإختيار  مجموعه من الصور الموضحة للمنتج</ngx-dropzone-label>
+                                        <ngx-dropzone-image-preview *ngFor="let df of description_files" [removable]="true" (removed)="onRemovedDescription_images(df)" [file]="df">
+                                            <ngx-dropzone-label>{{ df.name }} ({{ df.type }})</ngx-dropzone-label>
+                                        </ngx-dropzone-image-preview>
+                                    </ngx-dropzone>
+                                </ng-container>
+                            </div>
+                                <div class="col-3" > 
+                                    <div class="text-center" *ngIf="!edit[index]">
+                                        <div style="position: relative;">
+                                            <i style="cursor: pointer;    cursor: pointer;position: absolute;top: 3px;" class="fas fa-edit text-primary" (click)="edit[index]=!edit[index]"></i> 
+                                            <img style="width: 150px;height: 150px;" src="{{descpath}}" onerror="src='assets/images/no-product.png'" alt=""  >
+                                        </div>
+                                    </div>
+                            </div> 
+                            </div>
+                        </div>
+                        <div class="form-group text-center mt-5">
+                            <button class="btn btn-primary" type="button" (click)="submit()"> تعديل المنتج</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 
+  // var orgArray = [{"cat":"Primary Category1","sub":2},{"cat":"Healing","sub":19},{"cat":"Primary Category2","sub":2},{"cat":"Healing","sub":20}];
+
+  var newArray = this.subCategories.reduce(function(acc, curr) {
+  //finding Index in the array where the NamaCategory matched
+  var findIfNameExist = acc.findIndex(function(item) {
+    return item.cat === curr.cat;
+  })
+  // if in the new array no such object exist where
+  // namecategory matches then create a new object
+  if (findIfNameExist === -1) {
+    let obj = {
+      'cat': curr.cat,
+      "value": [curr.sub]
+    }
+    acc.push(obj)
+  } else {
+    // if name category matches , then push the value 
+  acc[findIfNameExist].value.push(curr.sub)
+ 
+    
+  }
+  return acc;
+
+}, []);
+console.log(newArray) -->
