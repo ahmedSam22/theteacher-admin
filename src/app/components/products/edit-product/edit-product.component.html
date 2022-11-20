@@ -11,7 +11,7 @@
                                 <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> الأقسام الرئيسية</mat-label> <br> 
-                                    <mat-select multiple (selectionChange)="onChangeCategory($event)">
+                                    <mat-select multiple (selectionChange)="onChangeCategory($event)" [(value)]="categories">
                                       <mat-option *ngFor="let category of all_categories " [value]="category.id" >
                                         {{category.name}}
                                       </mat-option>
@@ -23,7 +23,7 @@
                                <div class="form-group col-3 p-2" style="margin:15px 0px "  >
                                 <mat-form-field>
                                     <mat-label> الأقسام الفرعية</mat-label> <br> 
-                                    <mat-select  multiple (selectionChange)="onChangeSubCategory($event)" >
+                                    <mat-select  multiple (selectionChange)="onChangeSubCategory($event)"  [(value)]="subCats">
                                       <!-- [value]="[{cat:subcategory.category_id ,sub:subcategory.id}] -->
                                       <mat-option *ngFor="let subcategory of subcategories_of_maincategories" [value]="{sub:subcategory.id , cat:subcategory.category_id }">
                                         {{subcategory.name}}
@@ -36,7 +36,7 @@
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> البراندات</mat-label> <br> 
-                                    <mat-select  multiple (selectionChange)="onChangeBrands($event)" >
+                                    <mat-select  multiple (selectionChange)="onChangeBrands($event)" [(value)]="brands">
                                       <mat-option *ngFor="let brand of all_brands" [value]="brand.id" >
                                         {{brand.name}}
                                       </mat-option>
@@ -48,8 +48,7 @@
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> الموديلات</mat-label> <br> 
-                                    <mat-select  multiple (selectionChange)="onChangeModels($event)" >
-                                      
+                                    <mat-select  multiple (selectionChange)="onChangeModels($event)"  [(value)]="modBrand">
                                       <mat-option *ngFor="let models of models_of_brands" [value]="{sub:models.id,cat:models.brand_id}">
                                         {{models.name}}
                                       </mat-option>
@@ -61,7 +60,7 @@
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> سنة الصنع </mat-label> <br> 
-                                    <mat-select (selectionChange)="onChangeManufactureDate($event)" >
+                                    <mat-select (selectionChange)="onChangeManufactureDate($event)" [(value)]="manufacture_date_id">
                                       <mat-option *ngFor="let year of years " [value]="year.id" >
                                         {{year.date}}
                                       </mat-option>
@@ -73,7 +72,7 @@
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> الموديلات المتوافقه للمنتج</mat-label> <br> 
-                                    <mat-select   multiple (selectionChange)="onChangeCompatibleProductModel($event)" >
+                                    <mat-select   multiple (selectionChange)="onChangeCompatibleProductModel($event)" [(value)]="product_compatibles_model">
                                       <mat-option *ngFor="let compatible_models of models_of_brands " [value]="compatible_models.id" >
                                         {{compatible_models.name}}
                                       </mat-option>
@@ -85,7 +84,7 @@
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> سنوات صنع الموديلات المتوافقه للمنتج </mat-label> <br> 
-                                    <mat-select   multiple (selectionChange)="onChangeCompatibleYear($event)" >
+                                    <mat-select   multiple (selectionChange)="onChangeCompatibleYear($event)" [(value)]="product_compatibles_date">
                                       <mat-option *ngFor="let compatible_product_year of years " [value]="compatible_product_year.id" >
                                         {{compatible_product_year.date}}
                                       </mat-option>

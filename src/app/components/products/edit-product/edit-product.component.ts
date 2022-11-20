@@ -38,6 +38,10 @@ d_images:any =[]
 images:any=[]
 model_str:any
 subcategory_str:any
+selected_date:any;
+
+subCats:any=[]
+modBrand:any=[]
 ////////////////////////////////////////
   constructor(
     private formbuilder:FormBuilder,
@@ -48,15 +52,14 @@ subcategory_str:any
     ) { 
       console.log("ddddddddddddd",data)
     }
-
-
+ 
+ model_obj:any  ;  model_arr=[];   subcategory_obj:any ; subcategory_arr=[]
   ngOnInit(): void {
-    var model_obj:any  , model_arr=[] , subcategory_obj:any , subcategory_arr=[]
-
+    
     //for(let i=0 ;i<this.data.descriptionImagesPaths.length; i++){
     //   this.edit[i]=false
     // }
-   
+ 
     this.form=this.formbuilder.group({
       name:[this.data.name,Validators.required],
       price:[this.data.price,Validators.required],
@@ -68,48 +71,74 @@ subcategory_str:any
  
   this.images[0]=this.data.imagePath
   this.d_images=this.data.descriptionImagesPaths
-  this.manufacture_date_id=this.data.manufacture_date_id ;
-
+  this.manufacture_date_id=+this.data.manufacture_date_id ;
+  
   for(let i=0 ; i<this.data.categories.length ; i++){
       this.categories[i]=this.data.categories[i].id 
+      this.categories=this.convertArrayOfstringToArrayofInt(this.categories)
   }
-
+ 
+ 
   for(let i=0 ; i<this.data.brands.length ; i++){
      this.brands[i]=this.data.brands[i].id 
+     this.brands = this.convertArrayOfstringToArrayofInt(this.brands)
   }
+ 
 
   for(let i=0 ; i<this.data.compatibles.length ; i++){
       this.product_compatibles_model[i]=this.data.compatibles[i].model_id
+      this.product_compatibles_model = this.convertArrayOfstringToArrayofInt(this.product_compatibles_model)
+
       this.product_compatibles_date[i]=this.data.compatibles[i].manufacture_date_id 
+      this.product_compatibles_date = this.convertArrayOfstringToArrayofInt(this.product_compatibles_date)
   }
    
   //models user not change
-  for(let i=0 ; i<this.data.models.length ; i++){
-      model_obj={cat:this.data.models[i]?.brand_id , sub:this.data.models[i]?.id}
-      model_arr.push(model_obj)
-      console.log("create array of objects [{cat:x , sub:y}]",model_arr)
+  for(let i=0 ; i<this.data.models.length; i++){
+     this.model_obj={cat:this.data.models[i]?.brand_id,sub:this.data.models[i]?.id}
+      this.model_arr.push(this.model_obj)
+      console.log("create array of objects [{cat:x , sub:y}]",this.model_arr)
+     
   }
-    // subcategories user not change
+  // this.modBrand= [{sub:2,cat:2},{sub:3,cat:2},{sub:4,cat:2}]
+  // subcategories user not change
   for(let j=0 ; j<this.data.subcategories.length ; j++){
-      subcategory_obj={cat:this.data.subcategories[j]?.category_id , sub:this.data.subcategories[j]?.id}
-      subcategory_arr.push(subcategory_obj)
-      console.log("create array of objects [{cat:x , sub:y}]",subcategory_arr)
+       this.subCats.push(this.data.subcategories[j].id) ;
+       this.subcategory_obj={cat:this.data.subcategories[j]?.category_id , sub:this.data.subcategories[j]?.id}
+       this.subcategory_arr.push(this.subcategory_obj)
+      console.log("create array of objects [{cat:x , sub:y}]",this.subcategory_arr)
   }
-    
-  this.model_str=  this.convertArrofObjsToStr(model_arr)
-  this.subcategory_str=  this.convertArrofObjsToStr(subcategory_arr)
+  this.subCats= this.convertArrayOfstringToArrayofInt(this.subCats)
+  this.model_str=  this.convertArrofObjsToStr(this.model_arr)
+  this.subcategory_str=  this.convertArrofObjsToStr(this.subcategory_arr)
     // console.log("final str model " , this.model_str)
     // console.log("final str subcategory_" , this.subcategory_str)
-
-     
-  
    
   this.allCategories() ;
   this.allBrands() ;
   this.allYears();
 
+  this.service.getSubcategoryByCategoryId(this.categories).subscribe((res:any)=>{
+    this.subcategories_of_maincategories=res['data']
+   })
+
+  this.service.getModelsByBrandId(this.brands).subscribe((res:any)=>{
+    this.models_of_brands=res['data']
+     for(let i=0 ; i< this.models_of_brands.length ; i++){
+      this.modBrand[i]=this.models_of_brands[i].id
+      console.log("3242343243243",this.modBrand )
+      this.modBrand= this.convertArrayOfstringToArrayofInt(this.modBrand)
+      }
+    })
+  }
+
+convertArrayOfstringToArrayofInt(arr){
+ var num =arr.map(function(str) {
+     return parseInt(str); 
+  });
+return num ;
 }
- 
+
 convertArrofObjsToStr(arrOfobjs){
     var subv=[]
     var newArray = arrOfobjs.reduce(function(acc, curr) {
@@ -152,9 +181,7 @@ onChangeCategory(event){
  console.log("all selected categories" , this.categories)
  this.service.getSubcategoryByCategoryId(event.value).subscribe((res:any)=>{
  this.subcategories_of_maincategories=res['data']
-
- 
- })
+})
 }
 
 onChangeSubCategory(event){

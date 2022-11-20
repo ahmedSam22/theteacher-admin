@@ -11,7 +11,8 @@
                                 <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> الأقسام الرئيسية</mat-label> <br> 
-                                    <mat-select   multiple (selectionChange)="onChangeCategory($event)" >
+                                    <!-- [(value)]="selected" -->
+                                    <mat-select  multiple (selectionChange)="onChangeCategory($event)">
                                       <mat-option *ngFor="let category of all_categories " [value]="category.id" >
                                         {{category.name}}
                                       </mat-option>

@@ -12,13 +12,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent implements OnInit {
-  dropdownList = [];
-  dropdownSettings = {};
-  selectedItems: any[];
- 
-  // brands;
-  brandType ;
-/////////////////SCAR///////////////////
 form:FormGroup;
 category:any ;
 categories:any=[];
@@ -34,10 +27,9 @@ years:any=[];
 product_compatibles_model:any=[];
 manufacture_date_id:any ;
 product_compatibles_date:any
-
 d_images:any =[]
 images:any=[]
-////////////////////////////////////////
+// selected:any
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -46,47 +38,7 @@ images:any=[]
     ) { }
 
   ngOnInit(): void {
- 
-    // this.categoriesSetting = {
-    //   singleSelection: false,
-    //   idField: 'id',
-    //   textField: 'name',
-    //   enableCheckAll:false,
-    //   itemsShowLimit:0,
-    //   allowSearchFilter: false ,
-    //   disabled:true
-    // };
-
-    // this.subCategoriesSetting = {
-    //   singleSelection: false,
-    //   idField: 'id',
-    //   textField: 'name',
-    //   selectAllText: 'اختيار الكل ',
-    //   unSelectAllText: 'الغاء الاختيار',
-    //   itemsShowLimit: 20,
-    //   allowSearchFilter: false
-    // };
-
-    // this.brandsSetting = {
-    //   singleSelection: false,
-    //   idField: 'id',
-    //   textField: 'name',
-    //   selectAllText: 'اختيار الكل ',
-    //   unSelectAllText: 'الغاء الاختيار',
-    //   itemsShowLimit: 10,
-    //   allowSearchFilter: false
-    // };
-
-    // this.modelsSetting = {
-    //   singleSelection: false,
-    //   idField: 'id',
-    //   textField: 'name',
-    //   selectAllText: 'اختيار الكل ',
-    //   unSelectAllText: 'الغاء الاختيار',
-    //   itemsShowLimit: 10,
-    //   allowSearchFilter: false
-    // };
-
+    //this.selected=[4]
     this.form=this.formbuilder.group({
       name:['',Validators.required],
       price:['',Validators.required],
@@ -114,8 +66,6 @@ onChangeCategory(event){
  console.log("all selected categories" , this.categories)
  this.service.getSubcategoryByCategoryId(event.value).subscribe((res:any)=>{
  this.subcategories_of_maincategories=res['data']
-
- 
  })
 }
 
@@ -204,250 +154,52 @@ onRemove(event) {
   console.log(event);
   this.files.splice(this.files.indexOf(event), 1);
 }
-
-//categories
-//  subConcat:any=[]
-//  x:any=[]
-//  y:any=[]
-// m :any =[] ;
-// flage=false
-// delete :any = []
-// onCategorySelect(item: any) {
-//  this.flage=false
-//   this.x=item
-//   this.y= this.removeDuplicates(this.x)
-//     console.log("onCategorySelect", this.y )
-// }
-
-// saveFunction(items ){
-// //   // if(this.flage==false){
-// //     // this.x=[]
-// //     for(let i=0 ; i<items.length ; i++){
-// //     this.category=items[i].id
-// //     }
-     
-// // this.service.getSubcategoryByCategoryId(this.category).subscribe((res:any)=>{
-// // this.subCategories=[]
-// // this.subConcat=res['data']
-// // this.subCategories=this.removeDuplicates(this.x)
  
-// // this.x =this.merge( this.subCategories, this.subConcat);
-// // this.x=this.removeDuplicates(this.x)
-// // console.log("change false " , this.x)
-
-
-// // })
-// //  // }
-// //   // else {
-    
-// //   // this.x= this.removeDuplicates(this.x)
-// //   //  console.log("change true" , this.x)
-
-// //   // }
-// }
-// onItemDeSelect(event){
+convertArrayOfObjToStr(arrOfobjs){
+  var subv=[]
+  var newArray = arrOfobjs.reduce(function(acc, curr) {
+    var findIfNameExist = acc.findIndex(function(item) {
+       return item.cat === curr.cat;
+     })
+     if (findIfNameExist === -1) {
+       let obj = {
+         'cat': curr.cat,
+         "value": [curr.sub]
+       }
+       acc.push(obj)
+     } 
+     else {
+     acc[findIfNameExist].value.push(curr.sub)
+     }
+     return acc;
+    }, []);
  
-//  // // this.x=[]
-// //  console.log("remove" , this.flage)
-// //   this.service.getSubcategoryByCategoryId(event.id).subscribe((res:any)=>{
-// //     this.delete=res['data']
-// //     console.log("deleted" ,this.delete)  
-   
-// //     for( var i=this.x.length - 1; i>=0; i--){
-// //             for( var j=0; j< this.delete.length; j++){
-// //                 if((this.x[i] &&this.x[i].category_id == this.delete[j].category_id)){
-// //                this.x.splice(i, 1);
-               
-// //                }
-// //              }
-// //             }
-            
-// //            this.x= this.removeDuplicates(this.x)
-           
-// //             console.log("rest" ,this.x)  
-// //   })
-  
-// }
-
-//  removeDuplicates(arr) {
-//   return arr.filter((item,
-//       index) => arr.indexOf(item) === index);
-// }
-// saveFunction(items ) {
-//  console.log("eeeeeeeevent" ,items)
-    
-//       for(let i=0 ; i<items.length ; i++){
-//         this.category=items[i].id
-//         }
-         
-//         this.allSubCategories(this.category);
-    
-//         console.log("yyyyy" ,this.y )
-    
-    
-//     // this.category=items.id
-//     // this.service.getSubcategoryByCategoryId(this.category).subscribe((res:any)=>{
-//     //   this.x=res['data']
-
-      
-
-//     //     this.x=this.x.filter((item,
-//     //       n) => this.x.indexOf(item) === n);
-
-//     //    console.log("all Arr",this.y)
-//     //    console.log("del Arr",this.x)
-//     //   //  this.y[i] && 
-//     //    for( var i=this.y.length - 1; i>=0; i--){
-//     //         for( var j=0; j<this.x.length; j++){
-//     //             if((this.y[i].category_id == this.x[j].category_id)){
-//     //              this.y.splice(i, 1);
-                  
-//     //             }
-//     //         }
-//     //         }
-//     //         console.log("res",this.y)
-//     //  })
-   
-  
-  
-  
-// }
-
-
-
-//  ddd(aa1,aa2){
-//   for( var i=this.m.length - 1; i>=0; i--){
-//     for( var j=0; j<this.x.length; j++){
-//         if((this.m[i] && this.m[i].category_id == this.x[j].category_id)){
-//          this.m.splice(i, 1);
-//           console.log("res",this.m)
-//         }
-//     }
-//     }
-//  }
-// allSubCategories(category){
-//   this.service.getSubcategoryByCategoryId(category).subscribe((res:any)=>{
-//     this.subConcat=res['data']
-//     this.x =this.merge( this.subCategories, this.subConcat);
-//   // console.log("x",  this.x )
-//   // this.onCategorySelect(this.x)
-//    })
-  
+   console.log(newArray)
  
-// }
+    for(var i=0 ; i<newArray.length ; i++){
+      subv.push(newArray[i].value)
+   }
 
-
-// merge(first, second) {
+   let finalStr = subv.map(a => a.join(",")).join('|');
  
-//   for(let i=0; i<second.length; i++) {
-//     first.push(second[i]);
-//   }
-// return first
-// }
- 
-// onSelectAllCategories(items: any) {
-  
-//    console.log("Iteeeeeeeeeeems" , items )
- 
-// }
-
-// //subcategory
-// onSubCategorySelect(item: any) {
-//   console.log("Item",this.subCategories)
-// }
-
-// onSelectAllSubCategories(items: any) {
-//  console.log("Iteeeeeeeeeeems" , items )
-// }
-
-// //brands
-// onBrandsSelect(item: any) {
-// }
-
-// onSelectAllBrands(items: any) {
-//  console.log("Iteeeeeeeeeeems" , items )
-// }
-
-// //models
-// onModelSelect(item: any) {
-// }
-
-// onSelectAllModels(items: any) {
-//  console.log("Iteeeeeeeeeeems" , items )
-// }  
-// arr=[]
-   
+  return finalStr;
+}
 submit(){
 
-let sub=[]
+//convert subcategories from array of objects to string arranged based on categories
 this.subCategories.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0))
-  //  console.log("subCategories",this.subCategories)
- 
-  var newArray = this.subCategories.reduce(function(acc, curr) {
-   var findIfNameExist = acc.findIndex(function(item) {
-      return item.cat === curr.cat;
-    })
-    if (findIfNameExist === -1) {
-      let obj = {
-        'cat': curr.cat,
-        "value": [curr.sub]
-      }
-      acc.push(obj)
-    } 
-    else {
-    acc[findIfNameExist].value.push(curr.sub)
-    }
-    return acc;
-   }, []);
+let str_sub = this.convertArrayOfObjToStr(this.subCategories)
+console.log("add str_sub ", str_sub )
 
-  console.log(newArray)
-
-   for(var i=0 ; i<newArray.length ; i++){
-    sub.push(newArray[i].value)
-  }
-
-  let str_sub = sub.map(a => a.join(",")).join('|');
-  console.log("sub",sub)
-  console.log("str_sub",str_sub);
-//////////////////////////////////////////////////////////////
-let mod=[]
-
+//convert models from array of objects to string arranged based on brands
 this.models.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0)) 
-
-var newArray2 = this.models.reduce(function(acc, curr) {
-  var findIfNameExist2 = acc.findIndex(function(item) {
-     return item.cat === curr.cat;
-   })
-   if (findIfNameExist2 === -1) {
-     let obj = {
-       'cat': curr.cat,
-       "value": [curr.sub]
-     }
-     acc.push(obj)
-   } 
-   else {
-   acc[findIfNameExist2].value.push(curr.sub)
-   }
-   return acc;
-  }, []);
-
-console.log(newArray2)
-for(var j=0 ; j<newArray2.length ; j++){
-    mod.push(newArray2[j].value)
- }
-  
-
-let str_mod = mod.map(a => a.join(",")).join('|');
+let str_mod =this.convertArrayOfObjToStr(this.models)
+console.log("add str_mod", str_mod )
  
-console.log("str_mod",str_mod);
- console.log("mod1",mod)
-// let m =JSON.stringify(mod)
-//  console.log("mod2",typeof(m),m)
-
-/////////////////////////////////////////////////////////////////////////
-     // image:this.files[0],
+    // image:this.files[0],
     // desc_images:this.description_files
-  let f={
+ 
+    let f={
       image :this.images,
       name:this.form.value.name,
       price:this.form.value.price,
@@ -466,9 +218,9 @@ console.log("str_mod",str_mod);
     }
  
     console.log('the sended form is ',f)
-     this.spinner.show()
+    this.spinner.show()
     this.service.addProducts(f).subscribe((res:any)=>{
-      this.spinner.hide()
+    this.spinner.hide()
     console.log("addProducts",res)
     if(res.status==true){
      Swal.fire(
