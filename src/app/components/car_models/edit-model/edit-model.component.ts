@@ -15,7 +15,7 @@ export class EditModelComponent implements OnInit {
 
   form:FormGroup;
   brands = [];
-
+  submitted=false
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -26,30 +26,42 @@ export class EditModelComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log("mmmm",this.data);
+    console.log("Data",this.data);
     this.form = this.formbuilder.group({
       name:[this.data.name, Validators.required],
       model_id:[this.data.id, Validators.required],
+      description:[this.data.description,Validators.required],
     });
-
+ 
     this.service.getBrands().subscribe(res=>{
       this.brands = res['data'];
     })
   }
-
+  get f() {return this.form.controls}
   onSubmit(){
-     console.log("dsadas",this.form.value)
+    this.submitted=true
     this.spinner.show();
     this.service.editModels(this.form.value).subscribe(res=>{
-      console.log("resssss",res)
+   
       this.spinner.hide();
+      
+    if(res['status']==true) {
       Swal.fire(
         'نجاح',
-        'تم تعديل الموديل بنجاح',
+        `${res['message']}`,
         'success'
       )
-      this.dialog.closeAll();
-      this.router.navigate(['/app/car-models/list']);
+     this.dialog.closeAll();
+     this.router.navigate(['/app/car-models/list',this.data.brand_id]);
+    }
+    else {
+      let error = res['errors']
+      Swal.fire(
+        'خطأ',
+         `${error[0]}`,
+        'error'
+      )
+    }
     })
   }
 }

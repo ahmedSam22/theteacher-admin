@@ -24,6 +24,7 @@ export class EditCategoryComponent implements OnInit {
   showTypes=false;
   changType;
   ch=false;
+  submitted:boolean=false
   @ViewChild('multiSelect') multiSelect;
   constructor(
     private formbuilder:FormBuilder,
@@ -79,7 +80,9 @@ onRemove(event) {
 //   console.log("CDDDDDD",this.selectedItems)
 //   this.ch=true
 // }
+get f() {return this.form.controls}
   submit(){
+    this.submitted=true
    let form= {
      ...this.form.value , 
      image:this.files[0] || null
@@ -88,15 +91,24 @@ onRemove(event) {
     
     this.service.editCategory(form).subscribe(res=>{
     this.spinner.hide()
-    Swal.fire(
+    if(res['status']==true){
+      Swal.fire(
         'نجاح',
-        'تم تعديل القسم الرئيسي بنجاح',
+        `${res['message']}`,
         'success'
       )
       this.router.navigate(['/app/services/list'])
       this.dialog.closeAll()
-   
-    })
+    }
+    else {
+      let error =res['errors']
+      Swal.fire(
+        'خطأ',
+       `${error[0]}`,
+        'error'
+      )
+    }
+     })
   }
 
    

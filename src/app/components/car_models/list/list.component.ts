@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -17,18 +18,21 @@ export class ListComponent implements OnInit {
   models = [];
   brands = [];
   change_model:any=[];
-  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private service: GlobalService) { }
+  param:any;
+  constructor(private route: ActivatedRoute,private dialog:MatDialog,private spinner:NgxSpinnerService,private service: GlobalService) { }
 
   ngOnInit(): void {
+    this.param= this.route.snapshot.paramMap.get('id');
+    console.log("param", this.param)
    this.getAllBrands() ;
-
-  }
+ }
 
   getAllBrands(){
     this.service.getBrands().subscribe((res:any)=>{ 
       this.brands=res['data'] ;
+      this.brands=[...this.brands].reverse()
       console.log("All Brands" , this.brands)
-      this.change_model[0]= this.brands[0].id ;
+      this.change_model[0]= this.param;
       this.getAllModels(this.change_model);
     })
   }
@@ -42,8 +46,9 @@ export class ListComponent implements OnInit {
     this.change_model[0]=model[0]
     this.spinner.show();
      this.service.getModelsByBrandId(this.change_model).subscribe((res:any)=>{
-      this.spinner.hide();
+     this.spinner.hide();
      this.models=res['data']
+     this.models=[...this.models].reverse()
         console.log("All Models" , this.models)
      })
   }
@@ -52,7 +57,7 @@ export class ListComponent implements OnInit {
   onShowModel(model) {
     let dialogRef = this.dialog.open( ProductDetailsComponent, {
       data: model,
-      height: '300px',
+      height: '200px',
       width: '600px',
     });
   }

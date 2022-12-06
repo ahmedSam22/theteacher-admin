@@ -8,7 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SpecialOrdersComponent } from './special-orders/special-orders.component';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [ListComponent, OrderDetailsComponent, SpecialOrdersComponent],
@@ -19,6 +19,7 @@ import { SpecialOrdersComponent } from './special-orders/special-orders.componen
     FormsModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
+    MatPaginatorModule
   ]
 })
 export class OrdersModule { }

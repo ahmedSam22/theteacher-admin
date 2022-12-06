@@ -1,35 +1,49 @@
-<section id="add-main-page">
+<section id="add-main-page" >
     <div class="card">
         <div class="row">
             <div class="col-md-12">
                 <div class="card-body">
+                   <!-- <div class="row"> 
+                    <p  (click)="file.click()"> 
+                      <input type="file" hidden #file (change)="uploadExcel($event.target.files[0])" name="" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" >
+                      <a href="javascript:void(0)">
+                        Add a students from excel
+                      </a>
+                    </p>
+
+                    <p  (click)="downloadExcel()"> 
+                      <a href="javascript:void(0)">
+                        Download excel sheet template
+                      </a>
+                    </p>
+                    
+                  </div>   -->
                  <div class="row">
-                  <div class="form-group col-2">
+                  <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار قسم رئيسي  </label>
                       <select class="form-control p-1"  (change)="changeCategory($event)">
-                        <option [value]="category.id" *ngFor="let category of categories ; let index=index ">
+                        <option [value]="category.id" *ngFor="let category of categories ; let index=index" [selected]="category.id== param1"  [ngClass]="{'abnormal':  category.subcategories.length== 0 , 'normal': category.subcategories.length != 0}"> 
                               {{category.name}}  
                           </option>
                       </select>
                    </div>
 
-                   <div class="form-group col-2">
+                   <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار قسم فرعي </label>
                       <select class="form-control p-1"  (change)="changeSubcategory($event)">
-                        <option [value]="subcategory.id" *ngFor="let subcategory of subcategories">{{subcategory.name}} </option>
+                        <option [value]="subcategory.id" *ngFor="let subcategory of subcategories" >{{subcategory.name}} </option>
                         <option *ngIf="subcategories.length==0" disabled value="0" style="background-color: #ddd"> No Subcategories To This Category </option>
                       </select>
                    </div>
 
-                   <div class="form-group col-2">
+                   <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار البراند  </label>
                       <select class="form-control p-1"  (change)="changeBrands($event)">
-                        <option [value]="brand.id" *ngFor="let brand of brands">{{brand.name}} </option>
-                     
+                        <option [value]="brand.id" *ngFor="let brand of brands" [selected]="brand.id== param2" [ngClass]="{'abnormal':  brand.models.length== 0 , 'normal': brand.models.length != 0}">{{brand.name}} </option>
                       </select>
                    </div>
 
-                   <div class="form-group col-2">
+                   <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار الموديل </label>
                       <select class="form-control p-1"  (change)="changeModels($event)">
                         <option [value]="model.id" *ngFor="let model of models">{{model.name}} </option>
@@ -38,9 +52,8 @@
                    </div>
 
 
-                   <div class="form-group col-2">
-                 
-                    <button class="btn btn-primary py-2 my-4" (click)="filter()"> بحث </button>
+                   <div class="form-group col-xl-2 col-md-2">
+                      <button class="btn btn-primary py-2 my-4" (click)="filter()"> بحث </button>
                    </div>
                  </div>
               
@@ -68,18 +81,26 @@
                             <td>{{product.piece_number}} </td>
                             
                           <td>
-                              <!-- <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="viewSub(subcategory)"></i> | -->
+                     
                               <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="onEditModel(product)"></i> 
                               |
-                              <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="onDeleteModel(product.id)"></i> 
+                              <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="onDeleteModel(product)"></i> 
                             </td> 
 
 
                           </tr>  
                         </tbody>
                       </table>
+                      <mat-paginator [length]="paginator" 
+                      [pageSize]="15"
+                      [pageSizeOptions]="[15]"
+                      (page)="onPaginateChange($event)"
+                      aria-label="Select page">
+                     </mat-paginator>  
                 </div>
             </div>
         </div>
+
+     
     </div>
 </section>

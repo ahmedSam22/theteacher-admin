@@ -1,0 +1,40 @@
+<section id="add-main-page">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <ul class="row">
+                            <li class="col-lg-7 col-sm-7" > 
+                                <span> 
+                                     تنزيل ملف الإكسيل  
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                        <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                      </svg>
+                                </span> 
+                                 <a style="float:left" href="javascript:void(0)" (click)="downloadExcel()">
+                                    Click Here To Download Excel Sheet Template
+                                </a>
+                            </li>
+                            <li class="col-lg-7 col-sm-7"> 
+                                <span> 
+                                    رفع المنتجات بواسطه الإكسيل   
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                        <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                      </svg>
+                                </span> 
+                                <span (click)="file.click()" > 
+                                <input type="file" hidden #file (change)="uploadExcel($event.target.files[0])" name="" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" >
+                                <a style="float:left" href="javascript:void(0)">
+                                    Click Here To Upload Products From Excel Sheet
+                                </a>
+                                </span>
+                            </li>
+                    </ul> 
+                    <!-- </div>  -->
+               </div>  
+           </div>  
+        </div>  
+    </div>  
+</section>

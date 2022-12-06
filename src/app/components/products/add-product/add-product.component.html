@@ -6,92 +6,109 @@
                     <form [formGroup]="form">
                           
                             <div class="form-row" style="background-color:#f6f6f7 ; border-radius:5px ; margin:10px ">
-                                
-                              <!-- الأقسام الرئيسية -->
+                               <!-- الأقسام الرئيسية -->
                                 <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> الأقسام الرئيسية</mat-label> <br> 
-                                    <!-- [(value)]="selected" -->
-                                    <mat-select  multiple (selectionChange)="onChangeCategory($event)">
-                                      <mat-option *ngFor="let category of all_categories " [value]="category.id" >
+                                    <mat-select  multiple (selectionChange)="onChangeCategory($event)" formControlName="category_ids">
+                                      <mat-option *ngFor="let category of all_categories " [value]="category.id" [ngClass]="{'abnormal':  category.subcategories.length== 0 , 'normal': category.subcategories.length != 0}">
                                         {{category.name}}
                                       </mat-option>
                                     </mat-select>
                                  </mat-form-field>
+                                 <div *ngIf="submitted && f.category_ids.errors" class="errors-container mt-2">
+                                   <p class="error-element" *ngIf="f.category_ids.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                 </div>
                                </div> 
 
                                <!-- الأقسام الفرعية -->
                                <div class="form-group col-3 p-2" style="margin:15px 0px "  >
                                 <mat-form-field>
                                     <mat-label> الأقسام الفرعية</mat-label> <br> 
-                                    <mat-select  multiple (selectionChange)="onChangeSubCategory($event)" >
-                                      <!-- [value]="[{cat:subcategory.category_id ,sub:subcategory.id}] -->
-                                      <mat-option *ngFor="let subcategory of subcategories_of_maincategories" [value]="{sub:subcategory.id , cat:subcategory.category_id }">
-                                        {{subcategory.name}}
+                                     <mat-select    multiple (selectionChange)="onChangeSubCategory($event)"  formControlName="subcategory_ids">
+                                      <mat-option *ngFor="let subcategory of subcategories_of_maincategories ; let index=index" [value]="{sub:subcategory.id , cat:subcategory.category_id }" >  
+                                          {{subcategory.name}} 
                                       </mat-option>
                                     </mat-select>
                                  </mat-form-field>
+                                 <div *ngIf="submitted && f.subcategory_ids.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.subcategory_ids.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                                </div> 
 
                                <!-- البراندات -->
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> البراندات</mat-label> <br> 
-                                    <mat-select  multiple (selectionChange)="onChangeBrands($event)" >
-                                      <mat-option *ngFor="let brand of all_brands" [value]="brand.id" >
+                                    <mat-select  multiple (selectionChange)="onChangeBrands($event)" formControlName="brand_ids">
+                                      <mat-option *ngFor="let brand of all_brands" [value]="brand.id" [ngClass]="{'abnormal':  brand.models.length== 0 , 'normal': brand.models.length != 0}">
                                         {{brand.name}}
                                       </mat-option>
                                     </mat-select>
                                  </mat-form-field>
+                                 <div *ngIf="submitted && f.brand_ids.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.brand_ids.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                                </div> 
 
                                <!-- الموديلات -->
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> الموديلات</mat-label> <br> 
-                                    <mat-select  multiple (selectionChange)="onChangeModels($event)" >
-                                      
-                                      <mat-option *ngFor="let models of models_of_brands" [value]="{sub:models.id,cat:models.brand_id}">
+                                    <mat-select  multiple (selectionChange)="onChangeModels($event)" formControlName="model_ids">
+                                       <mat-option *ngFor="let models of models_of_brands" [value]="{sub:models.id,cat:models.brand_id}">
                                         {{models.name}}
                                       </mat-option>
                                     </mat-select>
                                  </mat-form-field>
+                                 <div *ngIf="submitted && f.model_ids.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.model_ids.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                                </div> 
                                
                                <!-- سنة الصنع -->
-                               <div class="form-group col-3 p-2" style="margin:15px 0px ">
+                               <!-- <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> سنة الصنع </mat-label> <br> 
-                                    <mat-select (selectionChange)="onChangeManufactureDate($event)" >
+                                    <mat-select (selectionChange)="onChangeManufactureDate($event)"  formControlName="manufacture_date_id" >
                                       <mat-option *ngFor="let year of years " [value]="year.id" >
                                         {{year.date}}
                                       </mat-option>
                                     </mat-select>
                                  </mat-form-field>
-                               </div> 
+                                 <div *ngIf="submitted && f.manufacture_date_id.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.manufacture_date_id.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
+                               </div>  -->
 
                                <!-- الموديلات المتوافقه للمنتج -->
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> الموديلات المتوافقه للمنتج</mat-label> <br> 
-                                    <mat-select   multiple (selectionChange)="onChangeCompatibleProductModel($event)" >
+                                    <mat-select   multiple (selectionChange)="onChangeCompatibleProductModel($event)" formControlName="product_compatibles_model_ids">
                                       <mat-option *ngFor="let compatible_models of models_of_brands " [value]="compatible_models.id" >
                                         {{compatible_models.name}}
                                       </mat-option>
                                     </mat-select>
                                  </mat-form-field>
+                                 <div *ngIf="submitted && f.product_compatibles_model_ids.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.product_compatibles_model_ids.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                                </div> 
 
                                <!-- سنوات صنع الموديلات المتوافقه للمنتج -->
                                <div class="form-group col-3 p-2" style="margin:15px 0px ">
                                 <mat-form-field>
                                     <mat-label> سنوات صنع الموديلات المتوافقه للمنتج </mat-label> <br> 
-                                    <mat-select   multiple (selectionChange)="onChangeCompatibleYear($event)" >
+                                    <mat-select   multiple (selectionChange)="onChangeCompatibleYear($event)" formControlName="product_compatibles_manufacture_date_ids">
                                       <mat-option *ngFor="let compatible_product_year of years " [value]="compatible_product_year.id" >
                                         {{compatible_product_year.date}}
                                       </mat-option>
                                     </mat-select>
                                  </mat-form-field>
+                                 <div *ngIf="submitted && f.product_compatibles_manufacture_date_ids.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.product_compatibles_manufacture_date_ids.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                                </div> 
 
                             </div> 
@@ -100,18 +117,26 @@
                             <div class="form-group col-12">
                                 <label for=""> اسم المنتج </label>
                                 <input type="text" class="form-control" formControlName="name">
+                                <div *ngIf="submitted && f.name.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.name.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            
-                            <div class="form-group col-6">
+                             <div class="form-group col-6">
                                 <label for=""> رقم القطعة </label>
                                 <input type="text" class="form-control" formControlName="piece_number">
+                                <div *ngIf="submitted && f.piece_number.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.piece_number.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                             </div>
                             <div class="form-group col-6">
                                 <label for=""> بلد المنشأ </label>
                                 <input type="text" class="form-control" formControlName="manufacture_place">
+                                <div *ngIf="submitted && f.manufacture_place.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.manufacture_place.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                             </div>
                         </div>
 
@@ -119,10 +144,16 @@
                             <div class="form-group col-6">
                                 <label for=""> سعر المنتج </label>
                                 <input type="text" class="form-control" formControlName="price">
+                                <div *ngIf="submitted && f.price.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.price.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                             </div>
                             <div class="form-group col-6">
                                 <label for=""> نسبة الخصم </label>
                                 <input type="text" class="form-control" formControlName="discount_percent">
+                                <div *ngIf="submitted && f.discount_percent.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.discount_percent.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                             </div>
                         </div>
 
@@ -130,6 +161,9 @@
                             <div class="form-group col-12">
                                 <label for="">وصف المنتج </label>
                                 <textarea type="text" class="form-control" formControlName="description"></textarea>
+                                <div *ngIf="submitted && f.description.errors" class="errors-container mt-2">
+                                  <p class="error-element" *ngIf="f.description.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                                </div>
                             </div>
                        </div>
 

@@ -1,5 +1,5 @@
 @import '~ngx-toastr/toastr';
-
+$base-color: #AD141E;
 @font-face {
   font-family: 'Noto Sans Kufi Arabic';
     font-style: normal;
@@ -95,4 +95,50 @@ table{
 .mat-select-value {
   height: 30px;
 }
+  
+// .mat-option.green {
+//   // background-color: saturate( $base-color, 20% ) !important ;
+//   background-color:green !important ;
+  
+// }
+
+// .mat-option.red {
+//   background-color:red !important ;
+
+// }
+// .mat-option.yellow {
+//   background-color:yellow !important ;
+// }
  
+.mat-option.abnormal {
+   display: none;
+}
+.mat-option.normal {
+  background-color: transparent;
+}
+ 
+
+
+.demo-toggles {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.demo-toggles * {
+  margin-bottom: 16px;
+}
+
+.demo-options {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.demo-data * {
+  margin: 16px 0;
+}
+
+.demo-paginator {
+  width: 600px;
+}

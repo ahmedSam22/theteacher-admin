@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
     this.spinner.hide()
     console.log('res')
       console.log(res)
-      this.categories=res
+      this.categories=[...res].reverse()
     })
   }
   deleteApp(category_id){

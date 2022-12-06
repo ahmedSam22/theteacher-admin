@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { GlobalService } from 'src/app/services/global.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 declare var $,jQuery:any
 
 @Component({
@@ -7,9 +10,16 @@ declare var $,jQuery:any
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-
-  constructor() { }
-
+  
+  constructor(private service:GlobalService, private spinner:NgxSpinnerService,private router:Router) {}
+  categories:any =[]
+  category_param :any 
+  brands:any=[]
+  brand_param:any
+  models:any=[]
+  model_param:any ;
+  subcategories:any=[]
+  sub_param:any ;
   ngOnInit(): void {
       // left sidebar and vertical menu
       if ($('#pageWrapper').hasClass('compact-wrapper')) {
@@ -76,6 +86,56 @@ export class SidebarComponent implements OnInit {
             jQuery('.sidebar-submenu, .menu-content').hide();
         }
       }
+
+      //get all categories
+      this.categoryList()
+      //get all brands
+      this.getAllBrands()
+   }
+  
+    //get all categories
+  categoryList(){
+    this.service.allCategories().subscribe((res:any)=>{
+      this.categories = res['data']
+      this.categories=[...this.categories].reverse()
+      console.log("All Categories" ,this.categories)
+      this.category_param=this.categories[0].id
+      this.getAllSubcategories(this.category_param)
+    })
   }
 
+ 
+  getAllSubcategories(category_id){
+    this.service.getSubcategoryByCategoryId(category_id).subscribe((res:any)=>{
+      this.subcategories=res['data']
+      this.subcategories=[...this.subcategories].reverse()
+      console.log("All SubCategories" , this.subcategories)
+      this.sub_param=this.subcategories[0].id
+     })
+  }
+
+  getAllBrands(){
+    this.service.getBrands().subscribe((res:any)=>{ 
+      this.brands=res['data'] ;
+      this.brands=[...this.brands].reverse()
+      console.log("All Brands" , this.brands)
+      this.brand_param= this.brands[0].id;
+      this.getAllModels(this.brand_param)
+    })
+  }
+
+  getAllModels(brand_id){
+    this.service.getModelsByBrandId(brand_id).subscribe((res:any)=>{
+      this.models=res['data']
+      this.models=[...this.models].reverse()
+      console.log("All Models" , this.models)
+      this.model_param=this.models[0].id
+     })
+  }
+
+  goListProducts(){
+      this.router.navigate(['/app/products/lists',this.category_param,this.brand_param]);
+ 
+   }
+   
 }

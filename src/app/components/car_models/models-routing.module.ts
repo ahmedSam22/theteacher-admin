@@ -4,7 +4,7 @@ import { AddModelComponent } from './add-model/add-model.component';
 import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
-  {path:'list',component:ListComponent , data:{title:' قائمة موديلات السيارات'}},
+  {path:'list/:id',component:ListComponent , data:{title:' قائمة موديلات السيارات'}},
   {path:'add',component:AddModelComponent ,data:{title:'اضافة موديل سياره '}}
 
 ];

@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalService } from 'src/app/services/global.service';
 import Swal from 'sweetalert2';
 import { EditProductComponent } from '../edit-product/edit-product.component';
-
+import { HttpClient } from '@angular/common/http';
+import * as saveAs from 'file-saver';
+ 
+import { environment } from 'src/environments/environment';
+ 
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
@@ -21,19 +26,50 @@ export class ListProductsComponent implements OnInit {
   products :any = [] ;
   change_model:any=[];
   change_brand:any=[];
-  constructor(private dialog:MatDialog,private spinner:NgxSpinnerService,private service: GlobalService) { }
+  param1:any ; 
+  param2:any ; 
+  sub_param:any;
+  @Input() pageIndex: number; 
+  paginator:any;
+  constructor(private http:HttpClient,private route: ActivatedRoute,private dialog:MatDialog,private spinner:NgxSpinnerService,private service: GlobalService , private router:Router) {
+ 
+    }
 
   ngOnInit(): void {
-   this.categoryList();
-   this.getAllBrands() ;
+    this.pageIndex=0 ;
+    this.param1= this.route.snapshot.paramMap.get('category');
+    console.log("param1", this.param1)
 
+    this.param2= this.route.snapshot.paramMap.get('brand');
+    console.log("param2", this.param2)
+    this.categoryList();
+    this.getAllBrands() ;
+
+    let form={
+      category_ids:[this.param1] ,
+      subcategory_ids:[],
+      brand_ids:[this.param2] , 
+      model_ids:[]  
+      }
+  
+      this.service.filterProduct(form).subscribe((res:any)=>{
+        this.products=res['data'].products
+        this.products=[...this.products].reverse()
+        console.log("filter" ,this.products )
+      })
+
+      console.log("pageIndex" ,this.pageIndex)
   }
-
+  onPaginateChange(event){
+    this.pageIndex=event.pageIndex+1
+    console.log(JSON.stringify( this.pageIndex  ) , this.pageIndex );
+    this.filter()
+  }
   categoryList(){
     this.service.allCategories().subscribe((res:any)=>{
       this.categories = res['data']
       console.log("All Categories" ,this.categories)
-      this.category_change[0]=this.categories[0].id 
+      this.category_change[0]=this.param1
       this.getAllSubcategories(this.category_change)
     })
   }
@@ -49,6 +85,7 @@ export class ListProductsComponent implements OnInit {
     this.service.getSubcategoryByCategoryId(this.category_change).subscribe((res:any)=>{
      this.subcategories=res['data']
         console.log("All SubCategories" , this.subcategories)
+      
      })
   }
 
@@ -61,7 +98,7 @@ export class ListProductsComponent implements OnInit {
     this.service.getBrands().subscribe((res:any)=>{ 
       this.brands=res['data'] ;
       console.log("All Brands" , this.brands)
-      this.change_brand[0]= this.brands[0].id ;
+      this.change_brand[0]=this.param2 ;
       this.getAllModels(this.change_brand);
     })
   }
@@ -92,12 +129,16 @@ export class ListProductsComponent implements OnInit {
       category_ids:this.category_change ,
       subcategory_ids:this.subcategory_change ,
       brand_ids:this.change_brand , 
-      model_ids:this.change_model   
+      model_ids:this.change_model , 
+      page:this.pageIndex
       }
-
+      console.log("filter2" ,form)
       this.service.filterProduct(form).subscribe((res:any)=>{
-        this.products=res['data'].products
-        console.log("filter" ,this.products )
+        this.products=res['data'].products.data
+
+        // this.products=[...this.products].reverse()
+        this.paginator=res['data'].products.last_page*res['data'].products.per_page
+      console.log("filter" , this.paginator)
       })
   }
  
@@ -107,23 +148,97 @@ export class ListProductsComponent implements OnInit {
       height: '800px',
      });
     dialogRef.afterClosed().subscribe( res => {
-      console.log(res);
-      this.getAllBrands() 
+    
+      let form={
+        category_ids:[this.param1] ,
+        subcategory_ids:[] ,
+        brand_ids:[this.param2], 
+        model_ids:[]   
+        }
+    
+        this.service.filterProduct(form).subscribe((res:any)=>{
+          this.products=res['data'].products
+          this.products=[...this.products].reverse()
+          console.log("filter" ,this.products )
+        })
     })
   }
 
-  onDeleteModel(product_id) {
+  onDeleteModel(product) {
+    console.log("product",product)
     this.spinner.show();
-    this.service.deleteProducts(product_id).subscribe( deleteResponse => {
-      console.log(deleteResponse);
-      this.spinner.hide();
-      Swal.fire(
-        'نجااااح',
-        'تم حذف المنتج  بنجاح',
-        'success'
-        )
+    this.service.deleteProducts(product.id).subscribe( deleteResponse => {
+      if(deleteResponse['status']==true){
+        console.log(deleteResponse);
+        this.spinner.hide();
+        Swal.fire(
+          'نجااااح',
+          'تم حذف المنتج  بنجاح',
+          'success'
+          )
+          this.router.navigate(['/app/products/lists',product.categories[0].id,product.brands[0].id]);
+            let form={
+              category_ids:[product.categories[0].id] ,
+              subcategory_ids:[] ,
+              brand_ids:[product.brands[0].id], 
+              model_ids:[]   
+              }
+        
+              this.service.filterProduct(form).subscribe((res:any)=>{
+                this.products=res['data'].products
+                this.products=[...this.products].reverse()
+                console.log("filter" ,this.products )
+              })
+          }
+      else {
+        Swal.fire(
+          'خطأ',
+          'لم يتم حذف المنتج  ' ,
+          'error'
+          )
+      }
+     
     });
+
  
-    location.reload()
+     
+    
   }
+  
+
+  // uploadExcel(file: File[]){
+  //   this.spinner.show()
+  //   this.service.uploadExcelFile(file).subscribe((res:any)=> {
+  //     console.log("Upload File ",res)
+  //     Swal.fire({
+  //       title: 'success !',
+  //       text: 'Products imported successfully',
+  //       icon: 'success',
+  //       confirmButtonColor: '#4AB673',
+  //       }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         // window.location.reload()
+  //       };
+  //     });
+  //     this.spinner.hide()
+  //   })
+
+  // }
+
+  // downloadExcel() {
+  //   this.spinner.show()
+  //   this.http.get(`${environment.endpoint}/admin/products/export-excel`, { responseType: 'blob' }).subscribe(
+  //       (response:any) => {
+  //           var blob = new Blob([response], { type: 'text/plain' });
+  //           var fileURL = window.URL.createObjectURL(blob);
+  //             saveAs(blob, `example-file.xlsx`);
+  //           this.spinner.hide()
+  //           this.dialog.closeAll()
+  //       },
+  //       (e:any) => {
+  //         console.log(e)
+  //         this.spinner.hide()
+  //        }
+  //   );
+  // }
 }

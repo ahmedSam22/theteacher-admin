@@ -8,7 +8,9 @@ import { environment } from 'src/environments/environment';
 export class GlobalService {
 
   constructor(private http:HttpClient) { }
+
  //////////////////////////////// Upload Files ///////////////////////////////
+
  uploadFiles(f) {
   const formData:FormData = new FormData()
   console.log(f)
@@ -67,6 +69,7 @@ export class GlobalService {
       const formData:FormData = new FormData()
       formData.append('name',f.name)
       formData.append('sub_category_id',f.sub_category_id)
+     
       return this.http.post(`${environment.endpoint}/admin/subcategory/update`,f)
   }
 
@@ -123,13 +126,14 @@ export class GlobalService {
       formData.append('brand_ids['+i+']',brand_ids[i])
     }
     return this.http.post(`${environment.endpoint}/models/all`,formData)
+ 
   }
 
   addModels(f){
     const formdata:FormData = new FormData();
     formdata.append('brand_id',f.brand_id);
     formdata.append('name',f.name)
-  
+    formdata.append('description',f.description)
     return this.http.post(`${environment.endpoint}/admin/model/create`,formdata)
   }
 
@@ -137,7 +141,7 @@ export class GlobalService {
       const formData:FormData = new FormData();
       formData.append('model_id',f.model_id);
       formData.append('name',f.name);
-   
+      formData.append('description',f.description)
     return this.http.post(`${environment.endpoint}/admin/model/update`,formData)
   }
 
@@ -146,6 +150,7 @@ export class GlobalService {
   }
   
 //////////////////////////// Manufacture Date /////////////////////////////
+
 allYears(){
   return this.http.get(`${environment.endpoint}/manufacture-dates/all`);
 }
@@ -173,8 +178,8 @@ deleteYear(manufacture_date_id){
       let notNullValue;
     // let i=0;
      for(let prop in form) {
-       //console.log(i);
-       if(form[prop].length!=0){
+      
+       if(form[prop].length!=0 && prop!='page'){
         // i++;
          notNullValue = {[prop]: form[prop]}
          //console.log(notNullValue)
@@ -182,6 +187,7 @@ deleteYear(manufacture_date_id){
          formData.append(prop +'['+0+']',form[prop])
        }
      }
+     formData.append( 'page',form.page)
       return this.http.post(`${environment.endpoint}/products/filter`,formData)
   }
 
@@ -195,10 +201,13 @@ deleteYear(manufacture_date_id){
     formData.append('name',f.name)
     formData.append('description',f.description)
     formData.append('price',f.price)
-    formData.append('discount_percent',f.discount_percent)
+    if(f.discount_percent){
+      formData.append('discount_percent',f.discount_percent)
+    }
+   
     formData.append('piece_number',f.piece_number)
     formData.append('manufacture_place',f.manufacture_place)
-    formData.append('manufacture_date_id',f.manufacture_date_id)
+    // formData.append('manufacture_date_id',f.manufacture_date_id)
 
     formData.append('subcategory_ids',f.subcategories)
     formData.append('model_ids',f.models)
@@ -242,10 +251,13 @@ deleteYear(manufacture_date_id){
     formData.append('name',f.name)
     formData.append('description',f.description)
     formData.append('price',f.price)
-    formData.append('discount_percent',f.discount_percent)
+    if(f.discount_percent){
+      formData.append('discount_percent',f.discount_percent)
+    }
+    // formData.append('discount_percent',f.discount_percent)
     formData.append('piece_number',f.piece_number)
     formData.append('manufacture_place',f.manufacture_place)
-    formData.append('manufacture_date_id',f.manufacture_date_id)
+    // formData.append('manufacture_date_id',f.manufacture_date_id)
 
     formData.append('subcategory_ids',f.subcategories)
     formData.append('model_ids',f.models)
@@ -282,7 +294,26 @@ deleteYear(manufacture_date_id){
   deleteProducts(product_id){
     return this.http.delete(`${environment.endpoint}/admin/product/delete?product_id=${product_id}`);
   }
-  ////////////////////////////////SCAR Products ///////////////////////////////
+
+  uploadExcelFile(file:any){
+    const formData:FormData = new FormData();
+    formData?.append("file" ,file)
+    return this.http.post(`${environment.endpoint}/admin/products/import-excel`,formData)
+  }
+
+   //////////////////////////////// Orders //////////////////////////////
+  orders(status_id,page){
+    return this.http.get(`${environment.endpoint}/admin/orders/show?status_id=${status_id}&page=${page}`) ;
+ }
+
+ manageOrders(f) {
+  const formData:FormData = new FormData();
+    formData?.append("order_id" ,f.order_id)
+    formData?.append("status_id" ,f.status_id)
+    return this.http.post(`${environment.endpoint}/admin/order/manage`,formData)
+ }
+
+   ////////////////////////////////SCAR  ///////////////////////////////
 
 
 

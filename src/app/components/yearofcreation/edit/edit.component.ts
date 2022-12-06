@@ -14,6 +14,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class EditComponent implements OnInit {
   form:FormGroup;
   image_edit=false;
+  submitted=false
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -32,17 +33,29 @@ export class EditComponent implements OnInit {
     
   }
  
-
+  get f() {return this.form.controls}
   submit(){
+    this.submitted=true
     this.spinner.show()
     this.service.editYear(this.form.value).subscribe(res=>{
     this.spinner.hide()
-    Swal.fire(
+    if(res['status']==true) {
+      Swal.fire(
         'نجاح',
-        'تم تعديل سنة الصنع بنجاح',
+        `${res['message']}`,
         'success'
       )
-      this.dialog.closeAll()
+      this.router.navigate(['/app/yearofcreation/list'])
+     }
+    else {
+      let error = res['errors']
+      Swal.fire(
+        'خطأ',
+         `${error[0]}`,
+        'error'
+      )
+    }
+ 
     })
   }
 

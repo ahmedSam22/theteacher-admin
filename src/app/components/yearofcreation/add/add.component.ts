@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
-
+  submitted=false
   form:FormGroup;
   constructor(
     private formbuilder:FormBuilder,
@@ -26,19 +26,29 @@ export class AddComponent implements OnInit {
     })
   }
  
- 
+  get f() {return this.form.controls}
   submit(){
-  
+    this.submitted=true
     this.spinner.show()
     
     this.service.addYear(this.form.value).subscribe(res=>{
     this.spinner.hide()
-    Swal.fire(
+    if(res['status']==true) {
+      Swal.fire(
         'نجاح',
-        'تم إضافة سنة الصنع بنجاح',
+        `${res['message']}`,
         'success'
       )
       this.router.navigate(['/app/yearofcreation/list'])
+     }
+    else {
+      let error = res['errors']
+      Swal.fire(
+        'خطأ',
+         `${error[0]}`,
+        'error'
+      )
+    }
     })
   }
 

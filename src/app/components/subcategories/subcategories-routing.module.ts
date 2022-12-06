@@ -5,7 +5,7 @@ import { AddComponent } from './add/add.component';
  
 
 const routes: Routes = [
-  {path:'list',component:ListComponent},
+  {path:'list/:id',component:ListComponent},
   {path:'add',component:AddComponent},
 
 

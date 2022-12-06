@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class AddBrandComponent implements OnInit {
 
   form:FormGroup;
-
+  submitted:boolean=false;
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -41,21 +41,34 @@ onRemove(event) {
   this.files.splice(this.files.indexOf(event), 1);
 }
 
+get f() {return this.form.controls}
   submit(){
+    this.submitted=true
     let form = {
       name:this.form.value.name,
       description:this.form.value.description,
       logo_image:this.files[0]
     }
     this.spinner.show()
-    this.service.addBrand(form).subscribe(res=>{
+    this.service.addBrand(form).subscribe((res:any)=>{
     this.spinner.hide()
-    Swal.fire(
+    if(res['status']==true) {
+      Swal.fire(
         'نجاح',
-        'تم إضافة البراند بنجاح',
+        `${res['message']}`,
         'success'
       )
       this.router.navigate(['/app/brands/list'])
+    }
+    else {
+      let error = res['errors']
+      Swal.fire(
+        'خطأ',
+         `${error[0]}`,
+        'error'
+      )
+    }
+ 
     })
   }
 

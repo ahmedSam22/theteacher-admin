@@ -15,7 +15,7 @@ export class AddModelComponent implements OnInit {
 
   form:FormGroup;
   brands = [];
-
+  submitted:boolean=false
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -27,6 +27,7 @@ export class AddModelComponent implements OnInit {
     this.form=this.formbuilder.group({
       name :['',Validators.required],
       brand_id:['',Validators.required],
+      description:['',Validators.required],
     });
 
     this.service.getBrands().subscribe(res=>{
@@ -34,19 +35,31 @@ export class AddModelComponent implements OnInit {
     });
     
   }
+  get f() {return this.form.controls}
   onSubmit(){
-  
+    this.submitted=true
     this.spinner.show();
     this.service.addModels(this.form.value).subscribe(res=>{
-      console.log("services:",res)
+    //   console.log("services:",res)
     this.spinner.hide()
-    Swal.fire(
+    
+    if(res['status']==true) {
+      Swal.fire(
         'نجاح',
-        'تم إضافة الموديل بنجاح',
+        `${res['message']}`,
         'success'
       )
-      this.dialog.closeAll();
-      this.router.navigate(['/app/car-models/list'])
+     this.router.navigate(['/app/car-models/list' , this.form.value.brand_id])
+     this.dialog.closeAll()
+    }
+    else {
+      let error = res['errors']
+      Swal.fire(
+        'خطأ',
+         `${error[0]}`,
+        'error'
+      )
+    }
     })
   }
 }

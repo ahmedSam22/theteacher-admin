@@ -16,3 +16,10 @@ div {
         padding: 10px;
     }
 }
+label {
+    @media (max-width: 1300px) {  font-size: 12px ; }
+}
+select {
+     @media (max-width: 1300px) { font-size: 12px ; }
+}
+ 

@@ -7,11 +7,14 @@
                         <div class="form-group">
                             <label for="">سنة الصنع</label>
                             <input type="text" class="form-control" formControlName="date">
+                            <div *ngIf="submitted && f.date.errors" class="errors-container mt-2">
+                                <p class="error-element" *ngIf="f.date.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                             </div>
                         </div>
                        
                         
                         <div class="form-group text-center mt-5">
-                            <button class="btn btn-primary" type="button" (click)="submit()">تعديل سنة الصنع</button>
+                            <button class="btn btn-primary" type="button" (click)="submit()" [disabled]="form.invalid">تعديل سنة الصنع</button>
                         </div>
                     </form>
                 </div>

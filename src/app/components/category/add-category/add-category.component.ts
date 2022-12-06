@@ -18,7 +18,7 @@ export class AddCategoryComponent implements OnInit {
   brands;
   
   brandType ;
-
+  submitted:boolean=false ;
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -74,8 +74,10 @@ onRemove(event) {
 //     this.showBrand=true
 //   }
 // }
+get f() {return this.form.controls}
 
   submit(){
+    this.submitted=true
     console.log('Form Work')
     console.log(this.form.value)
     console.log(this.selectedItems)
@@ -85,15 +87,26 @@ onRemove(event) {
       image:this.files[0],
     }
     console.log('the sended form is ',f)
-    this.service.addCategory(f).subscribe(res=>{
-    console.log(res)
-    this.spinner.hide()
-    Swal.fire(
-        'نجاح',
-        'تم إضافة القسم الرئيسي بنجاح',
-        'success'
-      )
-      this.router.navigate(['/app/services/list'])
+    this.service.addCategory(f).subscribe(res=>{ 
+       this.spinner.hide()
+      if(res['status']==true) {
+        console.log(res)
+    
+        Swal.fire(
+            'نجاح',
+            `${res['message']}`,
+            'success'
+          )
+          this.router.navigate(['/app/services/list'])
+      }
+      else {
+        let error =res['errors']
+        Swal.fire(
+          'خطأ',
+         `${error[0]}`,
+          'error'
+        )
+      }
     })
   }
 

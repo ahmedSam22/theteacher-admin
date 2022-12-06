@@ -7,20 +7,13 @@
                         <div class="form-group">
                             <label for=""> سنةالصنع </label>
                             <input type="text" class="form-control" formControlName="date">
+                            <div *ngIf="submitted && f.date.errors" class="errors-container mt-2">
+                                <p class="error-element" *ngIf="f.date.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                             </div>
                         </div>
                          
-                       
-                        <!-- <div class="form-group">
-                            <label for="">صورة بانر </label>
-                            <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
-                                <ngx-dropzone-label>أضغط هنا لإختيار صورة بانر</ngx-dropzone-label>
-                                <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f" >
-                                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                                </ngx-dropzone-image-preview>
-                            </ngx-dropzone>
-                        </div> -->
                         <div class="form-group text-center mt-5">
-                            <button class="btn btn-primary" type="button" (click)="submit()">إضافة سنة الصنع </button>
+                            <button class="btn btn-primary" type="button" (click)="submit()" [disabled]="form.invalid || form.untouched">إضافة سنة الصنع </button>
                         </div>
                     </form>
                 </div>

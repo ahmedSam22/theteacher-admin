@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class AddProductComponent implements OnInit {
 form:FormGroup;
+submitted=false ;
 category:any ;
 categories:any=[];
 mainCategories:any=[]
@@ -38,15 +39,21 @@ images:any=[]
     ) { }
 
   ngOnInit(): void {
-    //this.selected=[4]
+    // manufacture_date_id:[null,Validators.required],
     this.form=this.formbuilder.group({
-      name:['',Validators.required],
-      price:['',Validators.required],
-      discount_percent:['',Validators.required],
-      piece_number:['',Validators.required],
-      manufacture_place:['',Validators.required],
-      description:['',Validators.required],
+      name:[null,Validators.required],
+      price:[null,Validators.required],
+      discount_percent:[null],
+      piece_number:[null,Validators.required],
+      manufacture_place:[null,Validators.required],
+      description:[null,Validators.required],
+      category_ids:[null,Validators.required],
+      subcategory_ids:[null,Validators.required],
+      brand_ids:[null,Validators.required],
+      model_ids:[null,Validators.required],
     
+      product_compatibles_model_ids:[null,Validators.required],
+      product_compatibles_manufacture_date_ids:[null,Validators.required],
     })
 
     this.allCategories() ;
@@ -58,8 +65,18 @@ images:any=[]
 allCategories(){
    this.service.allCategories().subscribe((res:any)=>{
     this.all_categories=res['data']
+    console.log("all_categories" ,this.all_categories)
    })
 }
+
+
+convertArrayOfstringToArrayofInt(arr){
+  var num =arr.map(function(str) {
+      return parseInt(str); 
+   });
+ return num ;
+ }
+
 
 onChangeCategory(event){
  this.categories=event.value ;
@@ -174,43 +191,81 @@ convertArrayOfObjToStr(arrOfobjs){
      return acc;
     }, []);
  
-   console.log(newArray)
+
  
+
+   //console.log("newArray",newArray)
+   let sortedProducts = newArray.sort((s1, s2) => {
+     return s1.cat - s2.cat;
+   });
+  // newArray.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0))
+ // console.log("newArray22222",sortedProducts)
     for(var i=0 ; i<newArray.length ; i++){
       subv.push(newArray[i].value)
    }
-
+   console.log("subv",subv)
    let finalStr = subv.map(a => a.join(",")).join('|');
  
   return finalStr;
 }
-submit(){
 
-//convert subcategories from array of objects to string arranged based on categories
-this.subCategories.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0))
-let str_sub = this.convertArrayOfObjToStr(this.subCategories)
-console.log("add str_sub ", str_sub )
+// compare( a, b ) {
+//   if ( a.last_nom < b.last_nom ){
+//     return -1;
+//   }
+//   if ( a.last_nom > b.last_nom ){
+//     return 1;
+//   }
+//   return 0;
+// }
+
+get f() {return this.form.controls}
+submit(){ 
+this.submitted=true
+console.log("FFFFFFF" , this.form.value)
+ 
+// let arr = this.subCategories.map(object => object.cat);  or
+let arr = this.form.value.subcategory_ids.map(object => object.cat);
+arr=this.convertArrayOfstringToArrayofInt(arr)
+ 
+// let difference = this.categories.filter(x => arr.includes(x));   or
+let difference = this.form.value.category_ids.filter(x => arr.includes(x));
+
+
+
+// let arr = this.subCategories.map(object => object.cat);  or
+let arr2 = this.form.value.model_ids.map(object => object.cat);
+arr2=this.convertArrayOfstringToArrayofInt(arr2)
+ 
+// let difference = this.categories.filter(x => arr.includes(x));   or
+let difference2 = this.form.value.brand_ids.filter(x => arr2.includes(x));
+
+
+
+
+// let str_sub = this.convertArrayOfObjToStr(this.subCategories) or
+let str_sub = this.convertArrayOfObjToStr(this.form.value.subcategory_ids)
 
 //convert models from array of objects to string arranged based on brands
-this.models.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0)) 
-let str_mod =this.convertArrayOfObjToStr(this.models)
-console.log("add str_mod", str_mod )
- 
-    // image:this.files[0],
-    // desc_images:this.description_files
- 
+// this.models.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0))   or
+
+this.form.value.model_ids.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0)) 
+
+// let str_mod =this.convertArrayOfObjToStr(this.models)  or
+let str_mod =this.convertArrayOfObjToStr(this.form.value.model_ids)
+
+    let newData = {};
+    Object.entries(this.form.value)
+      .filter(([, value]) => value != null)
+      .forEach(([key, value]) => (newData[key] = value));
+      
+      // manufacture_date_id:this.manufacture_date_id,
     let f={
+      ...newData,
       image :this.images,
-      name:this.form.value.name,
-      price:this.form.value.price,
-      discount_percent:this.form.value.discount_percent,
-      piece_number:this.form.value.name,
-      manufacture_place:this.form.value.manufacture_place,
-      description:this.form.value.description,
-      manufacture_date_id:this.manufacture_date_id,
-      categories: this.categories,
+      categories: difference,
       subcategories:str_sub ,
-      brands:this.brands ,
+      brands:difference2,
       models:str_mod ,
       product_compatibles: this.product_compatibles_model,
       product_compatibles_date:this.product_compatibles_date,
@@ -228,7 +283,8 @@ console.log("add str_mod", str_mod )
         `${res.message}`,
         `success`
       )
-       this.router.navigate(['app/products/lists'])
+   
+    //this.router.navigate(['/app/products/lists',difference[0],this.brands[0]]);
     }
     else {
       Swal.fire(

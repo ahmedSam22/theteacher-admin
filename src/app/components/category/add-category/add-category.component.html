@@ -15,6 +15,10 @@
                         <div class="form-group">
                             <label for=""> اسم القسم الرئيسي </label>
                             <input type="text" class="form-control" formControlName="name">
+
+                            <div *ngIf="submitted && f.name.errors" class="errors-container mt-2">
+                                <p class="error-element" *ngIf="f.name.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                             </div>
                         </div>
                       
                         <div class="form-group">
@@ -27,7 +31,7 @@
                             </ngx-dropzone>
                         </div>
                         <div class="form-group text-center mt-5">
-                            <button class="btn btn-primary" type="button" (click)="submit()">إضافة قسم الرئيسي</button>
+                            <button class="btn btn-primary" type="button" (click)="submit()" [disabled]="form.invalid || form.untouched">إضافة قسم الرئيسي</button>
                         </div>
                     </form>
                 </div>

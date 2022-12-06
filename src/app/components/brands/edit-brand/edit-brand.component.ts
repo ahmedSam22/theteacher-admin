@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class EditBrandComponent implements OnInit {
   form:FormGroup;
   image_edit=false;
-
+  submitted=false;
   constructor(  private service:GlobalService,
     private spinner:NgxSpinnerService,private router:Router,private formbuilder:FormBuilder, private dialog:MatDialog,@Inject(MAT_DIALOG_DATA) public data:any,) { }
  
@@ -39,11 +39,11 @@ export class EditBrandComponent implements OnInit {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
-
+  
+  get f() {return this.form.controls}
   submit(){
-   
+    this.submitted=true
     let form ; 
-    
       form= {
         name:this.form.value.name,
         description:this.form.value.description,
@@ -53,15 +53,25 @@ export class EditBrandComponent implements OnInit {
        
      this.spinner.show()
      this.service.editBrand(form).subscribe(res=>{
-     this.spinner.hide()
-     Swal.fire(
-         'نجاح',
-         'تم تعديل البراند بنجاح',
-         'success'
-       )
-       this.router.navigate(['/app/brands/list'])
-      this.dialog.closeAll()
-
+       this.spinner.hide()
+    
+      if(res['status']==true) {
+        Swal.fire(
+          'نجاح',
+          `${res['message']}`,
+          'success'
+        )
+        this.router.navigate(['/app/brands/list'])
+       this.dialog.closeAll()
+      }
+      else {
+        let error = res['errors']
+        Swal.fire(
+          'خطأ',
+           `${error[0]}`,
+          'error'
+        )
+      }
      })
   }
 }

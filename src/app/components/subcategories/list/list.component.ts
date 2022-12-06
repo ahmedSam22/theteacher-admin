@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { EditSubcategoryComponent } from '../edit-subcategory/edit-subcategory.component';
 import { DetailsComponent } from '../details/details.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -18,18 +19,24 @@ export class ListComponent implements OnInit {
   categories=[];
   subcategories = [];
   category_change:any=[] ;
-  
-  constructor(  private formbuilder:FormBuilder,private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) { }
+  param:any ; 
+  constructor(private route: ActivatedRoute,private formbuilder:FormBuilder,private dialog:MatDialog,private service:GlobalService,private spinner:NgxSpinnerService) {
+    this.param= this.route.snapshot.paramMap.get('id');
+    console.log("param", this.param)
+   
+     this.categoryList()
+   }
 
   ngOnInit(): void {
-    this.categoryList()
+   
   }
 
   categoryList(){
     this.service.allCategories().subscribe((res:any)=>{
       this.categories = res['data']
+      this.categories=[...this.categories].reverse()
       console.log("All Categories" ,this.categories)
-      this.category_change[0]=this.categories[0].id 
+      this.category_change[0]=this.param
       this.getAllSubcategories(this.category_change)
     })
   }
@@ -40,13 +47,13 @@ export class ListComponent implements OnInit {
   }
 
   getAllSubcategories(category){
-
     this.category_change[0]=category[0]
     this.spinner.show()
-     this.service.getSubcategoryByCategoryId(this.category_change).subscribe((res:any)=>{
-      this.spinner.hide()
-     this.subcategories=res['data']
-        console.log("All SubCategories" , this.subcategories)
+    this.service.getSubcategoryByCategoryId(this.category_change).subscribe((res:any)=>{
+    this.spinner.hide()
+    this.subcategories=res['data']
+    this.subcategories=[...this.subcategories].reverse()
+       console.log("All SubCategories" , this.subcategories)
      })
   }
   // categoryList(){
@@ -100,6 +107,7 @@ export class ListComponent implements OnInit {
   //   //   this.subcategories = 
   //   // })
   // }
+
   deleteSub(id){
     console.log(id)
     this.spinner.show()
@@ -113,6 +121,7 @@ export class ListComponent implements OnInit {
      this.categoryList()
     })
   }
+
   editSub(sub){
     console.log(sub)
     let dialogRef = this.dialog.open(EditSubcategoryComponent, {
@@ -124,11 +133,12 @@ export class ListComponent implements OnInit {
       this.categoryList()
     });
   }
+
   viewSub(sub){
     console.log(sub)
     let dialogRef = this.dialog.open(DetailsComponent, {
       data:sub,
-      height: '650px',
+      height: '200px',
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {

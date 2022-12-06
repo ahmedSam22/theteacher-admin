@@ -16,7 +16,7 @@ export class EditSubcategoryComponent implements OnInit {
  
   form:FormGroup;
   categories;
- 
+  submitted=false
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -26,25 +26,37 @@ export class EditSubcategoryComponent implements OnInit {
     ) { }
  
   ngOnInit(): void {
+    console.log("Data",this.data)
     this.form=this.formbuilder.group({
       name :[this.data.name ,Validators.required],
-      sub_category_id:[this.data.sub_category_id,Validators.required],
+      sub_category_id:[this.data.id,Validators.required],
     })
   }
  
-  
+  get f() {return this.form.controls}
   submit(){
-  
+    this.submitted=true
     this.spinner.show() 
     this.service.editSubCategory(this.form.value).subscribe(res=>{
     this.spinner.hide()
-    Swal.fire(
+    if(res['status']==true) {
+      Swal.fire(
         'نجاح',
-        'تم تعديل القسم الفرعي بنجاح',
+        `${res['message']}`,
         'success'
       )
       this.dialog.closeAll()
-      this.router.navigate(['/app/sub/list']);
+      this.router.navigate(['/app/sub/list', this.data.category_id]);
+    }
+    else {
+      let error=res['errors']
+      Swal.fire(
+        'خطأ',
+         `${error[0]}`,
+        'error'
+      )
+    }
+  
 
       console.log("edit subcategory" , res)
     })

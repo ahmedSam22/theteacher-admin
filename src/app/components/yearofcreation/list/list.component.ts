@@ -35,7 +35,7 @@ export class ListComponent implements OnInit {
   
     this.service.allYears().pipe(map(res=>res['data'])).subscribe(res=>{
       this.spinner.hide()
-      this.years=res
+      this.years=[...res].reverse()
       console.log("yeeeeeeeeeeeers",this.years)
     })
   }

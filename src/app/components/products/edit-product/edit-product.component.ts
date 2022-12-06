@@ -1,10 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { GlobalService } from 'src/app/services/global.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
 
 
 
@@ -16,7 +17,10 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class EditProductComponent implements OnInit {
  
 /////////////////SCAR///////////////////
+changeCat:boolean=false 
+changeCat2:boolean=false;
 form:FormGroup;
+submitted=false ;
 category:any ;
 categories:any=[];
 mainCategories:any=[]
@@ -33,7 +37,7 @@ manufacture_date_id:any ;
 product_compatibles_date:any=[];
 image_edit=false;
 image_edit2=false;
-// edit=[]
+ 
 d_images:any =[]
 images:any=[]
 model_str:any
@@ -42,6 +46,8 @@ selected_date:any;
 
 subCats:any=[]
 modBrand:any=[]
+ 
+ 
 ////////////////////////////////////////
   constructor(
     private formbuilder:FormBuilder,
@@ -55,19 +61,10 @@ modBrand:any=[]
  
  model_obj:any  ;  model_arr=[];   subcategory_obj:any ; subcategory_arr=[]
   ngOnInit(): void {
-    
+    this.changeCat=false ;
     //for(let i=0 ;i<this.data.descriptionImagesPaths.length; i++){
     //   this.edit[i]=false
     // }
- 
-    this.form=this.formbuilder.group({
-      name:[this.data.name,Validators.required],
-      price:[this.data.price,Validators.required],
-      discount_percent:[this.data.discount_percent,Validators.required],
-      piece_number:[this.data.piece_number,Validators.required],
-      manufacture_place:[this.data.manufacture_place,Validators.required],
-      description:[this.data.description,Validators.required],
-    })
  
   this.images[0]=this.data.imagePath
   this.d_images=this.data.descriptionImagesPaths
@@ -78,13 +75,11 @@ modBrand:any=[]
       this.categories=this.convertArrayOfstringToArrayofInt(this.categories)
   }
  
- 
   for(let i=0 ; i<this.data.brands.length ; i++){
      this.brands[i]=this.data.brands[i].id 
      this.brands = this.convertArrayOfstringToArrayofInt(this.brands)
   }
  
-
   for(let i=0 ; i<this.data.compatibles.length ; i++){
       this.product_compatibles_model[i]=this.data.compatibles[i].model_id
       this.product_compatibles_model = this.convertArrayOfstringToArrayofInt(this.product_compatibles_model)
@@ -97,7 +92,7 @@ modBrand:any=[]
   for(let i=0 ; i<this.data.models.length; i++){
      this.model_obj={cat:this.data.models[i]?.brand_id,sub:this.data.models[i]?.id}
       this.model_arr.push(this.model_obj)
-      console.log("create array of objects [{cat:x , sub:y}]",this.model_arr)
+      console.log("create array of objects Model [{cat:x , sub:y}]",this.model_arr)
      
   }
   // this.modBrand= [{sub:2,cat:2},{sub:3,cat:2},{sub:4,cat:2}]
@@ -106,8 +101,9 @@ modBrand:any=[]
        this.subCats.push(this.data.subcategories[j].id) ;
        this.subcategory_obj={cat:this.data.subcategories[j]?.category_id , sub:this.data.subcategories[j]?.id}
        this.subcategory_arr.push(this.subcategory_obj)
-      console.log("create array of objects [{cat:x , sub:y}]",this.subcategory_arr)
+     // console.log("create array of objects Subcaegorys [{cat:x , sub:y}]",this.subcategory_arr)
   }
+
   this.subCats= this.convertArrayOfstringToArrayofInt(this.subCats)
   this.model_str=  this.convertArrofObjsToStr(this.model_arr)
   this.subcategory_str=  this.convertArrofObjsToStr(this.subcategory_arr)
@@ -119,18 +115,44 @@ modBrand:any=[]
   this.allYears();
 
   this.service.getSubcategoryByCategoryId(this.categories).subscribe((res:any)=>{
+    // res.data.forEach(element => {
+    //   element.unique_id= `${element.id}-${element.category_id}`
+    // });
     this.subcategories_of_maincategories=res['data']
+   // console.log("this.subcategories_of_maincategories",this.subcategories_of_maincategories)
    })
 
   this.service.getModelsByBrandId(this.brands).subscribe((res:any)=>{
     this.models_of_brands=res['data']
-     for(let i=0 ; i< this.models_of_brands.length ; i++){
-      this.modBrand[i]=this.models_of_brands[i].id
-      console.log("3242343243243",this.modBrand )
-      this.modBrand= this.convertArrayOfstringToArrayofInt(this.modBrand)
-      }
+    //  for(let i=0 ; i< this.models_of_brands.length ; i++){
+    //   this.modBrand[i]=this.models_of_brands[i]?.id;    
+    //   }
+   // console.log("this.models_of_brands",this.models_of_brands)
     })
-  }
+   
+  this.form=this.formbuilder.group({
+      name:[this.data.name,Validators.required],
+      price:[this.data.price,Validators.required],
+      discount_percent:[this.data.discount_percent,Validators.required],
+      piece_number:[this.data.piece_number,Validators.required],
+      manufacture_place:[this.data.manufacture_place,Validators.required],
+      description:[this.data.description,Validators.required],
+     
+    })
+   
+ }
+ 
+  compareItems(optionOne,optionTwo){
+      //console.log("compareItems optionOne",optionOne.sub )
+     // console.log("compareItems optionTwo",optionTwo )
+       return optionOne.sub==optionTwo
+   }
+
+   compareModels(optionOne,optionTwo){
+  //  console.log(" optionOne",optionOne )
+  //  console.log("optionTwo",optionTwo )
+    return optionOne.sub==optionTwo.sub
+}
 
 convertArrayOfstringToArrayofInt(arr){
  var num =arr.map(function(str) {
@@ -177,6 +199,7 @@ allCategories(){
 }
 
 onChangeCategory(event){
+  this.changeCat =true;
  this.categories=event.value ;
  console.log("all selected categories" , this.categories)
  this.service.getSubcategoryByCategoryId(event.value).subscribe((res:any)=>{
@@ -196,6 +219,7 @@ allBrands(){
 }
 
 onChangeBrands(event){
+  this.changeCat2=true
   this.brands=event.value ;
   console.log("all selected Brands",  this.brands)
    this.service.getModelsByBrandId(event.value).subscribe((res:any)=>{
@@ -288,9 +312,31 @@ onRemove(event) {
 //     console.log("edit filter" ,res['data'].products )
 //   })
 // }
-
+get f() {return this.form.controls}
 submit(){
+  this.submitted=true ;
+
+  if(this.changeCat==true) {
   
+  let arr = this.subCategories.map(object => object.cat);
+  arr=this.convertArrayOfstringToArrayofInt(arr)
+// console.log("convert array of strings to array of integer",arr)
+ let difference = this.categories.filter(x => arr.includes(x));
+ this.categories=difference
+  console.log("only categories of selected subcategories",this.categories)
+ 
+  }
+  
+  if (this.changeCat2==true) {
+
+    let arr2 = this.models.map(object => object.cat);
+    arr2=this.convertArrayOfstringToArrayofInt(arr2)
+   
+   let difference2 = this.brands.filter(x => arr2.includes(x));
+   this.brands=difference2
+    console.log("only models of selected brands",this.brands)
+  }
+   
  // user change subcategories
  if(this.subCategories.length!=0) {
 
@@ -309,18 +355,27 @@ submit(){
   
   this.model_str=this.convertArrofObjsToStr(this.models)
  }
- 
+
+ //   name:this.form.value.name,
+  //   price:this.form.value.price,
+  //   discount_percent:this.form.value.discount_percent,
+  //   piece_number:this.form.value.piece_number,
+  //   manufacture_place:this.form.value.manufacture_place,
+  //   description:this.form.value.description,
+
+  // name price discount_percent piece_number manufacture_place description
+  let newData = {};
+  Object.entries(this.form.value)
+    .filter(([, value]) => value != null)
+    .forEach(([key, value]) => (newData[key] = value));
+  
+   console.log("yyyyyyy",newData);
+  //  manufacture_date_id:this.manufacture_date_id,
     let f={
       product_id:this.data.id ,
       image:this.images[0],
-      name:this.form.value.name,
-      price:this.form.value.price,
-      discount_percent:this.form.value.discount_percent,
-      piece_number:this.form.value.piece_number,
-      manufacture_place:this.form.value.manufacture_place,
-      description:this.form.value.description,
-      manufacture_date_id:this.manufacture_date_id,
-      categories: this.categories,
+      ...newData,
+       categories: this.categories,
       subcategories:this.subcategory_str ,
       brands:this.brands ,
       models:this.model_str ,
@@ -342,7 +397,9 @@ submit(){
         `success`
       )
       this.dialog.closeAll();
-      this.router.navigate(['/app/products/lists'])
+      
+      this.router.navigate(['/app/products/lists',this.categories[0] ,this.brands[0]]);
+   
     }
     else {
       Swal.fire(

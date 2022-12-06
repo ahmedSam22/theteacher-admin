@@ -16,6 +16,7 @@ export class AddComponent implements OnInit {
   form:FormGroup;
   typeval;
   categories;
+  submitted:boolean=false
   constructor(
     private formbuilder:FormBuilder,
     private service:GlobalService,
@@ -36,22 +37,33 @@ export class AddComponent implements OnInit {
     this.spinner.show()
     this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
     this.spinner.hide()
-    this.categories=res
+    this.categories=res 
     })
   }
 
-
+  get f() {return this.form.controls}
   submit(){
+    this.submitted=true
     this.spinner.show()
      this.service.addSubCategory(this.form.value).subscribe(res=>{
     this.spinner.hide()
-    Swal.fire(
+    if(res['status']==true) {
+      Swal.fire(
         'نجاح',
-        'تم إضافة القسم الفرعي بنجاح',
+        `${res['message']}`,
         'success'
       )
       console.log("Sub Category",res)
-      this.router.navigate(['/app/sub/list'])
+      this.router.navigate(['/app/sub/list', this.form.value.category_id])
+    }
+    else {
+      let error = res['errors']
+      Swal.fire(
+        'خطأ',
+         `${error[0]}`,
+        'error'
+      )
+    }
     })
   }
 

@@ -32,7 +32,7 @@ export class ListComponent implements OnInit {
     this.spinner.show()
     this.service.getBrands().pipe(map(res=>res['data'])).subscribe((response:any)=>{
       console.log("All brands", response)
-      this.brands = response
+      this.brands = [...response].reverse()
     this.spinner.hide()
     })
   }

@@ -12,8 +12,10 @@ import { ProductsRoutingModule } from './products-routing.modules';
  
 import {MatSelectModule} from '@angular/material/select';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ExcelComponent } from './excel/excel.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
-  declarations: [AddProductComponent, ListProductsComponent, EditProductComponent],
+  declarations: [AddProductComponent, ListProductsComponent, EditProductComponent , ExcelComponent],
   imports: [
     CommonModule,
     NgxDropzoneModule,
@@ -22,7 +24,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    NgMultiSelectDropDownModule
+    NgMultiSelectDropDownModule,
+    MatPaginatorModule 
+
   ]
 })
 export class ProductsModule { }

@@ -7,8 +7,8 @@
                   <div class="form-group col-6">
                     <label for=""> اختيار قسم رئيسي  </label>
                     <!-- formControlName="category_id"  -->
-                    <select class="form-control p-1"  (change)="changeCategory($event)">
-                        <option [value]="category.id" *ngFor="let category of categories">{{category.name}} </option>
+                    <select class="form-control p-1"  (change)="changeCategory($event)" >
+                        <option [value]="category.id" *ngFor="let category of categories" [selected]="category.id== param">{{category.name}} </option>
                     </select>
                 </div>
                 <!-- </form> -->
@@ -37,8 +37,7 @@
 
                             <td>
                               <i class="fas fa-eye text-success" style="cursor: pointer;" (click)="viewSub(subcategory)"></i> |
-                              <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editSub(subcategory)"></i> 
-                              |
+                              <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editSub(subcategory)"></i> |
                               <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteSub(subcategory.id)"></i> 
                             </td>
 
