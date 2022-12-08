@@ -93,7 +93,7 @@
                                 <mat-form-field>
                                     <mat-label> الموديلات المتوافقه للمنتج</mat-label> <br> 
                                     <!-- formControlName="product_compatibles_model_ids" -->
-                                    <mat-select   multiple (selectionChange)="onChangeCompatibleProductModel($event)" [(value)]="product_compatibles_model"  >
+                                    <mat-select multiple (selectionChange)="onChangeCompatibleProductModel($event)" [(value)]="product_compatibles_model"  >
                                       <mat-option *ngFor="let compatible_models of models_of_brands " [value]="compatible_models.id" >
                                         {{compatible_models.name}}
                                       </mat-option>

@@ -174,12 +174,13 @@ deleteYear(manufacture_date_id){
 ////////////////////////////////Products ///////////////////////////////
   
   filterProduct(form) {
+    console.log("fff",form )
     const formData:FormData = new FormData()
       let notNullValue;
     // let i=0;
      for(let prop in form) {
       
-       if(form[prop].length!=0 && prop!='page'){
+       if( (form[prop].length!=0) && (prop!='page') && (prop!='piece_number') ){
         // i++;
          notNullValue = {[prop]: form[prop]}
          //console.log(notNullValue)
@@ -187,7 +188,11 @@ deleteYear(manufacture_date_id){
          formData.append(prop +'['+0+']',form[prop])
        }
      }
-     formData.append( 'page',form.page)
+     formData.append('page',form.page)
+     if(form.piece_number ){
+      formData.append('piece_number', form.piece_number )
+     }
+ 
       return this.http.post(`${environment.endpoint}/products/filter`,formData)
   }
 

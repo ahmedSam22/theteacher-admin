@@ -56,7 +56,7 @@ modBrand:any=[]
     private router:Router,
     private dialog:MatDialog,@Inject(MAT_DIALOG_DATA) public data:any,
     ) { 
-      console.log("ddddddddddddd",data)
+      console.log("ddddddddddddd", data )
     }
  
  model_obj:any  ;  model_arr=[];   subcategory_obj:any ; subcategory_arr=[]

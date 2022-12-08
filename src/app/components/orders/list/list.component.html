@@ -62,7 +62,7 @@
                  <table class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">رقم الطلب</th>
                             <th scope="col">اسم العميل</th>
                             <th scope="col"> سعر الطلب</th>
                             <th scope="col">إعدادات</th>
@@ -70,7 +70,7 @@
                         </thead>
                         <tbody>
                           <tr *ngFor="let order of orders ;let i=index">
-                            <th >{{i+1}}</th>
+                            <th >{{order.id}}</th>
                              <td>{{ order.user.full_name }} </td>
                             <td>{{ order.total_price }}</td>
                             <td> 

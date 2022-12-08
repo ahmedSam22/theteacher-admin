@@ -7,12 +7,14 @@
           <th>رقم الطلب  </th>
           <th>تاريخ الطلب</th>
           <th>عنوان الطلب</th>
+          <th>هاتف العميل </th>
           <th>إجمالي سعر الطلب  </th>
        </tr>
        <tr>
           <td> {{data.data.id!=null ? data.data.id : 'لا يوجد رقم للطلب'}} </td>
           <td> {{data.data.date!=null ? data.data.date : 'لا يوجد تاريخ للطلب'}} </td>
           <td> {{data.data.address!=null ? data.data.address.address  : 'لا يوجد عنوان استلام للطلب'}}</td>
+          <td>{{data.data.address!=null ? data.data.address.phone:' لا يوجد هاتف مسجل لاستلام الطلب'}}</td>
           <td>{{data.data!=null ? data.data.total_price: 'لا يوجد إجمالي لسعر الطلب'}}</td>
        </tr>
     </tbody>
@@ -28,6 +30,7 @@
         <th>اسم العميل </th>
         <th>هاتف العميل </th>
         <th>إيميل العميل </th>
+        <th>عنوان العميل </th>
         <th>المدينة  </th>
          
       </tr>
@@ -35,8 +38,8 @@
           <td>{{data.data.user!=null ? data.data.user.full_name:'لا يوجد اسم للعميل'}}</td>
           <td>{{data.data.user!=null ? data.data.user.phone:'لا يوجد هاتف للعميل'}}</td>
           <td>{{data.data.user!=null ? data.data.user.email : ' لا يوجد إيميل للعميل '}}</td>
-          <td>{{data.data.address!=null ? data.data.address.city.name: 'لا توجد مدينة للعميل'}}</td>
-          
+          <td>{{data.data.address!=null ? data.data.address.address : 'لا يوجد عنوان للعميل'}}</td>
+          <td>{{data.data.user!=null ? data.data.user.city.name : 'لا توجد مدينة للعميل'}}</td>
       </tr>
     </tbody>
 </table>

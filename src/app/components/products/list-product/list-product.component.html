@@ -22,7 +22,9 @@
                   <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار قسم رئيسي  </label>
                       <select class="form-control p-1"  (change)="changeCategory($event)">
-                        <option [value]="category.id" *ngFor="let category of categories ; let index=index" [selected]="category.id== param1"  [ngClass]="{'abnormal':  category.subcategories.length== 0 , 'normal': category.subcategories.length != 0}"> 
+                        <!-- <option  > اختر قسم رئيسي</option>  -->
+                        <!-- [selected]="category.id== param1" -->
+                        <option [value]="category.id" *ngFor="let category of categories ; let index=index" [selected]="category.id== param1"   [ngClass]="{'abnormal':  category.subcategories.length== 0 , 'normal': category.subcategories.length != 0}"> 
                               {{category.name}}  
                           </option>
                       </select>
@@ -31,6 +33,7 @@
                    <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار قسم فرعي </label>
                       <select class="form-control p-1"  (change)="changeSubcategory($event)">
+                        <option [selected]="true"> اختر قسم فرعي</option>
                         <option [value]="subcategory.id" *ngFor="let subcategory of subcategories" >{{subcategory.name}} </option>
                         <option *ngIf="subcategories.length==0" disabled value="0" style="background-color: #ddd"> No Subcategories To This Category </option>
                       </select>
@@ -38,18 +41,27 @@
 
                    <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار البراند  </label>
+                   
                       <select class="form-control p-1"  (change)="changeBrands($event)">
-                        <option [value]="brand.id" *ngFor="let brand of brands" [selected]="brand.id== param2" [ngClass]="{'abnormal':  brand.models.length== 0 , 'normal': brand.models.length != 0}">{{brand.name}} </option>
+                        <!-- <option [selected]="true"> اختر براند</option>  -->
+                        <!-- [selected]="brand.id== param2" -->
+                        <option [value]="brand.id" *ngFor="let brand of brands"  [selected]="brand.id== param2" [ngClass]="{'abnormal':  brand.models.length== 0 , 'normal': brand.models.length != 0}">{{brand.name}} </option>
                       </select>
                    </div>
 
                    <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار الموديل </label>
                       <select class="form-control p-1"  (change)="changeModels($event)">
+                        <option [selected]="true"> اختر موديل</option>
                         <option [value]="model.id" *ngFor="let model of models">{{model.name}} </option>
                         <option *ngIf="models.length==0" disabled value="0" style="background-color: #ddd"> No Models To This Brand </option>
                       </select>
                    </div>
+
+                   <div class="form-group col-xl-2 col-md-5">
+                    <label for=""> بحث برقم القطعة </label>
+                    <input type="text" class="form-control" #vin (keyup)="changeVin()"> 
+                    </div>
 
 
                    <div class="form-group col-xl-2 col-md-2">

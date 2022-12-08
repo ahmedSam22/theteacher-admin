@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -29,14 +29,20 @@ export class ListProductsComponent implements OnInit {
   param1:any ; 
   param2:any ; 
   sub_param:any;
-  @Input() pageIndex: number; 
+  @Input() pageIndex: any; 
   paginator:any;
+  @ViewChild('vin') vin:ElementRef  ;
+  bool_category:boolean=false ;
+  bool_brand:boolean=false ;
   constructor(private http:HttpClient,private route: ActivatedRoute,private dialog:MatDialog,private spinner:NgxSpinnerService,private service: GlobalService , private router:Router) {
  
     }
 
   ngOnInit(): void {
+    this.bool_category=false;
+    this.bool_brand=false;
     this.pageIndex=0 ;
+    this.vin =null ;
     this.param1= this.route.snapshot.paramMap.get('category');
     console.log("param1", this.param1)
 
@@ -49,7 +55,9 @@ export class ListProductsComponent implements OnInit {
       category_ids:[this.param1] ,
       subcategory_ids:[],
       brand_ids:[this.param2] , 
-      model_ids:[]  
+      model_ids:[],
+      page:this.pageIndex,
+ 
       }
   
       this.service.filterProduct(form).subscribe((res:any)=>{
@@ -65,7 +73,13 @@ export class ListProductsComponent implements OnInit {
     console.log(JSON.stringify( this.pageIndex  ) , this.pageIndex );
     this.filter()
   }
+
+  changeVin() {
+    console.log("vin",this.vin.nativeElement.value)
+  }
+
   categoryList(){
+    this.bool_category=false
     this.service.allCategories().subscribe((res:any)=>{
       this.categories = res['data']
       console.log("All Categories" ,this.categories)
@@ -75,6 +89,7 @@ export class ListProductsComponent implements OnInit {
   }
 
   changeCategory(event) {
+    this.bool_category=true
     this.category_change[0]=event.target.value
     this.getAllSubcategories(this.category_change)
     console.log("search category id",this.category_change[0])
@@ -95,6 +110,7 @@ export class ListProductsComponent implements OnInit {
   }
 
   getAllBrands(){
+    this.bool_brand=false
     this.service.getBrands().subscribe((res:any)=>{ 
       this.brands=res['data'] ;
       console.log("All Brands" , this.brands)
@@ -104,6 +120,7 @@ export class ListProductsComponent implements OnInit {
   }
 
   changeBrands(event) {
+    this.bool_brand=true
     this.change_brand[0]=event.target.value
     this.getAllModels(this.change_brand)
     console.log("search brands id" , this.change_brand[0])
@@ -125,13 +142,23 @@ export class ListProductsComponent implements OnInit {
   }
 
   filter(){
-    let form={
-      category_ids:this.category_change ,
-      subcategory_ids:this.subcategory_change ,
-      brand_ids:this.change_brand , 
-      model_ids:this.change_model , 
-      page:this.pageIndex
-      }
+    
+    let form :any ;
+    
+      form={
+        category_ids:this.category_change ,
+        subcategory_ids:this.subcategory_change ,
+        brand_ids:this.change_brand , 
+        model_ids:this.change_model , 
+        page:this.pageIndex,
+        piece_number:this.vin.nativeElement.value
+        }
+        if(this.bool_category==false){
+          form.category_ids=[]
+        }
+        if(this.bool_brand==false) {
+          form.brand_ids=[]
+        }
       console.log("filter2" ,form)
       this.service.filterProduct(form).subscribe((res:any)=>{
         this.products=res['data'].products.data
@@ -143,24 +170,27 @@ export class ListProductsComponent implements OnInit {
   }
  
   onEditModel(model) {
+    console.log("model", model)
     let dialogRef = this.dialog.open( EditProductComponent, {
       data: model,
       height: '800px',
      });
     dialogRef.afterClosed().subscribe( res => {
+     //location.reload()
+
+    //   let form={
+    //     category_ids:[this.param1] ,
+    //     subcategory_ids:[] ,
+    //     brand_ids:[this.param2], 
+    //     model_ids:[],   
+    //     page:this.pageIndex,
+    //     }
     
-      let form={
-        category_ids:[this.param1] ,
-        subcategory_ids:[] ,
-        brand_ids:[this.param2], 
-        model_ids:[]   
-        }
-    
-        this.service.filterProduct(form).subscribe((res:any)=>{
-          this.products=res['data'].products
-          this.products=[...this.products].reverse()
-          console.log("filter" ,this.products )
-        })
+    //     this.service.filterProduct(form).subscribe((res:any)=>{
+    //       this.products=res['data'].products
+    //       this.products=[...this.products].reverse()
+    //       console.log("filter" ,this.products )
+    //     })
     })
   }
 
@@ -181,7 +211,8 @@ export class ListProductsComponent implements OnInit {
               category_ids:[product.categories[0].id] ,
               subcategory_ids:[] ,
               brand_ids:[product.brands[0].id], 
-              model_ids:[]   
+              model_ids:[] ,
+              page:this.pageIndex,
               }
         
               this.service.filterProduct(form).subscribe((res:any)=>{

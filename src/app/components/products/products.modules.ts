@@ -10,10 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ProductsRoutingModule } from './products-routing.modules';
  
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule} from '@angular/material/select';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ExcelComponent } from './excel/excel.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
   declarations: [AddProductComponent, ListProductsComponent, EditProductComponent , ExcelComponent],
   imports: [

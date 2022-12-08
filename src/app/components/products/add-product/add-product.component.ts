@@ -284,7 +284,7 @@ let str_mod =this.convertArrayOfObjToStr(this.form.value.model_ids)
         `success`
       )
    
-    //this.router.navigate(['/app/products/lists',difference[0],this.brands[0]]);
+     this.router.navigate(['/app/products/lists',difference[0],this.brands[0]]);
     }
     else {
       Swal.fire(
