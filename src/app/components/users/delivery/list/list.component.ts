@@ -30,8 +30,8 @@ export class ListComponent implements OnInit {
   }
   getClients(){
     this.spinner.show()
-    this.service.getClients().pipe(map(res=>res['data'])).subscribe((response:any)=>{
-      console.log(response)
+    this.service.getClients(2).pipe(map(res=>res['data'])).subscribe((response:any)=>{
+      console.log(response , "all users here")
       this.users = response
     this.spinner.hide()
     })

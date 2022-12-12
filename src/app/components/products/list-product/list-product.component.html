@@ -18,12 +18,11 @@
                     </p>
                     
                   </div>   -->
-                 <div class="row">
+                 <!-- <div class="row">
                   <div class="form-group col-xl-2 col-md-5">
                     <label for=""> اختيار قسم رئيسي  </label>
                       <select class="form-control p-1"  (change)="changeCategory($event)">
-                        <!-- <option  > اختر قسم رئيسي</option>  -->
-                        <!-- [selected]="category.id== param1" -->
+               
                         <option [value]="category.id" *ngFor="let category of categories ; let index=index" [selected]="category.id== param1"   [ngClass]="{'abnormal':  category.subcategories.length== 0 , 'normal': category.subcategories.length != 0}"> 
                               {{category.name}}  
                           </option>
@@ -43,9 +42,9 @@
                     <label for=""> اختيار البراند  </label>
                    
                       <select class="form-control p-1"  (change)="changeBrands($event)">
-                        <!-- <option [selected]="true"> اختر براند</option>  -->
+                     <option [selected]="true"> اختر براند</option>  -->
                         <!-- [selected]="brand.id== param2" -->
-                        <option [value]="brand.id" *ngFor="let brand of brands"  [selected]="brand.id== param2" [ngClass]="{'abnormal':  brand.models.length== 0 , 'normal': brand.models.length != 0}">{{brand.name}} </option>
+                        <!-- <option [value]="brand.id" *ngFor="let brand of brands"  [selected]="brand.id== param2" [ngClass]="{'abnormal':  brand.models.length== 0 , 'normal': brand.models.length != 0}">{{brand.name}} </option>
                       </select>
                    </div>
 
@@ -56,9 +55,9 @@
                         <option [value]="model.id" *ngFor="let model of models">{{model.name}} </option>
                         <option *ngIf="models.length==0" disabled value="0" style="background-color: #ddd"> No Models To This Brand </option>
                       </select>
-                   </div>
+                   </div> -->
 
-                   <div class="form-group col-xl-2 col-md-5">
+                   <!-- <div class="form-group col-xl-2 col-md-5">
                     <label for=""> بحث برقم القطعة </label>
                     <input type="text" class="form-control" #vin (keyup)="changeVin()"> 
                     </div>
@@ -67,12 +66,12 @@
                    <div class="form-group col-xl-2 col-md-2">
                       <button class="btn btn-primary py-2 my-4" (click)="filter()"> بحث </button>
                    </div>
-                 </div>
+                 </div> --> 
               
-                  <div  class="text-center" *ngIf="products.length==0">
+                  <div  class="text-center" >
                       <p> There Is No Products Yet </p>
                     </div> 
-                    <table class="table" *ngIf="products.length!=0" >
+                    <table class="table"  >
                         <thead class="thead-dark">
                           <tr>
                             <th scope="col">#</th>
@@ -83,7 +82,7 @@
                             <th scope="col">إعدادات</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <!-- <tbody>
                            <tr *ngFor="let product of products ;let i=index">
                             <th scope="row">{{i+1}}</th>
                            
@@ -101,14 +100,14 @@
 
 
                           </tr>  
-                        </tbody>
+                        </tbody> -->
                       </table>
-                      <mat-paginator [length]="paginator" 
+                      <!-- <mat-paginator [length]="paginator" 
                       [pageSize]="15"
                       [pageSizeOptions]="[15]"
                       (page)="onPaginateChange($event)"
                       aria-label="Select page">
-                     </mat-paginator>  
+                     </mat-paginator>   -->
                 </div>
             </div>
         </div>

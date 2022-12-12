@@ -49,12 +49,12 @@ export class ListComponent implements OnInit {
   getAllSubcategories(category){
     this.category_change[0]=category[0]
     this.spinner.show()
-    this.service.getSubcategoryByCategoryId(this.category_change).subscribe((res:any)=>{
-    this.spinner.hide()
-    this.subcategories=res['data']
-    this.subcategories=[...this.subcategories].reverse()
-       console.log("All SubCategories" , this.subcategories)
-     })
+    // this.service.getSubcategoryByCategoryId(this.category_change).subscribe((res:any)=>{
+    // this.spinner.hide()
+    // this.subcategories=res['data']
+    // this.subcategories=[...this.subcategories].reverse()
+    //    console.log("All SubCategories" , this.subcategories)
+    //  })
   }
   // categoryList(){
   //   this.service.allCategories().subscribe(x=>{

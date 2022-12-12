@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
   colors=[];
+  editable = false;
+  addButton = true;
   constructor(  private spinner:NgxSpinnerService,
     private service:GlobalService,
     private router:Router) { }
@@ -28,7 +30,10 @@ export class ListComponent implements OnInit {
  
   }
    deleteColor(color_id){
+   
    this.spinner.show();
+   console.log(color_id);
+   
     this.service.deleteColor(color_id).subscribe(res=>{
       Swal.fire(
         'نجاح',
@@ -40,20 +45,43 @@ export class ListComponent implements OnInit {
    }
   
   
-  
+  addColor(color){
+    let body = {
+      hexcode : color
+    }
+    this.service.addColor(body).subscribe((res:any)=>{
+      this.spinner.hide()
+      if(res.status === true){
+         Swal.fire(
+        'نجااااح',
+        'تم إضافة اللون  بنجاح',
+        'success'
+        )
+        this.colorList() 
+      }
+     
+    })
+  }
  
-  
-  // cityList(){
-  //   this.spinner.show()
-  //   this.service.allCities().pipe(map(res=>res['data'])).subscribe(res=>{
-  //     this.spinner.hide()
-  //     console.log('res')
-  //     console.log(res)
-  //     this.cities=res
-  //   })
-  // }
  
 
- 
- 
+ editColor(colorId , color)
+ {
+  let body = {
+    color_id : colorId,
+    hexcode : color
+  }
+  this.service.editColor(body).subscribe((res:any)=>{
+    this.spinner.hide()
+    if(res.status === true){
+       Swal.fire(
+      'نجااااح',
+      'تم إضافة اللون  بنجاح',
+      'success'
+      )
+      this.colorList() 
+    }
+   
+  })
+ }
 }

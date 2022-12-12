@@ -2,82 +2,186 @@
   <div class="card">
     <div class="row">
       <div class="col-md-12">
-        <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist" style="display:flex;flex-wrap: wrap;">
+        <ul
+          class="nav nav-tabs buser-tab"
+          id="top-tab"
+          role="tablist"
+          style="display: flex; flex-wrap: wrap"
+        >
           <li class="nav-item">
-            <a (click)="getOrders('0','0',pageIndex)" [ngClass]="{'active': type == '0' }" class="nav-link" href="javascript:void(0)" role="tab">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
-              <circle cx="12" cy="12" r="10"></circle>
-              <circle cx="12" cy="12" r="6"></circle>
-              <circle cx="12" cy="12" r="2"></circle>
-            </svg>
-            الطلبات الجديدة </a>
+            <a
+              (click)="getusers(1)"
+              [ngClass]="{ active: type == '0' }"
+              class="nav-link"
+              href="javascript:void(0)"
+              role="tab"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-target"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+              مستخدم
+            </a>
           </li>
           <li class="nav-item">
-            <a (click)="getOrders('0','1',pageIndex)" [ngClass]="{'active': type == '1'}" class="nav-link" href="javascript:void(0)" role="tab">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
-              <circle cx="12" cy="12" r="10"></circle>
-              <circle cx="12" cy="12" r="6"></circle>
-              <circle cx="12" cy="12" r="2"></circle>
-            </svg>
-            الطلب قيد التجهيز </a>
+            <a
+              (click)="getusers(2)"
+              [ngClass]="{ active: type == '1' }"
+              class="nav-link"
+              href="javascript:void(0)"
+              role="tab"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-target"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+              مشترك</a
+            >
           </li>
           <li class="nav-item">
-            <a (click)="getOrders('0','2',pageIndex)" [ngClass]="{'active': type == '2'}" class="nav-link" href="javascript:void(0)" role="tab">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
-              <circle cx="12" cy="12" r="10"></circle>
-              <circle cx="12" cy="12" r="6"></circle>
-              <circle cx="12" cy="12" r="2"></circle>
-            </svg>
-            الطلب في طريقه للعميل  </a>
+            <a
+              (click)="getusers(0)"
+              [ngClass]="{ active: type == '2' }"
+              class="nav-link"
+              href="javascript:void(0)"
+              role="tab"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-target"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+              المستخدمين المحظورة</a
+            >
           </li>
           <li class="nav-item">
-            <a (click)="getOrders('1','3',pageIndex)" [ngClass]="{'active': type == '3'}" class="nav-link" href="javascript:void(0)" role="tab">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
-              <circle cx="12" cy="12" r="10"></circle>
-              <circle cx="12" cy="12" r="6"></circle>
-              <circle cx="12" cy="12" r="2"></circle>
-            </svg>
-            طلبات مكتملة </a>
-          </li>
-          <li class="nav-item">
-            <a (click)="getOrders('2','4',pageIndex)" [ngClass]="{'active': type == '4'}" class="nav-link" href="javascript:void(0)" role="tab">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
-              <circle cx="12" cy="12" r="10"></circle>
-              <circle cx="12" cy="12" r="6"></circle>
-              <circle cx="12" cy="12" r="2"></circle>
-            </svg>
-              طلبات ملغية </a>
+            <a
+              (click)="getusers(3)"
+              [ngClass]="{ active: type == '3' }"
+              class="nav-link"
+              href="javascript:void(0)"
+              role="tab"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-target"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+              المستخدمين المرفوضة
+            </a>
           </li>
         </ul>
       </div>
     </div>
   </div>
 </div>
-<!-- *ngIf="orders?.length != 0" -->
+<!-- *ngIf="users?.length != 0" -->
 <section id="add-main-page">
-    <div class="card">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card-body">
-                 <table class="table">
-                        <thead class="thead-dark">
-                          <tr>
-                            <th scope="col">رقم الطلب</th>
-                            <th scope="col">اسم العميل</th>
-                            <th scope="col"> سعر الطلب</th>
-                            <th scope="col">إعدادات</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let order of orders ;let i=index">
-                            <th >{{order.id}}</th>
-                             <td>{{ order.user.full_name }} </td>
-                            <td>{{ order.total_price }}</td>
-                            <td> 
-                             <span *ngIf="type==0"><button style="background-color:rgba(234, 32, 135, 0.15) ; color:black" class="btn  btn-sm" (click)="mangeOrder(order.id,'1')"> الموافقة علي الطلب </button> |</span> 
-                             <span *ngIf="type==1"><button style="background-color: #31d4491f ; color:black" class="btn  btn-sm" (click)="mangeOrder(order.id,'2')">  التسليم للمندوب </button>  |</span>
-                             <span *ngIf="type==2"><button style="background-color:rgba(72, 49, 212, 0.12) ;; color:black" class="btn  btn-sm" (click)="mangeOrder(order.id,'3')">  التسليم للعميل </button>  |</span>  
-                             <mat-icon style="color:#9a8ee7; position:relative; top:5px;"  aria-hidden="false" aria-label="Example home icon" (click)="orderDetails(order,type)">visibility</mat-icon>
+  <div class="card">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-body">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">اسم المستخدم</th>
+                <th scope="col">الايميل</th>
+                <th scope="col">المدرسة</th>
+                <th scope="col">إعدادات</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users; let i = index">
+                <th>{{ user?.name }}</th>
+                <td>{{ user?.email }}</td>
+                <td>{{ user?.school }}</td>
+                <td>
+                  <span *ngIf="user.status_id != 0"
+                    ><button
+                      style="
+                        background-color: rgba(234, 32, 135, 0.15);
+                        color: black;
+                      "
+                      class="btn btn-sm"
+                      (click)="manageUser(user.id)"
+                    >
+                      حظر المستخدم
+                    </button>
+                    |</span
+                  >
+                  <span *ngIf="user.status_id == 0"
+                    ><button
+                      style="
+                        background-color: rgba(234, 32, 135, 0.15);
+                        color: black;
+                      "
+                      class="btn btn-sm"
+                      (click)="manageUser(user.id, 2)"
+                    >
+                      الغاء حظر المستخدم
+                    </button>
+                    |</span
+                  >
+                  <span
+                    ><button
+                      style="
+                        background-color: rgba(234, 32, 135, 0.15);
+                        color: black;
+                      "
+                      class="btn btn-sm"
+                      (click)="orderDetails(user)"
+                    >
+                    <i class="fas fa-eye text-black" style="cursor: pointer;"></i>                    </button>
+                    </span
+                  >
+                  <!-- <span *ngIf="type==1"><button style="background-color: #31d4491f ; color:black" class="btn  btn-sm" >  التسليم للمندوب </button>  |</span> -->
+                  <!-- <span *ngIf="type==2"><button style="background-color:rgba(72, 49, 212, 0.12) ;; color:black" class="btn  btn-sm" (click)
                             </td>
                           </tr>
                         </tbody>
@@ -94,8 +198,8 @@
         </div>
     </div>
 </section>
-<!-- *ngIf="orders?.length == 0" -->
-<!-- <section id="add-main-page" >
+<!-- *ngIf="users?.length == 0" -->
+                  <!-- <section id="add-main-page" >
   <div class="card">
       <div class="row">
           <div class="col-md-12">
@@ -106,3 +210,12 @@
         </div>
     </div>
 </section>  -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

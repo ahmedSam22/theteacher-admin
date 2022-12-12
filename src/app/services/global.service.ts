@@ -82,7 +82,7 @@ export class GlobalService {
       for (let i = 0; i < category_ids.length; i++) {
         formData.append('category_ids['+i+']',category_ids[i])
       }
-      return this.http.post(`${environment.endpoint}/subcategories/all`,formData)
+      // return this.http.post(`${environment.endpoint}/subcategories/all`,formData)
       // return this.http.get(`${environment.endpoint}/subcategories/all?category_id=${category_ids}`)
   }
   /////////////////////////Brands//////////////////////////////////
@@ -317,8 +317,10 @@ deleteYear(manufacture_date_id){
     formData?.append("status_id" ,f.status_id)
     return this.http.post(`${environment.endpoint}/admin/order/manage`,formData)
  }
+ manageUser(body){
+  return this.http.post(`${environment.endpoint}/admin/manage/users` , body);
 
-   ////////////////////////////////SCAR  ///////////////////////////////
+ }
 
 
 
@@ -423,8 +425,8 @@ deleteYear(manufacture_date_id){
   }
 
   //clients 
-  getClients(){
-    return this.http.get(`${environment.endpoint}/clients`);
+  getClients(type){
+    return this.http.get(`${environment.endpoint}/admin/show/users?status_id=${type}`);
 
   }
   //maintainers
@@ -463,15 +465,7 @@ addBand(f){
   return this.http.post(`${environment.endpoint}/secondary-specialists-values/create`, f);
 }
 ///////////////////////////Color/////////////////////////////
-addColor(f){
-  return this.http.post(`${environment.endpoint}/colors/create`, f);
-}
-allColors(){
-  return this.http.get(`${environment.endpoint}/colors`);  
-}
-deleteColor(id){
- return this.http.get(`${environment.endpoint}/colors/delete?color_id=${id}`);
-}
+
 ////////////////////////////////Terms Of Conditions //////////////////////////////////////
 addTermsFiles(f){
   return this.http.post(`${environment.endpoint}/settings/update-files`, f);
@@ -507,6 +501,52 @@ getAllFiles(){
 editMaintain(f){}
 addMaintain(f){}
 getComp(type){}
+
+addPlan(body){
+  return this.http.post(`${environment.endpoint}/admin/subscription-plan/create` , body);
+
+ }
+
+ getAllPlans(){
+  return this.http.get(`${environment.endpoint}/subscription-plans/all`);
+
+ }
+
+ editPlan(body){
+  return this.http.post(`${environment.endpoint}/admin/subscription-plan/update` , body);
+
+ }
+ deletePlan(id){
+  return this.http.delete(`${environment.endpoint}/admin/subscription-plan/delete?subscription_plan_id=${id}`);
+
+ }
+
+ getAllPlansRequests(){
+  return this.http.get(`${environment.endpoint}/admin/subscription-requests/all`);
+
+ }
+ rejectPlan(id){
+  return this.http.get(`${environment.endpoint}/admin/subscription-request/reject?subscription_request_id=${id}`);
+
+ }
+ acceptPlan(body){
+  return this.http.post(`${environment.endpoint}/admin/subscription-plan/teacher/update` , body);
+
+ }
+
+
+ addColor(body){
+  return this.http.post(`${environment.endpoint}/color/create`, body);
+}
+allColors(){
+  return this.http.get(`${environment.endpoint}/colors/all`);  
+}
+deleteColor(id){
+ return this.http.delete(`${environment.endpoint}/color/delete?color_id=${id}`);
+}
+editColor(body){
+  return this.http.post(`${environment.endpoint}/color/update`, body);
+}
 
 
   }
@@ -591,3 +631,4 @@ getComp(type){}
   //    } 
   // }
  
+  

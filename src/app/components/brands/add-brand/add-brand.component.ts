@@ -23,8 +23,9 @@ export class AddBrandComponent implements OnInit {
 
   ngOnInit(): void {
     this.form=this.formbuilder.group({
-      name:['',Validators.required],
-      description:['',Validators.required],
+      period:['',Validators.required],
+      days:['',Validators.required],
+      price:['',Validators.required],
     })
   }
 
@@ -45,12 +46,14 @@ get f() {return this.form.controls}
   submit(){
     this.submitted=true
     let form = {
-      name:this.form.value.name,
-      description:this.form.value.description,
-      logo_image:this.files[0]
+      period:this.form.value.period,
+      days:this.form.value.days,
+      price:this.form.value.price,
+     
+      
     }
     this.spinner.show()
-    this.service.addBrand(form).subscribe((res:any)=>{
+    this.service.addPlan(form).subscribe((res:any)=>{
     this.spinner.hide()
     if(res['status']==true) {
       Swal.fire(
@@ -58,7 +61,7 @@ get f() {return this.form.controls}
         `${res['message']}`,
         'success'
       )
-      this.router.navigate(['/app/brands/list'])
+      // this.router.navigate(['/app/brands/list'])
     }
     else {
       let error = res['errors']

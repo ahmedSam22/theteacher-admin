@@ -88,31 +88,31 @@ export class SidebarComponent implements OnInit {
       }
 
       //get all categories
-      this.categoryList()
+      // this.categoryList()
       //get all brands
       this.getAllBrands()
    }
   
     //get all categories
-  categoryList(){
-    this.service.allCategories().subscribe((res:any)=>{
-      this.categories = res['data']
-      this.categories=[...this.categories].reverse()
-      console.log("All Categories" ,this.categories)
-      this.category_param=this.categories[0].id
-      this.getAllSubcategories(this.category_param)
-    })
-  }
+  // categoryList(){
+  //   this.service.allCategories().subscribe((res:any)=>{
+  //     this.categories = res['data']
+  //     this.categories=[...this.categories].reverse()
+  //     console.log("All Categories" ,this.categories)
+  //     this.category_param=this.categories[0].id
+  //     this.getAllSubcategories(this.category_param)
+  //   })
+  // }
 
  
-  getAllSubcategories(category_id){
-    this.service.getSubcategoryByCategoryId(category_id).subscribe((res:any)=>{
-      this.subcategories=res['data']
-      this.subcategories=[...this.subcategories].reverse()
-      console.log("All SubCategories" , this.subcategories)
-      this.sub_param=this.subcategories[0].id
-     })
-  }
+  // getAllSubcategories(category_id){
+  //   this.service.getSubcategoryByCategoryId(category_id).subscribe((res:any)=>{
+  //     this.subcategories=res['data']
+  //     this.subcategories=[...this.subcategories].reverse()
+  //     console.log("All SubCategories" , this.subcategories)
+  //     this.sub_param=this.subcategories[0].id
+  //    })
+  // }
 
   getAllBrands(){
     this.service.getBrands().subscribe((res:any)=>{ 

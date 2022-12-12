@@ -1,14 +1,14 @@
-<h4 class="text-center"><mark> بيانات الطلب</mark> </h4> 
-<br>
+<h4 class="text-center"><mark> بيانات المستخدم</mark></h4>
+<br />
 
-<table class="table">
+<!-- <table class="table">
     <tbody>
         <tr>
-          <th>رقم الطلب  </th>
-          <th>تاريخ الطلب</th>
-          <th>عنوان الطلب</th>
-          <th>هاتف العميل </th>
-          <th>إجمالي سعر الطلب  </th>
+          <th>رقم المستخدم  </th>
+          <th>تاريخ المستخدم</th>
+          <th>عنوان المستخدم</th>
+          <th>هاتف المستخدم </th>
+          <th>إجمالي سعر المستخدم  </th>
        </tr>
        <tr>
           <td> {{data.data.id!=null ? data.data.id : 'لا يوجد رقم للطلب'}} </td>
@@ -35,7 +35,7 @@
          
       </tr>
       <tr> 
-          <td>{{data.data.user!=null ? data.data.user.full_name:'لا يوجد اسم للعميل'}}</td>
+          <td>{{data.data.name!=null ? data.data.name:'لا يوجد اسم للعميل'}}</td>
           <td>{{data.data.user!=null ? data.data.user.phone:'لا يوجد هاتف للعميل'}}</td>
           <td>{{data.data.user!=null ? data.data.user.email : ' لا يوجد إيميل للعميل '}}</td>
           <td>{{data.data.address!=null ? data.data.address.address : 'لا يوجد عنوان للعميل'}}</td>
@@ -68,5 +68,55 @@
   </tbody> 
  
 </table>
-  
- 
+   -->
+<!-- <h3 class="text-center">بيانات </h3> -->
+<br />
+<table class="table" dir="rtl">
+  <tbody>
+    <tr>
+      <th scope="row">ID</th>
+      <td>
+        {{ data.data.id }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">الاسم</th>
+      <td>
+        {{ data.data.name }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">الايميل</th>
+      <td>{{ data.data.email }}</td>
+    </tr>
+    <tr>
+      <th scope="row">رقم الهاتف</th>
+      <td>{{ data.data.country_code + data.data.phone }}</td>
+    </tr>
+
+    <tr>
+      <th scope="row">اسم المدرسة</th>
+      <td>{{ data.data.school }}</td>
+    </tr>
+    <tr>
+      <th scope="row">نوع الباقة </th>
+      <td>{{ data.data.subscription_plan.period }}</td>
+    </tr>
+    <tr>
+      <th scope="row">الايميل</th>
+      <td>{{ data.data.email }}</td>
+    </tr>
+    <tr>
+      <th scope="row">صورة المسخدم</th>
+      <td><img height="200px" [src]="data.data.imagePath" alt="" /></td>
+    </tr>
+    <!-- <tr>
+               <th scope="row"> عدد الشحنات </th>
+               <td>{{data?.shipped}}</td>
+           </tr> -->
+    <!-- <tr>
+               <th scope="row">الحاله </th>
+               <td>{{data?.active == 0 ? 'محظور' :'مفعل'}}</td>
+           </tr> -->
+  </tbody>
+</table>

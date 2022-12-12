@@ -110,17 +110,15 @@ modBrand:any=[]
     // console.log("final str model " , this.model_str)
     // console.log("final str subcategory_" , this.subcategory_str)
    
-  this.allCategories() ;
-  this.allBrands() ;
-  this.allYears();
 
-  this.service.getSubcategoryByCategoryId(this.categories).subscribe((res:any)=>{
+
+  // this.service.getSubcategoryByCategoryId(this.categories).subscribe((res:any)=>{
     // res.data.forEach(element => {
     //   element.unique_id= `${element.id}-${element.category_id}`
     // });
-    this.subcategories_of_maincategories=res['data']
+    // this.subcategories_of_maincategories=res['data']
    // console.log("this.subcategories_of_maincategories",this.subcategories_of_maincategories)
-   })
+  //  })
 
   this.service.getModelsByBrandId(this.brands).subscribe((res:any)=>{
     this.models_of_brands=res['data']
@@ -192,225 +190,9 @@ convertArrofObjsToStr(arrOfobjs){
     return finalStr;
 }
 
-allCategories(){
-   this.service.allCategories().subscribe((res:any)=>{
-    this.all_categories=res['data']
-   })
-}
 
-onChangeCategory(event){
-  this.changeCat =true;
- this.categories=event.value ;
- console.log("all selected categories" , this.categories)
- this.service.getSubcategoryByCategoryId(event.value).subscribe((res:any)=>{
- this.subcategories_of_maincategories=res['data']
-})
-}
 
-onChangeSubCategory(event){
-  this.subCategories =event.value
-    console.log("all selected subCategories" , this.subCategories)
-}
 
-allBrands(){
-  this.service.getBrands().subscribe((res:any)=>{
-    this.all_brands=res['data']
-   })
-}
-
-onChangeBrands(event){
-  this.changeCat2=true
-  this.brands=event.value ;
-  console.log("all selected Brands",  this.brands)
-   this.service.getModelsByBrandId(event.value).subscribe((res:any)=>{
-   this.models_of_brands=res['data']
-   console.log("asdfs",this.models_of_brands)
-  })
-}
- 
-onChangeModels(event){
-  this.models =event.value
-    console.log("all selected models" , this.models)
-}
- 
-allYears(){
-this.service.allYears().subscribe((res:any)=>{
-   this.years=res['data']
-  //  console.log("years" ,this.years )
-})
-}
-
-onChangeManufactureDate(event){
-  this.manufacture_date_id= event.value
-  console.log("manufature year " , event.value)
-}
-
-onChangeCompatibleProductModel(event){
-  this.product_compatibles_model= event.value
-  console.log("product_compatibles_model", this.product_compatibles_model)
-}
-
-onChangeCompatibleYear(event) {
-  this.product_compatibles_date=event.value
-  console.log("comp dates",this.product_compatibles_date)
-}
- 
-description_files:File[] =[] ;
-onSelectDescription_images(event) {
-  this.image_edit2=true;
-  // for(let i=0 ;i<this.data.descriptionImagesPaths.length; i++){
-  //    this.edit[i]=true
-     
-  //  }
-  console.log(event.addedFiles); 
- 
-   this.description_files.push(...event.addedFiles);
-
-  let images_form = {
-    files:this.description_files
-  }
-  
-  this.service.uploadFiles(images_form).subscribe((res:any)=>{
-    this.d_images=res['data']
-    console.log("description images ",this.d_images )
-  })
-}
-
-onRemovedDescription_images(event) {
-  console.log(event);
-  this.description_files.splice(this.description_files.indexOf(event), 1);
-}
-
-files:File[] = [];
-onSelect(event) {
- this.image_edit=true;
- console.log(event.addedFiles);
- this.files=[]
- this.files.push(...event.addedFiles);
- let images_form = {
-  files:this.files
-}
- this.service.uploadFiles(images_form).subscribe((res:any)=>{
-  this.images=res['data']
- })
-}
- 
-onRemove(event) {
-  console.log(event);
-  this.files.splice(this.files.indexOf(event), 1);
-}
-
-// filter(){
-// // subcategory_ids:this.subcategory_str.slice(0,1) ,
-// // model_ids:this.model_str.slice(0,1)  
-// let form={
-//   category_ids:this.categories[0] ,
-// brand_ids:this.brands[0] , 
-//   }
-
-//   this.service.filterProduct(form).subscribe((res:any)=>{
-//     console.log("edit filter" ,res['data'].products )
-//   })
-// }
-get f() {return this.form.controls}
-submit(){
-  this.submitted=true ;
-
-  if(this.changeCat==true) {
-  
-  let arr = this.subCategories.map(object => object.cat);
-  arr=this.convertArrayOfstringToArrayofInt(arr)
-// console.log("convert array of strings to array of integer",arr)
- let difference = this.categories.filter(x => arr.includes(x));
- this.categories=difference
-  console.log("only categories of selected subcategories",this.categories)
- 
-  }
-  
-  if (this.changeCat2==true) {
-
-    let arr2 = this.models.map(object => object.cat);
-    arr2=this.convertArrayOfstringToArrayofInt(arr2)
-   
-   let difference2 = this.brands.filter(x => arr2.includes(x));
-   this.brands=difference2
-    console.log("only models of selected brands",this.brands)
-  }
-   
- // user change subcategories
- if(this.subCategories.length!=0) {
-
-  this.subCategories.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0))
-   
-  //console.log("subCategories",this.subCategories)
-  
-  this.subcategory_str=this.convertArrofObjsToStr(this.subCategories)
- }
- // user change models
- if (this.models.length!=0) {
-
-  this.models.sort((a,b) => (a.cat > b.cat) ? 1 : ((b.cat > a.cat) ? -1 : 0)) 
-
- // console.log("models",this.models)
-  
-  this.model_str=this.convertArrofObjsToStr(this.models)
- }
-
- //   name:this.form.value.name,
-  //   price:this.form.value.price,
-  //   discount_percent:this.form.value.discount_percent,
-  //   piece_number:this.form.value.piece_number,
-  //   manufacture_place:this.form.value.manufacture_place,
-  //   description:this.form.value.description,
-
-  // name price discount_percent piece_number manufacture_place description
-  let newData = {};
-  Object.entries(this.form.value)
-    .filter(([, value]) => value != null)
-    .forEach(([key, value]) => (newData[key] = value));
-  
-   console.log("yyyyyyy",newData);
-  //  manufacture_date_id:this.manufacture_date_id,
-    let f={
-      product_id:this.data.id ,
-      image:this.images[0],
-      ...newData,
-       categories: this.categories,
-      subcategories:this.subcategory_str ,
-      brands:this.brands ,
-      models:this.model_str ,
-      product_compatibles: this.product_compatibles_model,
-      product_compatibles_date:this.product_compatibles_date,
-      desc_images:this.d_images
-       
-    }
-    
-   console.log('the sended form is ', f)
-   this.spinner.show()
-    this.service.editProducts(f).subscribe((res:any)=>{
-    this.spinner.hide()
-    console.log("editProducts",res)
-    if(res.status==true){
-     Swal.fire(
-        `Success`,
-        `${res.message}`,
-        `success`
-      )
-      this.dialog.closeAll();
-      
-      this.router.navigate(['/app/products/lists',this.categories[0] ,this.brands[0]]);
-   
-    }
-    else {
-      Swal.fire(
-        `Fail`,
-        `${res.errors[0]}`,
-        `error`
-      )
-    }
-    
-    })
-  }
 
   }
 

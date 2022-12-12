@@ -81,9 +81,9 @@ convertArrayOfstringToArrayofInt(arr){
 onChangeCategory(event){
  this.categories=event.value ;
  console.log("all selected categories" , this.categories)
- this.service.getSubcategoryByCategoryId(event.value).subscribe((res:any)=>{
- this.subcategories_of_maincategories=res['data']
- })
+//  this.service.getSubcategoryByCategoryId(event.value).subscribe((res:any)=>{
+//  this.subcategories_of_maincategories=res['data']
+//  })
 }
 
 onChangeSubCategory(event){

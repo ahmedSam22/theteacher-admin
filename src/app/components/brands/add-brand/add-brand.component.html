@@ -5,26 +5,30 @@
                 <div class="card-body">
                     <form [formGroup]="form" >
                         <div class="form-group">
-                            <label for="">اسم البراند</label>
-                            <input type="text" class="form-control" formControlName="name">
-                            <div *ngIf="submitted && f.name.errors" class="errors-container mt-2">
-                                <p class="error-element" *ngIf="f.name.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                            <label for=""> اسم الباقة  </label>
+                            <input type="text" class="form-control" formControlName="period">
+                            <div *ngIf="submitted && f.period.errors" class="errors-container mt-2">
+                                <p class="error-element" *ngIf="f.period.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="">الوصف </label>
-                            <textarea class="form-control" formControlName="description"></textarea>
-                            <div *ngIf="submitted && f.description.errors" class="errors-container mt-2">
-                                <p class="error-element" *ngIf="f.description.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
-                             </div>
+                            <label for="">عدد الايام </label>
+                            <input type="text" class="form-control" formControlName="days">
+                            <div *ngIf="submitted && f.days.errors" class="errors-container mt-2">
+                                <p class="error-element" *ngIf="f.days.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="">صورة البراند </label>
-                            <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
+                            <label for="">السعر</label>
+                            <input type="text" class="form-control" formControlName="price">
+                            <div *ngIf="submitted && f.price.errors" class="errors-container mt-2">
+                                <p class="error-element" *ngIf="f.price.errors.required">يجب ألا يكون الحقل المطلوب فارغاً</p>
+                            </div>
+                            <!-- <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png,image/gif" [multiple]="true" >
                                 <ngx-dropzone-label>أضغط هنا لإختيار صورة البراند</ngx-dropzone-label>
                                 <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f" >
                                 </ngx-dropzone-image-preview>
-                            </ngx-dropzone>
+                            </ngx-dropzone> -->
                         </div>
                         <div class="form-group text-center mt-5">
                             <button class="btn btn-primary" type="button" (click)="submit()" [disabled]="form.invalid || form.untouched">إضافة البراند </button>

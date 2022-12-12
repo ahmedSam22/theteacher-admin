@@ -25,12 +25,12 @@ export class ListComponent implements OnInit {
 
   categoryList(){
     this.spinner.show()
-    this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
-    this.spinner.hide()
-    console.log('res')
-      console.log(res)
-      this.categories=[...res].reverse()
-    })
+    // this.service.allCategories().pipe(map(res=>res['data'])).subscribe(res=>{
+    // this.spinner.hide()
+    // console.log('res')
+    //   console.log(res)
+    //   this.categories=[...res].reverse()
+    // })
   }
   deleteApp(category_id){
     console.log(category_id)

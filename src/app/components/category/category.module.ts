@@ -14,7 +14,12 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
   
 import {MatSelectModule} from '@angular/material/select';
 @NgModule({
-  declarations: [ListComponent,AddCategoryComponent, CategoryDetailsComponent, EditCategoryComponent],
+  declarations: [
+    // ListComponent,
+    // AddCategoryComponent,
+    //  CategoryDetailsComponent, 
+    //  EditCategoryComponent
+    ],
   imports: [
     CommonModule,
     CategoryRoutingModule,

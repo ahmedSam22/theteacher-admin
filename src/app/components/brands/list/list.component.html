@@ -1,40 +1,171 @@
 <section id="add-main-page">
-    <div class="card">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card-body">
-                    <table class="table">
-                        <thead class="thead-dark">
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">اسم البراند</th>
-                            <th scope="col">صورة البراند</th>
-                            <th scope="col">إعدادات</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let brand of brands;let i=index">
-                            <th scope="row">{{i+1}}</th>
-                        
-                            <td>
-                                {{brand.name}}
-                            </td>
-                              <td> <img style="width: 50px;height: 50px;border-radius: 50%;" src="{{brand.logoImagePath}}" onerror="this.src='assets/images/image-not-found.svg'"  alt=""></td>
-
-                            <td>
-                              <i style="cursor: pointer;" class="fas fa-trash text-danger" (click)="deleteBrand(brand.id)"></i> 
-                              |
-                              <i style="cursor: pointer;" class="fas fa-edit text-primary" (click)="editBrand(brand)"></i> 
-              
-
-                              <!-- '
-                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp()">visibility</mat-icon> -->
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                </div>
-            </div>
-        </div>
+  <div class="card">
+    <div class="row">
+      <div class="col-md-12">
+        <ul
+          class="nav nav-tabs buser-tab"
+          id="top-tab"
+          role="tablist"
+          style="display: flex; flex-wrap: wrap"
+        >
+          <li class="nav-item">
+            <a
+              (click)="getPlans()"
+              class="nav-link"
+              href="javascript:void(0)"
+              role="tab"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-target"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+              جميع الباقات
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              (click)="getPlansRequests()"
+              class="nav-link"
+              href="javascript:void(0)"
+              role="tab"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-target"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+              طلب الاشتراك</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-body">
+          <table class="table">
+            <thead class="thead-dark" *ngIf="this.pageStatus === 0">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">اسم الباقة</th>
+                <th scope="col">عدد الأيام</th>
+                <th scope="col">السعر</th>
+                <th scope="col">تعديل</th>
+              </tr>
+            </thead>
+            <thead class="thead-dark" *ngIf="this.pageStatus === 1">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">اسم العميل</th>
+                <th scope="col">الايميل</th>
+                <th scope="col">اسم الباقة</th>
+                <th scope="col">عدد الأيام</th>
+                <th scope="col">الخصم</th>
+                <th scope="col">قسيمة التحويل المالي</th>
+                <th scope="col">السعر</th>
+                <th scope="col">الاختيارات</th>
+              </tr>
+            </thead>
+
+            <tbody *ngIf="this.pageStatus === 0">
+              <tr *ngFor="let plan of allPlans; let i = index">
+                <th scope="row">{{ plan.id }}</th>
+
+                <td>
+                  {{ plan.period }}
+                </td>
+                <td>{{ plan.days }}</td>
+                <td>{{ plan.price }}</td>
+
+                <td>
+                  <i
+                    style="cursor: pointer"
+                    class="fas fa-edit text-primary"
+                    (click)="editPlan(plan)"
+                  ></i>
+                  |
+                  <i
+                    style="cursor: pointer"
+                    class="fas fa-trash text-danger"
+                    (click)="deletePlan(plan.id)"
+                  ></i>
+
+                  <!-- '
+                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp()">visibility</mat-icon> -->
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="this.pageStatus === 1">
+              <tr *ngFor="let plan of allPlans; let i = index">
+                <th scope="row">{{ plan.user.id }}</th>
+
+                <td>
+                  {{ plan.user.name }}
+                </td>
+                {{
+                  plan.user.email
+                }}
+                <td>
+                  {{ plan.subscription_plan.period }}
+                </td>
+                <td>
+                  {{ plan.subscription_plan.days }}
+                </td>
+                <td>
+                  {{ plan.discount_from_balance || "لا يوجد خصم" }}
+                </td>
+                <td>
+                  {{ plan.subscription_plan.price }}
+                </td>
+                <td>
+                  <a [href]="plan.money_transfer_receipt_copy_files_paths" target="_blank">open pdf file</a>
+                  <!-- <iframe [src]="plan.money_transfer_receipt_copy_files" style="width: 100%;height: 100%;border: none;"></iframe> -->
+                </td>
+           
+                <td>
+                  <i
+                    style="cursor: pointer"
+                    class="fas fa-check text-success"
+                    (click)="acceptPlan(plan.user.id , plan.subscription_plan_id)"
+                  ></i>
+                  |
+                  <i
+                    style="cursor: pointer"
+                    class="fas fa-times text-danger"
+                    (click)="rejectPlan(plan.id)"
+                  ></i>
+
+                  <!-- '
+                              <mat-icon  aria-hidden="false" aria-label="Example home icon" class="text-success" (click)="viewApp()">visibility</mat-icon> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

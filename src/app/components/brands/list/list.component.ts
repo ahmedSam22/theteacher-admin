@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +17,8 @@ import { ProviderDetailsComponent } from '../provider-details/provider-details.c
 export class ListComponent implements OnInit {
 
   type=0;
-  brands
+  pageStatus:number = 0;
+  allPlans
   public selectedRole = this.route.snapshot.paramMap.get('role');
  
   constructor( 
@@ -26,13 +28,16 @@ export class ListComponent implements OnInit {
     private dialog:MatDialog) { }
 
   ngOnInit(): void {
-    this.getbrands()
+    this.getPlans()
   }
-  getbrands(){
+  getPlans(){
+    
+
     this.spinner.show()
-    this.service.getBrands().pipe(map(res=>res['data'])).subscribe((response:any)=>{
+    this.service.getAllPlans().pipe(map(res=>res['data'])).subscribe((response:any)=>{
       console.log("All brands", response)
-      this.brands = [...response].reverse()
+      this.allPlans = response
+      this.pageStatus = 0
     this.spinner.hide()
     })
   }
@@ -41,28 +46,74 @@ export class ListComponent implements OnInit {
         
 
 
-  editBrand(brand){
+  editPlan(plan){
     let dialogRef = this.dialog.open(EditBrandComponent, {
-      data:brand,
+      data:plan,
       height: '650px',
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getbrands()
+      this.getPlans()
     });
   }
 
-  deleteBrand(brand_id){
+  deletePlan(id){
     this.spinner.show()
-    this.service.deleteBrand(brand_id).subscribe(res=>{
+    this.service.deletePlan(id).subscribe(res=>{
       this.spinner.hide()
       Swal.fire(
               'نجاح',
-              'تم حذف البراند بنجاح',
+              'تم حذف الباقة بنجاح',
               'success'
             )
-            this.getbrands()
+            this.getPlans()
           })
+  }
+
+  getPlansRequests(){
+    this.spinner.show()
+    this.service.getAllPlansRequests().pipe(map(res=>res['data'])).subscribe((response:any)=>{
+      console.log("All brands", response)
+      this.allPlans = response
+      this.pageStatus = 1
+      
+    this.spinner.hide()
+    })
+  }
+
+  acceptPlan(userId , planId){
+
+    let body = {
+      user_id:userId,
+      subscription_plan_id:planId
+    }
+
+    this.service.acceptPlan(body).pipe(map(res=>res['data'])).subscribe((response:any)=>{
+      console.log(response);
+      if(response.status == true){
+        Swal.fire(
+          'نجاح',
+          'تم حذف الباقة بنجاح',
+          'success'
+        )
+      }
+    this.spinner.hide()
+    })
+  }
+
+
+  rejectPlan(id){
+    this.service.rejectPlan(id).pipe(map(res=>res['data'])).subscribe((response:any)=>{    
+      console.log(response);
+      if(response.status == true){
+        Swal.fire(
+          'نجاح',
+          'تم حذف الباقة بنجاح',
+          'success'
+        )
+      }
+    this.spinner.hide()
+    })
   }
 
 }

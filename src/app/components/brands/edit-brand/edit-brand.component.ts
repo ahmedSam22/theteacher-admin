@@ -19,40 +19,31 @@ export class EditBrandComponent implements OnInit {
     private spinner:NgxSpinnerService,private router:Router,private formbuilder:FormBuilder, private dialog:MatDialog,@Inject(MAT_DIALOG_DATA) public data:any,) { }
  
   ngOnInit(): void {
-    console.log("Brands ",this.data)
+    console.log("plan ",this.data)
     this.form=this.formbuilder.group({
-      name:[this.data.name,Validators.required],
-      description:[this.data.description,Validators.required],
+      subscription_plan_id:[this.data.id,Validators.required],
+      period:[this.data.period,Validators.required],
+      days:[this.data.days,Validators.required],
+      price:[this.data.price,Validators.required],
     })
     
   }
   files: File[] = [];
   
-  onSelect(event) {
-    this.image_edit=true;
-    console.log(event.addedFiles[0]);
-    this.files=[]
-    this.files.push(...event.addedFiles);
-  }
-  
-  onRemove(event) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
+ 
   
   get f() {return this.form.controls}
   submit(){
     this.submitted=true
-    let form ; 
-      form= {
-        name:this.form.value.name,
-        description:this.form.value.description,
-        brand_id:+this.data.id,
-        logo_image:this.files[0] || null
-       }
+    let form = {
+      subscription_plan_id:this.form.value.subscription_plan_id,
+      period:this.form.value.period,
+      days:this.form.value.days,
+      price:this.form.value.price, 
+    }
        
      this.spinner.show()
-     this.service.editBrand(form).subscribe(res=>{
+     this.service.editPlan(form).subscribe(res=>{
        this.spinner.hide()
     
       if(res['status']==true) {

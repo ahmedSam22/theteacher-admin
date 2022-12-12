@@ -9,10 +9,10 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class OrderDetailsComponent implements OnInit {
     
-  constructor(@Inject(MAT_DIALOG_DATA)public data:{data,type},private dialog:MatDialog) { }
+  constructor(@Inject(MAT_DIALOG_DATA)public data:{data},private dialog:MatDialog) { }
 
   ngOnInit(): void {
-   console.log("order list ", this.data)
+  console.log( this.data.data)
   }
    
 }
