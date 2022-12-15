@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddBrandComponent } from './add-brand/add-brand.component';
-import { ListComponent } from './list/list.component';
+import { AddPackagesComponent } from './add-pack/add-pack.component';
+import { PackagesListComponent } from './list/list.component';
 
 const routes: Routes = [
-  {path:'list',component:ListComponent,data:{title:'قائمة البراندات'}},
-  {path:'add',component:AddBrandComponent,data:{title:'اضافة براند '}}
+  {path:'list',component:PackagesListComponent,data:{title:'قائمة الباقات'}},
+  {path:'add',component:AddPackagesComponent,data:{title:'اضافة باقة '}}
 
 ];
 

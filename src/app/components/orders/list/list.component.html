@@ -142,6 +142,20 @@
                 <td>{{ user?.email }}</td>
                 <td>{{ user?.school }}</td>
                 <td>
+
+
+                  <button mat-button [matMenuTriggerFor]="menu"  style="
+                  background-color: rgba(80, 197, 84, 0.15);
+                  color: black;
+                "
+                class="btn btn-sm" 
+                *ngIf="!user.subscription_plan_id"
+                >اضافة الى باقة</button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngFor="let plan of allPlans" (click)="assignPlan(user?.id,plan.id)">{{plan.period}}</button>
+                  </mat-menu>
+                  <span *ngIf="!user.subscription_plan_id && user.subscription_plan_id !=null">|</span>
+
                   <span *ngIf="user.status_id != 0"
                     ><button
                       style="
@@ -153,12 +167,11 @@
                     >
                       حظر المستخدم
                     </button>
-                    |</span
-                  >
+                    |</span>
                   <span *ngIf="user.status_id == 0"
                     ><button
                       style="
-                        background-color: rgba(234, 32, 135, 0.15);
+                        background-color: rgba(32, 234, 52, 0.15);
                         color: black;
                       "
                       class="btn btn-sm"

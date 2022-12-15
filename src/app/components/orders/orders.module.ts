@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SpecialOrdersComponent } from './special-orders/special-orders.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [ListComponent, OrderDetailsComponent, SpecialOrdersComponent],
@@ -17,7 +19,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     OrdersRoutingModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule,
+    MatMenuModule,
     NgxDropzoneModule,
     MatPaginatorModule
   ]

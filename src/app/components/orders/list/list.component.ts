@@ -24,6 +24,7 @@ export class ListComponent implements OnInit {
   @Input() pageIndex: number;
   users: any = [];
   type: any;
+  allPlans:any;
   paginator = 100;
   constructor(
     private dialog: MatDialog,
@@ -33,6 +34,7 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getPlans()
     this.pageIndex = 0;
     this.type = "0";
     this.getusers(2);
@@ -68,15 +70,15 @@ export class ListComponent implements OnInit {
       if (res.status === true) {
         if (res.data.status_id == 0) {
           Swal.fire("نجاح", "تم حظر المستخدم بنجاح", "success");
+          this.getusers(2);
         } else {
           Swal.fire("نجاح", "تم الغاء حظر المستخدم بنجاح", "success");
+          this.getusers(0);
         }
       }
       console.log(res);
     });
   }
-
-
 
   deleteApp() {
     Swal.fire("نجاح", "تم حذف التطبيق بنجاح", "success");
@@ -99,4 +101,32 @@ export class ListComponent implements OnInit {
       width: "800px",
     });
   }
+  getPlans(){
+    this.spinner.show()
+    this.service.getAllPlans().pipe(map(res=>res['data'])).subscribe((response:any)=>{
+      console.log("All brands", response)
+      this.allPlans = response
+    this.spinner.hide()
+    })
+  }
+  assignPlan(userId , planId){
+
+    let body = {
+      user_id:userId,
+      subscription_plan_id:planId
+    }
+
+    this.service.acceptPlan(body).subscribe((response:any)=>{
+      console.log(response );
+      if(response.status == true){
+        Swal.fire(
+          'نجاح',
+          'تم الاشتراك بنجاح ',
+          'success'
+        )
+      }
+    this.spinner.hide()
+    })
+  }
+
 }

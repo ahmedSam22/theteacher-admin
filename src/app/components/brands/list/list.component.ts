@@ -14,7 +14,7 @@ import { ProviderDetailsComponent } from '../provider-details/provider-details.c
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class PackagesListComponent implements OnInit {
 
   type=0;
   pageStatus:number = 0;
@@ -88,12 +88,12 @@ export class ListComponent implements OnInit {
       subscription_plan_id:planId
     }
 
-    this.service.acceptPlan(body).pipe(map(res=>res['data'])).subscribe((response:any)=>{
+    this.service.acceptPlan(body).subscribe((response:any)=>{
       console.log(response);
       if(response.status == true){
         Swal.fire(
           'نجاح',
-          'تم حذف الباقة بنجاح',
+          'تم الاشتراك  بنجاح',
           'success'
         )
       }

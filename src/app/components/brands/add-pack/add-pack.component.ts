@@ -6,11 +6,11 @@ import { GlobalService } from 'src/app/services/global.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-brand',
-  templateUrl: './add-brand.component.html',
-  styleUrls: ['./add-brand.component.scss']
+  selector: 'app-add-pack',
+  templateUrl: './add-pack.component.html',
+  styleUrls: ['./add-pack.component.scss']
 })
-export class AddBrandComponent implements OnInit {
+export class AddPackagesComponent implements OnInit {
 
   form:FormGroup;
   submitted:boolean=false;
